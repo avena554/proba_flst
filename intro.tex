@@ -50,45 +50,98 @@
 \date{\today}
 \maketitle
 
+\begin{frame}
+  \frametitle{What is probability theory?}
+
+  Probability theory is the branch of mathematics that deals with throwing dices and flipping coins (and a few other things too).\\
+
+  \begin{exampleblock}{Example}
+    I throw a fair $6$-faced dice a million times. Can I say anything interesting \emph{a priori}:
+    \begin{itemize}
+    \item About the outcome of the $10000$th throw?
+    \item About the number of times i'll get a $6$?
+    \item About the average of all numbers I got?
+    \end{itemize}
+  \end{exampleblock}
+
+  
+\end{frame}
+
 
 \begin{frame}
-  \frametitle{Probabilities}
+  \frametitle{Why a theory of probabilities?}
   
   \begin{block}{Nondeterminism}
     \begin{itemize}
-    \item \emph{Random} experiments or trials: `repeated' trials yield different results.
-    \item Typical examples: throwing a dice, flipping a coin. 
-    \item You might or might not believe in randomness: even as a view of the mind it allows approximating things at a manageable level.
-    \item Allows drawing `global' conclusions without having to know everything.
+    \item Modelling \emph{Random} phenomena or \emph{trials}: when `repeated' trials yield different outcomes, \emph{i.e.} the outcome \emph{fluctuates}.
+    \item Typical examples from before: throwing a dice, flipping a coin.
+    \item But not only: playing roulette, running a processor at a certain speed (may crash or not), having $n$ radioactive element disintegrate in a given amount of time, transmitting a message through a faulty device...
+    \item Draw conclusions, make prediction about outcomes and how much they can \emph{fluctuate}.
     \end{itemize}
-  \end{block}
+  \end{block}  
+\end{frame}
 
-  \begin{exampleblock}{Example}
-    I throw a fair $6$-faced dice a million times.
+\begin{frame}
+  \frametitle{Why a theory of probabilities (contd)?}
+  Which of the following game would you rather play:
+  
+  \begin{exampleblock}{Example 1.}
+    You throw two $6$ faces fair dices thus obtain two numbers $a$ and $b$, and win $ab-5$ euros.
+  \end{exampleblock}
+
+  \begin{exampleblock}{Example 2.}
+    You throw one $6$ face dice and obtain a number $a$. If $a$ is odd you win $a$ euros. Otherwise you throw a second dice, obtain a number $b$ and win $2b$ euros.
+  \end{exampleblock}
+
+\end{frame}
+
+\begin{frame}
+  
+  \begin{block}{Uncertainty and incomplete knowledge.}
     \begin{itemize}
-    \item What can I expect about the value of the $10000$th throw?
-    \item What can I expect about the average score?
+    \item Probabilities as a mean to measure \emph{degrees} of uncertainty.
+    \item Guide rational decisions under uncertainty (work of Von Neunmann, Nash, \dots).
+    \item No need to even \emph{believe} in non-determinism:
+    \item probabilities as a view of the mind abstracting over unknown/too numerous/unmeasurable factors influencing a deterministic outcome.
+    \item getting a simple and manageable approximation, allowing to draw conclusions and make predictions.
+    \end{itemize}
+  \end{block}
+ 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Probabilities and language.}
+  For a thorough treatment of this topic see [Manning \& Sch\"utze, \emph{Foundations of Natural Language Processing.}]. Here are a couple points borrowed from there: 
+
+  \begin{block}{Different possible expressions are not equally likely}
+    Language use is best described accounting for the \emph{likelihood} of people to chose an expression over another.
+  \end{block}
+
+  \begin{exampleblock}{Convention}
+    \begin{itemize}
+    \item[a)] I did not shoot the deputy.
+    \item[b)] I did not fire my gun on the deputy and peirce him with a bullet.
     \end{itemize}
   \end{exampleblock}
-
 \end{frame}
 
 \begin{frame}
-  \begin{exampleblock}{Example.}
-    Would you accept playing the following game with me:
-  \end{exampleblock}
+  \frametitle{Probabilities and language (contd).}
   
-  \begin{block}{Modelling uncertainty and incomplete knowledge.}
-    
+  \begin{block}{Degrees vs. categorical judgements.}
+    In some cases, binary linguistics judgmnents (veracity, grammaticality) are hard to carry, and easier to model on a continuous scale.
+    \begin{itemize}
+    \item what are truth conditions for adjectives like \emph{bald} or \emph{red}?
+    \end{itemize}
+    {\bf Moreover, \emph{continuous} models such as offered by probability theory have exploitable mathematical property that discrete models lack.}
   \end{block}
-  
 \end{frame}
 
 \begin{frame}
-  \frametitle{Probabilities and Language.}
-  - Bending the rules.
-  - Ambiguity
-  - Zipf stuff?
+  \frametitle{}
+  \begin{block}{Ambiguity.}
+    Ambiguity is present at every level of language, so that systematically asking for disambiguisation, or always entertaining all options would not be manageable.
+  \end{block}
 \end{frame}
 
 \begin{frame}{Mathematical Foundations: Equiprobable events.}
