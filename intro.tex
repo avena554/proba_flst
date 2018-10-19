@@ -53,10 +53,10 @@
 \begin{frame}
   \frametitle{What is probability theory?}
 
-  Probability theory is the branch of mathematics that deals with throwing dices and flipping coins (and a few other things too).\\
+  Probability theory is the branch of mathematics that deals with throwing dice and flipping coins (and a few other things too).\\
 
   \begin{exampleblock}{Example}
-    I throw a fair $6$-faced dice a million times. Can I say anything interesting \emph{a priori}:
+    I throw a fair $6$-sided die a million times. Can I say anything interesting \emph{a priori}:
     \begin{itemize}
     \item About the outcome of the $10000$th throw?
     \item About the number of times i'll get a $6$?
@@ -74,7 +74,7 @@
   \begin{block}{Nondeterminism}
     \begin{itemize}
     \item Modelling \emph{Random} phenomena or \emph{trials}: when `repeated' trials yield different outcomes, \emph{i.e.} the outcome \emph{fluctuates}.
-    \item Typical examples from before: throwing a dice, flipping a coin.
+    \item Typical examples from before: throwing a die, flipping a coin.
     \item But not only: playing roulette, running a processor at a certain speed (may crash or not), having $n$ radioactive element disintegrate in a given amount of time, transmitting a message through a faulty device...
     \item Draw conclusions, make prediction about outcomes and how much they can \emph{fluctuate}.
     \end{itemize}
@@ -86,17 +86,18 @@
   Which of the following choice would you say is more interesting:
   
   \begin{exampleblock}{Choice 1.}
-    I give you 1500 euro.
+    I give you 1500 euros.
   \end{exampleblock}
 
   \begin{exampleblock}{Choice 2.}
-    We play 1000 times the following game:
+    We play a game $1000$ times a row, where each of the 1000 plays consists in the following steps:
     \begin{enumerate}
-    \item you throw one $6$-faced dice.
-    \item If the result is $1$ or $2$, $3$ or $4$ you give me $1$ euro and the game stops.
-    \item If the result is $5$ or $6$, I give you $4$ euros, but we play again.
+    \item You roll a $6$-sided die over a over, until you get a $1$, $2$, $3$ or a $4$.
+    \item You give me $1$ euro, and I give you $4$ euros for every time you re-rolled the die ($4 \times (n-1)$ for $n$ rolls).
     \end{enumerate}
   \end{exampleblock}
+
+  \alert{No absolute answer, but after the course you'll know how to answer this for a specific meaning of `interesting'.}
 
 \end{frame}
 
@@ -116,7 +117,7 @@
 
 \begin{frame}
   \frametitle{Probabilities and language.}
-  For a thorough treatment of this topic see [Manning \& Sch\"utze, \emph{Foundations of Natural Language Processing.}]. Here are a couple points borrowed from there: 
+  For a thorough treatment of this topic see [Manning \& Sch\"utze, \emph{Foundations of Natural Language Processing.}]. Here are a few points: 
 
   \begin{block}{Different possible expressions are not equally likely}
     Language use is best described accounting for the \emph{likelihood} of people to chose an expression over another.
@@ -125,7 +126,7 @@
   \begin{exampleblock}{Convention}
     \begin{itemize}
     \item[a)] I did not shoot the deputy.
-    \item[b)] I did not fire my gun on the deputy and peirce him with a bullet.
+    \item[b)] I did not fire my gun on the deputy and hit him with a bullet.
     \end{itemize}
   \end{exampleblock}
 \end{frame}
@@ -138,26 +139,129 @@
     \begin{itemize}
     \item what are truth conditions for adjectives like \emph{bald} or \emph{red}?
     \end{itemize}
-    {\bf Moreover, \emph{continuous} models such as offered by probability theory have exploitable mathematical property that discrete models lack.}
   \end{block}
 \end{frame}
 
 \begin{frame}
-  \frametitle{}
+  \frametitle{Probabilities and language (contd).}
   \begin{block}{Ambiguity.}
     Ambiguity is present at every level of language, so that systematically asking for disambiguisation, or always entertaining all options would not be manageable.
   \end{block}
 \end{frame}
 
-\begin{frame}{Mathematical Foundations: Equiprobable events.}
-  Let's start with some examples.
+\begin{frame}
+  \frametitle{A technical aspect.}
+             {\bf \emph{continuous} models offered by probability theory have exploitable mathematical property that discrete models lack: } they have enough regularity to allow various optimization algorithms to be used to find optimal parameters.
 \end{frame}
 
-\begin{frame}{Sample space, counting.}
+\begin{frame}{Mathematical Foundations.}
+  In this course, we will present the {\bf mathematical foundations} of probability theory. Means a formal language, and axioms such that:
+ \begin{itemize}
+  \item Real-life situations (such as previously evocated) might be abstractly described in the formal language.
+  \item Axioms are intuitively sound w.r.t. any real life situations that instanciate them.
+  \item Pure mathematical reasoning might be used to draw deductions from a given situation's model
+    \begin{itemize}
+    \item[\alert{$\rightarrow$}] \alert{Provides grounded notion of valid reasoning, prevent following misleading intutions, and abstracts from customary details}.
+    \end{itemize}
+  \item Conclusions can be translated back into concrete statements about the situation at hand.
+  \end{itemize}
 \end{frame}
 
-\begin{frame}{Non equiprobable events?}
+\begin{frame}{Approach.}
+  \begin{itemize}
+  \item We want to talk about outcomes of random experiments. First need: a way to talk about different outcomes.
+  \item Several routes possible. Most modern mathematiciens (and this course) follow the work of Kolmogorov:
+  \item[$\rightarrow$]{\bf Root everything in set theory.}
+  \end{itemize}
+  
+\end{frame}
 
+\begin{frame}{Outcomes.}
+  
+  \begin{block}{Sample space}
+    The collection of all possible outcomes of a random experiment is simply represented as a set. This set is called the \emph{sample space} or \emph{universe}. Most often denoted as $\Omega$.
+  \end{block}
+
+  For now we will always work with \emph{at most countable} sample spaces. {\color{blue} it means that $\Omega$ is either finite, or countably infinite (its elements can be numeroted $\Omega = \{ \omega_1, \dots, \omega_n, \dots\}$).}
+\end{frame}
+
+\begin{frame}{Examples}
+  \begin{exampleblock}{$6$-sided die}
+    The possible outcomes of rolling a six-sided die can be represented by the sample space $\Omega_{d}= \{ 1, 2, 3, 4, 5, 6 \}$.
+  \end{exampleblock}
+
+  \begin{exampleblock}{Two $6$-sided dice}
+    The possible outcomes of rolling two six-sided dice can be represented by the sample space $\Omega_{dd}= \Omega_{d}\times \Omega_{d}$.
+    \[ \Omega_{dd} = \left\{ \begin{array}{llllll}
+      (1, 1), &(1, 2), &(1, 3), &(1, 4), &(1, 5), &(1, 6),\\
+      (2, 1), &(2, 2), &(2, 3), &(2, 4), &(2, 5), &(2, 6),\\
+      (3, 1), &(3, 2), &(3, 3), &(3, 4), &(3, 5), &(3, 6),\\
+      (4, 1), &(4, 2), &(4, 3), &(4, 4), &(4, 5), &(4, 6),\\
+      (5, 1), &(5, 2), &(5, 3), &(5, 4), &(5, 5), &(5, 6),\\
+      (6, 1), &(6, 2), &(6, 3), &(6, 4), &(6, 5), &(6, 6)\\
+      \end{array}
+      \right \}.\]
+  \end{exampleblock}
+
+\end{frame}
+
+\begin{frame}{Events}
+  Talking about single outcomes only (as in ``I rolled a six") is too restricted. We need logically structured statements (``I rolled a one {\bf or} a two", `` I \textbf{did not} roll a five''). Set theory already provides the necessary tools:
+
+  \begin{block}{Event}
+    Let $\Omega$ be a sample space. An event $e$ (over $\omega$) is a part of $\Omega$. For an event $e \subseteq \Omega$, an outcome $\omega \in \Omega$ \emph{realises} event $e$ iff $\omega \in e$.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Example}
+  \begin{exampleblock}{Two $6$-sided dice}
+    \begin{itemize}
+    \item[$e1$] ``the sum of the two rolls is 11'' $\rightarrow$ $e_{1} = \{ (5, 6), (6, 5) \}$.
+    \item[$e2$] ``the two rolls are equal and both are even'' $\rightarrow$ $e_{2} = \{(2,2), (4,4), (6,6)\}$.
+    \item[$e3$] ``the first dice's roll is 1'' $\rightarrow$ $e_{3} = \{(1,1), (1,2), (1,3), (1,4), (1,5), (1,6)\}$.
+    \end{itemize}
+
+    \[ \Omega_{dd} = \left\{ \begin{array}{llllll}
+      (1, 1), &(1, 2), &(1, 3), &(1, 4), &(1, 5), &(1, 6),\\
+      (2, 1), &(2, 2), &(2, 3), &(2, 4), &(2, 5), &(2, 6),\\
+      (3, 1), &(3, 2), &(3, 3), &(3, 4), &(3, 5), &(3, 6),\\
+      (4, 1), &(4, 2), &(4, 3), &(4, 4), &(4, 5), &(4, 6),\\
+      (5, 1), &(5, 2), &(5, 3), &(5, 4), &(5, 5), &(5, 6),\\
+      (6, 1), &(6, 2), &(6, 3), &(6, 4), &(6, 5), &(6, 6)\\
+      \end{array}
+      \right \}.\]
+    
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{Events and propositions.}
+
+  \begin{block}{Set theoretic manipulations.}
+    There is an intuitive correspondance between logical operations on propositions and set-theoretic operations on events that encode these propositions:
+    \begin{center}
+      \begin{tabular}{|l|l|}
+        \hline
+        Proposition & Event\\
+        \hline
+        $A$ or $B$ & $e_{A} \cup e_{B}$\\
+        \hline
+        $A$ and $B$ & $e_{A} \cap e_{B}$\\
+        \hline
+        not $A$ & $\Omega \setminus A$\\
+        \hline
+        $\top$ (tautological statement) & $\Omega$\\
+        \hline
+        $\bot$ (impossible statement) & $\emptyset$\\
+        \hline        
+      \end{tabular}
+    \end{center}
+
+  \end{block}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Axioms of probability.}
 \end{frame}
 
 \end{document}
