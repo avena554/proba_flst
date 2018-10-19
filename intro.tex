@@ -20,6 +20,14 @@
 %\usepackage{csquotes}
 
 
+
+\usepackage[absolute,overlay]{textpos}
+%\usepackage[texcoord,
+%grid,gridcolor=red!10,subgridcolor=green!10,gridunit=pt]
+%{eso-pic}
+
+
+
 \useoutertheme{infolines}
 
 \newcommand{\hidden}[1]{}
@@ -55,7 +63,9 @@
 
   Probability theory is the branch of mathematics that deals with throwing dice and flipping coins (and a few other things too).\\
 
-  \begin{exampleblock}{Example}
+  \begin{exampleblock}{Example questions.}
+    How exactly unsafe is playing russian roulette?
+    
     I throw a fair $6$-sided die a million times. Can I say anything interesting \emph{a priori}:
     \begin{itemize}
     \item About the outcome of the $10000$th throw?
@@ -71,14 +81,13 @@
 \begin{frame}
   \frametitle{Why a theory of probabilities?}
   
-  \begin{block}{Nondeterminism}
     \begin{itemize}
     \item Modelling \emph{Random} phenomena or \emph{trials}: when `repeated' trials yield different outcomes, \emph{i.e.} the outcome \emph{fluctuates}.
     \item Typical examples from before: throwing a die, flipping a coin.
-    \item But not only: playing roulette, running a processor at a certain speed (may crash or not), having $n$ radioactive element disintegrate in a given amount of time, transmitting a message through a faulty device...
+    \item But not only: running a processor at a high speed (may crash or not), having $n$ radioactive element disintegrate in a given amount of time, transmitting a message through a faulty device...
     \item Draw conclusions, make prediction about outcomes and how much they can \emph{fluctuate}.
     \end{itemize}
-  \end{block}  
+    
 \end{frame}
 
 \begin{frame}
@@ -101,18 +110,16 @@
 
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Uncertainty and incomplete knowledge.}
+
+  \begin{itemize}
+  \item Probabilities as a mean to measure \emph{degrees} of uncertainty.
+  \item Guide rational decisions under uncertainty (work of Von Neunmann, Nash, \dots).
+  \item No need to even \emph{believe} in non-determinism:
+  \item probabilities as a view of the mind abstracting over unknown/too numerous/unmeasurable factors influencing a deterministic outcome.
+  \item getting a simple and manageable approximation, allowing to draw conclusions and make predictions.
+  \end{itemize}
   
-  \begin{block}{Uncertainty and incomplete knowledge.}
-    \begin{itemize}
-    \item Probabilities as a mean to measure \emph{degrees} of uncertainty.
-    \item Guide rational decisions under uncertainty (work of Von Neunmann, Nash, \dots).
-    \item No need to even \emph{believe} in non-determinism:
-    \item probabilities as a view of the mind abstracting over unknown/too numerous/unmeasurable factors influencing a deterministic outcome.
-    \item getting a simple and manageable approximation, allowing to draw conclusions and make predictions.
-    \end{itemize}
-  \end{block}
- 
 \end{frame}
 
 \begin{frame}
@@ -155,14 +162,12 @@
 \end{frame}
 
 \begin{frame}{Mathematical Foundations.}
-  In this course, we will present the {\bf mathematical foundations} of probability theory. Means a formal language, and axioms such that:
+  In this course, we will present the {\bf mathematical foundations} of probability theory. Means a formal language, and intuitive axioms such that:
  \begin{itemize}
   \item Real-life situations (such as previously evocated) might be abstractly described in the formal language.
-  \item Axioms are intuitively sound w.r.t. any real life situations that instanciate them.
+  %\item Axioms are intuitively sound. %w.r.t. any real life situations that instanciate them.
   \item Pure mathematical reasoning might be used to draw deductions from a given situation's model
-    \begin{itemize}
-    \item[\alert{$\rightarrow$}] \alert{Provides grounded notion of valid reasoning, prevent following misleading intutions, and abstracts from customary details}.
-    \end{itemize}
+  \item[\alert{$\rightarrow$}] \alert{Provides grounded notion of valid reasoning, prevent following misleading intutions, and abstracts from customary details}.
   \item Conclusions can be translated back into concrete statements about the situation at hand.
   \end{itemize}
 \end{frame}
@@ -237,7 +242,7 @@
 \begin{frame}{Events and propositions.}
 
   \begin{block}{Set theoretic manipulations.}
-    There is an intuitive correspondance between logical operations on propositions and set-theoretic operations on events that encode these propositions:
+    There is an intuitive correspondence between logical operations on propositions and set-theoretic operations on events that encode these propositions:
     \begin{center}
       \begin{tabular}{|l|l|}
         \hline
@@ -261,7 +266,150 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Axioms of probability.}
+  \frametitle{Probability: some basic intuitions.}
+  So far we described \emph{possible} events. Nothing yet about \emph{probabilities}. What are reasonable axioms?
+
+  \begin{itemize}
+  \item Being more ore less \emph{probable} is a property of \emph{events}.
+  \item We can always compare the probability of two events. It is technically convenient to realise this by having probabilities as \emph{real numbers}.
+  \item A certain event (\emph{e.g.} $\Omega$) has maximal probability. By convention, one assumes it's $1$.
+  \item An impossible event (\emph{e.g.} $\emptyset$) has minimal probability. By convention one assumes it's $0$.
+  \item[$\Rightarrow$] {\bf probability measure: function $p$ assigning any event $e$ a real number $p(e) \in [0, 1]$.}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Probability: principle of insufficient reason.}
+    \begin{itemize}
+    \item Throwing a fair $6$-sided die again.
+    \item The die is fair. All outcomes should be equally likely.
+    \item [$\Rightarrow$] assign same probability to all (elementary) \emph{outcomes}.
+    \item By extension, two events realized by the same number of outcomes should have same probability too.
+    \item {\color{darkgreen} \emph{e.g.} Rolling a number greater than $3$ vs rolling a number less than $3$.}
+    \item  Probability over all \emph{events}?
+    \end{itemize}
+
+    Assuming $\Omega$ finite:
+    \[ p(e) = \frac{|e|}{|\Omega|} \] 
+\end{frame}
+
+\begin{frame}{Examples}
+  \begin{textblock*}{100pt}(200pt,50pt)
+     $p(e) = \frac{|e|}{|\Omega|}$
+  \end{textblock*}
+  \begin{exampleblock}{$1$ die.}
+    $\Omega_{d}= \{ 1, 2, 3, 4, 5, 6 \}$, $|\Omega_d| = 6$.
+    \begin{itemize}
+    \item $e_1: \{1\}$ -- rolling a one. $|e_1| = 1$, $p(e_1) = \frac{1}{6}$.
+    \item $e_2$: $\{2\}$ -- rolling a $2$, $e_3: \{3\}$ rolling a $3$. $p(e_2) = p(e_3) = p(e_1) = \frac{1}{6}$ 
+    \item $e_{\le 3}: e_1 \cup e_2 \cup e_3 = \{1,2,3\}$ -- rolling a number less or equal to $3$. $|e_{\le 3}| = 3$ $p(e_3) = \frac{1}{2}$.
+    \item Notice that $p(e_{\le 3}) = p(e_1) + p(e_2) + p(e_3)$.
+    \item $\Omega_d$ -- rolling anything. $p(\Omega_d) = 1$.
+    \item $\emptyset$ -- rolling nothing. $|\emptyset| = 0$, $p(\emptyset) = 0$.
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{Examples}
+  \begin{exampleblock}{$2$ dice.}
+    \[ \Omega_{dd} = \left\{ \begin{array}{llllll}
+      (1, 1), &(1, 2), &(1, 3), &(1, 4), &(1, 5), &(1, 6),\\
+      (2, 1), &(2, 2), &(2, 3), &(2, 4), &(2, 5), &(2, 6),\\
+      (3, 1), &(3, 2), &(3, 3), &(3, 4), &(3, 5), &(3, 6),\\
+      (4, 1), &(4, 2), &(4, 3), &(4, 4), &(4, 5), &(4, 6),\\
+      (5, 1), &(5, 2), &(5, 3), &(5, 4), &(5, 5), &(5, 6),\\
+      (6, 1), &(6, 2), &(6, 3), &(6, 4), &(6, 5), &(6, 6)\\
+      \end{array}
+    \right \}, |\Omega_{dd}| = 36.\]
+    \begin{itemize}
+    \item $e'_1: \{ (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6)\}$ -- first dice rolling a $1$. $|e'_1| = 6$, $p(e'_1) = \frac{6}{36} = \frac{1}{6}$.
+    \item Same result despite two different universes, phew...
+    \end{itemize}
+  \end{exampleblock}  
+\end{frame}
+
+\begin{frame}{Additivity.}
+  \begin{itemize}
+  \item What if elementary outcomes are {\bf not} all as likely?
+  \item Which property should be kept?
+  \end{itemize}
+
+  \begin{block}{Equiprobable case}
+    If $\Omega$ is finite and $p(e) = \frac{|e|}{|\Omega|}$, $e_a$ and $e_b$ are {\bf disjoint} events then
+    \[p(e_a \cup e_b) = p(e_a) + p(e_b)\] (exercise).
+  \end{block}
+
+  \begin{itemize}
+  \item This property is called additivity.
+  \item We should keep that. Let's see why.
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}{Additiviy and the frequentist interpretation.}
+Several interpretations of probabilities. One of them is the \emph{frequentist interpretation:}
+ 
+  \begin{itemize}
+  \item If we repeat a given random experiment a sufficient number of times, the frequency of a occurence of a given event is its probability.
+  \item {\color{darkgreen}  That the probability of obtaining $6$ when rolling a $6$-sided die is $1/6$ `means' that after sufficiently many trials we'll always have obtained $6$ in about $1/6$ of the total number of rolls.}
+  \end{itemize}
+
+ Not a mathematical definition, and complicated to work out as such (\emph{e.g.}, no formal definition so far of repeated trials). but help fix intuitions.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Additivity:}
+  Frequentist interpretation $\sim$ probability = limit frequency of occurence of a given event.
+
+  \begin{exampleblock}{Intuitition}
+    \begin{itemize}
+    \item Repeat an experiment $n$ times, \emph{e.g.} rolling a die.
+    \item Consider \emph{disjoint} events $e_A$: rolling a $1$ and $e_B$: rolling a $6$.
+    \item $n_{e_A}$ number of times $e_A$ is realised, $n_{e_B}$ number of times $e_b$ is realised.
+    \item Number of times $e_A \cup e_B$ is realised: $n_{e_A} + n_{e_B}$. Frequency of occurence: $f(e_A \cup e_B) = \frac{n_{e_A}}{n} + \frac{n_{e_B}}{n} = f(e_A) + f(e_B) \sim \frac{1}{6} + \frac{1}{6} = \frac{1}{3}$ for $n$ large.
+    \item[$\Rightarrow$] \alert{Under the frequentist interpretation, if $A$ and $B$ are disjoint events we must have $p(e_A \cup e_B) = p(e_A) + p(e_B)$.}
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{Additivity (contd).}
+  \begin{itemize}
+  \item Other argument can be made for other interpretations of probabilities.
+  \item Frenquentist interpretation is not a definition. Instead take additivity as an axiom, then develop link between frequency and probabilities as a theorem (SPOILER: law of large numbers).
+  \item For techincal reasons, need a more powerful version of additivity: $\sigma$-additivity -- next slide.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Axioms of probability}
+  Let $\Omega$ be a sample space. A probability measure over $\Omega$ is a function $p: \wp(\Omega) \mapsto [0,1]$ with the two following properties:
+
+  \begin{block}{Total mass.}
+    $p(\Omega) = 1$
+  \end{block}
+
+  \begin{block}{$\sigma$-additivity}
+    For any sequence of {\bf pairwise disjoint} events $\{e_1, \dots, e_n, \dots\}$ ($i \neq j \rightarrow e_i \cap e_j = \emptyset$),
+    \[p(\bigcup_{i \in \mathbb{N}} e_i) = \sum^{\infty}_{1} p(e_i) \]
+    \begin{itemize}
+    \item Implies (binary) additivity (Exercise).
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Some properties.}
+  \begin{enumerate}
+  \item $p(e) \ge 0$ (positivity, by def.)
+  \item $p(\emptyset) = 0$ (the impossible event has probability $0$). Follows from the disjoint union $\Omega = \Omega \cup \emptyset$ and additivity.
+  \item $e_1 \subseteq e_2 \rightarrow p(e_1) \le p(e_2)$ (exercise, hint: $e_2 = e_1 \cup (e_2 \setminus e_1)$).
+  \item $p(\neg e_1) = 1 - p(e_1)$ (probability of the negated event) (exercise).
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Law of total probabilities.}
+  \[ p(e_1 \cup e_2) = p(e_1) + p(e_2) - p(e_1 \cap e_2)\]
+
 \end{frame}
 
 \end{document}
