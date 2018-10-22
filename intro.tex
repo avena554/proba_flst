@@ -301,7 +301,7 @@
     \begin{itemize}
     \item $e_1: \{1\}$ -- rolling a one. $|e_1| = 1$, $p(e_1) = \frac{1}{6}$.
     \item $e_2$: $\{2\}$ -- rolling a $2$, $e_3: \{3\}$ rolling a $3$. $p(e_2) = p(e_3) = p(e_1) = \frac{1}{6}$ 
-    \item $e_{\le 3}: e_1 \cup e_2 \cup e_3 = \{1,2,3\}$ -- rolling a number less or equal to $3$. $|e_{\le 3}| = 3$ $p(e_3) = \frac{1}{2}$.
+    \item $e_{\le 3}: e_1 \cup e_2 \cup e_3 = \{1,2,3\}$ -- rolling a number less or equal to $3$. $|e_{\le 3}| = 3$ $p(e_{\le 3}) = \frac{1}{2}$.
     \item Notice that $p(e_{\le 3}) = p(e_1) + p(e_2) + p(e_3)$.
     \item $\Omega_d$ -- rolling anything. $p(\Omega_d) = 1$.
     \item $\emptyset$ -- rolling nothing. $|\emptyset| = 0$, $p(\emptyset) = 0$.
@@ -373,7 +373,7 @@ Several interpretations of probabilities. One of them is the \emph{frequentist i
 
 \begin{frame}{Additivity (contd).}
   \begin{itemize}
-  \item Other argument can be made for other interpretations of probabilities.
+  \item Other arguments can be made for other interpretations of probabilities.
   \item Frenquentist interpretation is not a definition. Instead take additivity as an axiom, then develop link between frequency and probabilities as a theorem (SPOILER: law of large numbers).
   \item For techincal reasons, need a more powerful version of additivity: $\sigma$-additivity -- next slide.
   \end{itemize}
@@ -424,7 +424,7 @@ Several interpretations of probabilities. One of them is the \emph{frequentist i
     \item<3-> $e_1 = (e_1 \cap e_2) \cup (e_1 \setminus e_2)$ (disjoint union).
     \item<4-> $p(e_1 \setminus e_2) = p(e_1) - p(e_1 \cap e_2)$ (additivity).
     \item<5-> Similarily $p(e_2 \setminus e_1) = p(e_2) - p(e_1 \cap e_2)$.
-    \item<6-> $e_1 \cup e_2 = (e_1 \cap e_2) \cap (e_1 \setminus e_2) \cap (e_2 \setminus e_1)$ (disjoint union).
+    \item<6-> $e_1 \cup e_2 = (e_1 \cap e_2) \cup (e_1 \setminus e_2) \cup (e_2 \setminus e_1)$ (disjoint union).
     \item<7-> $p(e_1 \cup e_2) = p(e_1 \cap e_2) + p(e_1 \setminus e_2) + p(e_2 \setminus e_1)$ (additivity).
     \item<8-> $p(e_1 \cup e_2) = p(e_1 \cap e_2) + p(e_1) - p(e_1 \cap e_2) + p(e_2) - p(e1 \cap e_2) = p(e_1) + p(e_2) - p(e_1 \cap e_2)$.
     \end{itemize}
