@@ -1,0 +1,102 @@
+\documentclass{beamer}
+
+%\usepackage{listings}
+%\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\usepackage{MyriadPro}
+\usepackage{cabin}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{positioning, backgrounds, shapes, chains, decorations.pathmorphing}
+\usepackage{amsmath,amsthm,amssymb}  
+\usepackage{stmaryrd}
+%\usepackage{mdsymbol}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{array}
+%\usepackage{csquotes}
+
+
+
+\usepackage[absolute,overlay]{textpos}
+%\usepackage[texcoord,
+%grid,gridcolor=red!10,subgridcolor=green!10,gridunit=pt]
+%{eso-pic}
+
+
+
+\useoutertheme{infolines}
+
+\newcommand{\hidden}[1]{}
+
+%colors
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\usebeamercolor{block title}
+\definecolor{beamerblue}{named}{fg}
+\usebeamercolor{alert block title}
+\definecolor{beamealert}{named}{fg}
+
+\renewcommand{\colon}{\!:\!}
+
+
+\newcommand\paraitem{%
+ \quad
+ \makebox[\labelwidth][r]{%
+ \makelabel{%
+ \usebeamertemplate{itemize \beameritemnestingprefix item}}}\hskip\labelsep}
+
+\newcommand{\mmid}{\mathbin{{\mid}{\mid}}}
+
+\begin{document}
+
+\title{Probability Theory -- Introduction} 
+\author{Antoine Venant}
+%\institute{UDS COLI}
+\date{\today}
+\maketitle
+
+\begin{frame}
+  \frametitle{Last time:}
+  \begin{itemize}
+  \item Motivation.
+  \item Axiomatic approach.
+  \item Sample space, events.
+  \item Intuitions behind axioms.
+  \item Probability space (discrete case).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Today:}
+  \begin{itemize}
+  \item `Dependence' between events.
+  \item Integrating new information: conditional measure.
+  \item Noteworthy combinatorial spaces.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Independent events.}
+
+  \begin{exampleblock}{Two fair dice.}
+     \[ \Omega_{dd} = \left\{ \begin{array}{llllll}
+      (1, 1), &(1, 2), &(1, 3), &(1, 4), &(1, 5), &(1, 6),\\
+      (2, 1), &(2, 2), &(2, 3), &(2, 4), &(2, 5), &(2, 6),\\
+      (3, 1), &(3, 2), &(3, 3), &(3, 4), &(3, 5), &(3, 6),\\
+      (4, 1), &(4, 2), &(4, 3), &(4, 4), &(4, 5), &(4, 6),\\
+      (5, 1), &(5, 2), &(5, 3), &(5, 4), &(5, 5), &(5, 6),\\
+      (6, 1), &(6, 2), &(6, 3), &(6, 4), &(6, 5), &(6, 6)\\
+      \end{array}
+    \right \}, |\Omega_{dd}| = 36.\]
+  \end{exampleblock}
+  
+\end{frame}
+
+\begin{frame}
+\frametitle{Frequentist interpretation}
+\end{frame}
+
+\end{document}
