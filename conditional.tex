@@ -52,7 +52,7 @@
 
 \begin{document}
 
-\title{Probability Theory -- Introduction} 
+\title{Conditional probabilities, independent events.} 
 \author{Antoine Venant}
 %\institute{UDS COLI}
 \date{\today}
@@ -60,29 +60,210 @@
 
 \begin{frame}
   \frametitle{Last time:}
-  \begin{itemize}
-  \item Motivation.
-  \item Axiomatic approach.
-  \item Sample space, events.
-  \item Intuitions behind axioms.
-  \item Probability space (discrete case).
-  \end{itemize}
+  \begin{block}{What is a probability measure?}
+    \begin{itemize}
+    \item Motivation.
+    \item Axiomatic approach.
+    \item Sample space, events.
+    \item Intuitions behind axioms.
+    \item Probability space (discrete case).
+    \end{itemize}
+  \end{block}
 \end{frame}
 
 \begin{frame}
   \frametitle{Today:}
-  \begin{itemize}
-  \item `Dependence' between events.
-  \item Integrating new information: conditional measure.
-  \item Noteworthy combinatorial spaces.
-  \end{itemize}
+  \begin{block}{Event dependence.}
+    \begin{itemize}
+    \item `Indepedent' events.
+    \item Sample space for repeated trials.
+    \item Integrating new information: conditional measure.
+    \item Example combinatorial spaces.
+    \end{itemize}
+  \end{block}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Independent events.}
+  \frametitle{Knowledge updates.}
+  \begin{exampleblock}{Two fair dice (again).}
+    Some intuitions.
+    \begin{itemize}
+    \item Someone rolls a dice two times without telling us the results.
+    \item He tells us that the second roll is $5$ or $6$.
+    \item Does it change our expectation about the outcome of the first roll being $3$?
+    \item What if he tells us that the sum of the two rolls is $9$?
+    \end{itemize}
+  \end{exampleblock}
+  Again let us use the Principle of Insufficient Reason to fix intuition.
+ 
+\end{frame}
 
-  \begin{exampleblock}{Two fair dice.}
-     \[ \Omega_{dd} = \left\{ \begin{array}{llllll}
+\begin{frame}{Principle of Insufficient Reason.}
+  \[ p(e) = \frac{|e|}{|\Omega|}\]
+
+  
+  \emph{All possible outcomes are equally likely, the probability of an event is the proportion of favorable outcomes among all possible outcomes.}
+\end{frame}
+
+\begin{frame}{`updating' under the P.I.R.}
+  $e_1$ some event with $|e_1| \le 0$.
+  \begin{itemize}
+  \item `learning' $e_1$: remove no longer `possible' outcomes \emph{i.e.} restrict the universe to $e_1$. 
+  \item There are $|e_1|$ possible outcomes left. For any event $e_2$, $|e_2 \cap e_1|$ outcomes left realizing $e_2$.
+  \item \textbf{after `update', the probability of $e_2$ is $\frac{|e_2 \cap e_1|}{|e_1|} = \frac{p(e_2 \cap e_1)}{p(e_1)}$}.
+  \item $e_1$ and $e_2$ are \emph{independent} $\rightarrow$: upon `learning' that $e_1$ is realized, we still affect the same probability to $e_2$.
+  \item In the `original' space, the probability of $e_2$ is $\frac{|e_2|}{|\Omega|}$.
+  \item `update' and 'original' equal iff $|e_2 \cap e_1| = \frac{|e_2|\times|e_1|}{\Omega}$ iff $\frac{|e_2 \cap e_1|}{\Omega} = \frac{e_1}{\Omega}\times \frac{e_2}{\Omega}$.
+  \item \textbf{$e_1$ and $e_2$ independent iff $p(e_1 \cap e_2) = p(e_1) \times p(e_2)$}.
+  \end{itemize}  
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{Two dice (again).}
+    \[ \Omega_{dd} = \left\{ \begin{array}{llllll}
+      (1, 1), &(1, 2), &(1, 3), &(1, 4), &(1, 5), &(1, 6),\\
+      (2, 1), &(2, 2), &(2, 3), &(2, 4), &(2, 5), &(2, 6),\\
+      (3, 1), &(3, 2), &(3, 3), &(3, 4), &(3, 5), &(3, 6),\\
+      (4, 1), &(4, 2), &(4, 3), &(4, 4), &(4, 5), &(4, 6),\\
+      (5, 1), &(5, 2), &(5, 3), &(5, 4), &(5, 5), &(5, 6),\\
+      (6, 1), &(6, 2), &(6, 3), &(6, 4), &(6, 5), &(6, 6)\\
+      \end{array}
+      \right \}.\]
+  \end{exampleblock}
+
+  \begin{itemize}
+  \item $e_{\textnormal{sum is 9}}: \{(3,6), (4,5),(5,4),(6,3)\}$. $e_{\textnormal{first is 3}} = \{3\} \times \{1,2,3,4,5,6\}$.
+  \item $e_{\textnormal{sum is 9}} \cap e_{\textnormal{first is 3}} = \{(3,6)\}$.
+  \item $p(e_{\textnormal{sum is 9}}) = \frac{4}{36}$, $p(e_{\textnormal{sum is 9}} \cap e_{\textnormal{first is 3}}) = \frac{1}{36}$.
+  \item after `update' with $e_{\textnormal{sum is 9}}$: $p^{(u)}(e_{\textnormal{first is 3}}) = \frac{1}{4} \neq \frac{1}{6}$.
+  \item $e_{\textnormal{sum is 9}}$ and $e_{\textnormal{first is 3}}$ are \textbf{not} independent.
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{A word about the frequentist interpretation:}
+  \begin{itemize}
+  \item Under the frequentist interpretation the quantity $\frac{p(e_2 \cap e_1)}{p(e_1)}$ is the `limit' frequency of occurence of $e_2$ relative to all of the $e_1$ outcomes produced.
+  \item Independence means there means that this frequency is the same as the `limit' frequency of $e_2$ relative to every produced outcomes.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Conditional Probability.}    
+  What we informally called `updating' is rather called `conditioning' in probability theory.
+  
+  \begin{block}{Definition.}
+    Let $p$ be a probability measure on $\Omega$ and $b \subseteq \Omega$ s.t. $p(b) > 0$. The function $p( \cdot \mid b)$ defined as $p(a \mid b) = \frac{p(a \cap b)}{p(b)}$ is also a probability measure on $\Omega$ (exercise). It is called \emph{the conditional probability knowing $b$}.
+  \end{block}
+
+  \begin{alertblock}{NO CONDITIONAL EVENT.}
+    Contrary to what the notation suggests, conditioning affects the measure. NOT THE EVENT. There is simply no such thing as the event $a \mid b$. 
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The chain rule.}
+  Let $\langle \Omega, p \rangle$ be a probability space.
+
+  \begin{block}{Proposition}
+    For any events $e_1, \dots, e_n$ s.t. $p(e_1 \cap \dots \cap e_n) \neq 0$ we have:
+    \[ p(e_1 \cap \dots \cap e_n) = p(e_1)p(e_2 \mid e_1)p(e_3 \mid e_1 \cap e_2) \dots p(e_n \mid e_1 \cap \dots e_{n-1}) \]
+  \end{block}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Iterated conditioning.}
+
+  \begin{block}{Notations.}
+    Let $\Omega$ be a sample space. For any probability $p$ on $\Omega$ and event $e$ s.t. $p(e)$ > 0, define $cond(p, e) = p(\cdot \mid e)$. Let $p( \cdot \mid e_1, \dots, e_n)$ be syntactic sugar for
+   \[cond(cond(\dots (cond(p, e_1), e_2), \dots), e_n)\]
+  \end{block}
+
+  \begin{block}{Proposition.}
+    For any events $a$, $e_1,\dots, e_n$, such that $p(e_1 \cap \dots \cap e_n) \neq 0$ it holds that
+    \begin{enumerate}
+    \item $p(a \mid e_1, \dots, e_n)$ is well defined.
+    \item $p(a \mid e_1, \dots, e_n) = p(a \mid e_1 \cap \dots \cap e_n)$.
+    \end{enumerate}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{More properties}
+
+  \begin{block}{Law of total probability.}
+    If $\langle e_i \rangle_{i \in I}$ is a finite or countably infinite sequence of pairwise disjoint events s.t. $\forall i p(e_i) > 0$ and $\bigcup_i e_i = \Omega$ then, for all event $a$ one has:
+    \[p(a) = \sum_{i \in I} p(a \mid e_i)p(e_i).\]
+  \end{block}
+  
+  In particular, if $p(b) > 0$ and $p(\neg b) > 0$ then for any $a$ $p(a) = p(a \mid b)p(b) + p(a \mid \neg b)p(\neg b)$.
+\end{frame}
+
+\begin{frame}{Bayes formula.}
+  For events $a$ and $b$ s.t. $p(a) > 0$, $p(b) > 0$,
+  \[p(b \mid a) = \frac{p(a \mid b)p(b)}{p(a)}\]
+  If moreover $p(b) < 1$,
+  \[p(b \mid a) = \frac{p(a \mid b)p(b)}{p(a \mid b)p(b) + p(a \mid \neg b)p(\neg b)}\]
+\end{frame}
+
+\begin{frame}{Exercise}
+  We draw two cards (without reinsertion inbetween) from a $32$ cards deck. What is the probability of the second card being a spide?
+\end{frame}
+
+\begin{frame}{Independent events.}
+  \begin{block}{Definition.}
+    Two events $e$ and $e'$ are independent (w.r.t. $p$) iff $p(e \cap e') = p(e) \times p(e')$.
+  \end{block}
+
+  \begin{block}{Remarks.}
+    \begin{itemize}
+    \item The definition is symmetric: $e$ and $e'$ are independent iff $e'$ and $e$ are independent.
+    \item If $p(e) > 0$, then $e$ and $e'$ are independent iff $p(e' \mid e) = p(e)$.
+    \item If $p(e) = 0$ then for any $e'$, $e$ and $e'$ are independent (exercise).
+    \item If $e$ and $e'$ are independent, so are $\neg e$ and $e'$, $e$ and $\neg e'$, $\neg e$ and $\neg e'$. 
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Mutual independence.}
+  A finite or countably infinite sequence of events $\langle e_i \rangle_{i \in I}$ is a sequence of \emph{mutually independent} events iff for any finite sequence $i_1, \dots, i_n \in I$,
+  \[p(e_{i_1} \cap \dots \cap e_{i_n}) = \prod^n_{k=1} p(e_{i_k})\]
+\end{frame}
+
+\begin{frame}
+  \begin{exampleblock}{Tossing two fair coins.}
+    \[\Omega_{c} = \{ (H,H), (H, T), (T, H), (T, T) \} \]
+    \begin{itemize}
+    \item equiprobable outcomes.
+    \item $e_{H \textnormal{first}} = \{(H,H), (H,T)\}$, $p(e_{H \textnormal{first}}) = 1/2$.
+    \item $e_{H \textnormal{second}} = \{(H,H), (T,H)\}$, $p(e_{H \textnormal{second}}) = 1/2$.
+    \item $e_{\textnormal{same}} = \{(H,H), (T,T)\}$, $p(e_{\textnormal{same}} = 1/2)$.
+    \item These events are pairwise independent: $p(e \cap e') = 1/4 = p(e)p(e')$.
+    \item They are \textbf{not} mutually independent.
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+    
+
+\begin{frame}
+  \frametitle{Intersection of mutually independent events.}
+  A finite or countably infinite sequence of events $\langle e_i \rangle_{i \in I}$ is a sequence of \emph{mutually independent} events iff for any \textbf{finite} sequence $i_1, \dots, i_n \in I$,
+  \[p(e_{i_1} \cap \dots \cap e_{i_n}) = \prod^n_{k=1} p(e_{i_k})\]
+
+  \begin{block}{Infinite intersection:}
+    If $e_1, \dots, e_n, \dots$ is an infinite sequence of mutually independent events, then
+    \[p(\bigcap^{n}_{i=1} e_{i_1} ) = lim_{n \rightarrow \infty} \prod^{n}_{k=1} p(e_{i})\]
+  \end{block}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Independent repeated trials.}
+   \begin{exampleblock}{$2$ dice.}
+    \[ \Omega_{dd} = \left\{ \begin{array}{llllll}
       (1, 1), &(1, 2), &(1, 3), &(1, 4), &(1, 5), &(1, 6),\\
       (2, 1), &(2, 2), &(2, 3), &(2, 4), &(2, 5), &(2, 6),\\
       (3, 1), &(3, 2), &(3, 3), &(3, 4), &(3, 5), &(3, 6),\\
@@ -91,12 +272,38 @@
       (6, 1), &(6, 2), &(6, 3), &(6, 4), &(6, 5), &(6, 6)\\
       \end{array}
     \right \}, |\Omega_{dd}| = 36.\]
-  \end{exampleblock}
-  
+    \begin{itemize}
+    \item $e'_1: \{ (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6)\}$ -- first dice rolling a $1$. $|e'_1| = 6$, $p(e'_1) = \frac{6}{36} = \frac{1}{6}$.
+    \item Same result despite two different universes, phew... \alert{$\rightarrow$ was that just luck?}
+    \end{itemize}
+   \end{exampleblock}  
 \end{frame}
 
 \begin{frame}
-\frametitle{Frequentist interpretation}
+  \frametitle{Idependent repeated trials.}
+  \begin{block}{The question:}
+    \begin{itemize}
+    \item We have a probability space $\langle \Omega, p \rangle$ representing some random experiment.
+    \item Can we automatically `extend' $\langle \Omega, p \rangle$ to represent repeated trials of the \textbf{exact} same experiment?
+    \item More generally given two spaces, $\langle \Omega_1, p_1 \rangle$, $\langle \Omega_2, p_2 \rangle$, can we find a measure over $\Omega_1 \times \Omega_2$ to represent the succession of a trial of $\Omega_1$, followed by a separate trial of $\Omega_2$?
+    \item Intuition: the requirement here is any event speaking only the first experiment is independent from any event speaking only of the second experiment.
+    \end{itemize}
+  \end{block}
 \end{frame}
+
+\begin{frame}{Product Measure.}
+  Answer: yes. (corollary of the Hahn-Kolmogorov theorem, which is much more powerful than this course's restricted assumptions require).
+  
+  \begin{block}{Theorem}
+    Given two probability spaces $\langle \Omega_1, p_1 \rangle$, $\langle \Omega_2, p_2 \rangle$ there exists a unique measure $p_{{\times}}$ over $\Omega_1 \times \Omega_2$ such that $\forall e_1 \subseteq \Omega_1, e_2 \subseteq \Omega_2$, $p_{\times}(e_1 \times e_2) = p_1(e_1)p_2(e_2)$.
+  \end{block}
+
+  \begin{itemize}
+  \item If $p_1$ and $p_2$ are equiprobabilies, so is $p_{\times}$.
+  \item Fubini's theorem:
+    \[p_{\times}((e_1, e_2)) = \sum_{w_1 \in e_1} p_1(w_1)  \sum_{w_2 \in e_2} p_{2}(w_2) = \sum_{w_2 \in e_2} p_2(w_2) \sum_{w_1 \in e_1} p_1(w_1). \]
+  \end{itemize}
+\end{frame}
+
 
 \end{document}
