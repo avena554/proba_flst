@@ -1,0 +1,87 @@
+\documentclass{article}
+\usepackage{times}
+
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{stmaryrd}
+%\usepackage{mdsymbol}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{array}
+
+
+\title{Events, probability measure, conditional probability.}
+\author{Antoine Venant}
+\begin{document}
+\maketitle
+
+
+\section*{Exercice 1}
+
+\begin{enumerate}
+\item How many different words can be formed by permuting the letters of the word {\sc BARBARA}?
+\item Let $w = w_1 \dots w_n$ be an $n$-letters word. Let $L = \{l_1, \dots, l_k\}$ denote the set of letters occuring in $w$ ($k \le n$) and $c_i$ the number of times letter $l_i$ occurs in $w$. Express the number of different words that can be formed by permuting the letters of $w$ as a function of $n$ and the $c_i$s.
+\item One randomly draws three letters from {\sc BARBARA} without replacement. What is the probability of being able to write {\sc ABA} with the three letters picked? 
+\end{enumerate}
+
+
+\section*{Exercice 2}
+One has $100$ $6$-sided dice. $25$ are unfair and roll a $6$ with probability $\frac{1}{2}$, the remaining are all fair. One selects a die at random and roll a $6$. What is the probability that the selected die is unfair?
+
+\section*{Exercice 3}
+Consider a set of dominoes: each tile is identified by a set of two numbers between $0$ and $6$ (meaning that $\{4, 6\}$ represents the same tile as $\{6, 4\}$). 
+\begin{enumerate}
+\item How many tiles are there in total?
+\item One draws $5$-dominoes at random without replacement. What is the probability of getting at least one double (domino with same number on both sides)?
+\item One draws $2$-dominoes at random without replacement. What is the probability that they are compatible (at least one number in common)?
+\end{enumerate}
+
+\section*{Bertrand's box problen:}
+A box contains three coins. One coin is red on both side, one is red on one side and white on the other side, and the last one is white on both sides. Without us observing, someone draws a coin at random then flips it. We observe the result and see it's red. What is the probability of the other side being red as well?
+
+
+\section*{Exercise 5}
+Let $A$ be an event and $A_1 \dots A_n$ be $n$ independent event such that $A_1 \cap \dots \cap A_n \subseteq A$. Show that
+\[p(A) \ge \sum^n_{i=1} p(A_i) - (n-1).\]
+
+We want to design a game where the player is given a picture with multiple characters, and has to find Waldo among them. Waldo is always identifiable as he is the unique character with glasses, a red hat, and a striped shirt. Show that it is impossible to define a valid game with more that $4$ characters where $1/4$ of all characters have glasses, $1/4$ of all characters have a red hat, and $1/4$ of all characters have a striped shirt.
+
+\section*{Exercise 6}
+Consider the alphabet $\Sigma = \{h, t\}$ and the following set of words over this alphabet:
+\[ \Omega = \{ \underbrace{t\dots t}_{n \textnormal{ times}}h \mid n \in \mathbb{B} \} \cup \{ t \dots t \dots \} \]
+(or written as a rational expression: $\Omega = t^*h \mid t^{\omega}$).
+
+We define the following probability on $\Omega$:
+\[ \begin{aligned}
+  &p(\{t^{\omega}\}) = 0\\
+  &p(\{t^n h\}) =  \frac{1}{2^{n+1}} \\
+  &\textnormal{for any event } e = \{w_1, \dots, w_n, \dots \}, p(e) = \sum_{n \in \mathbb{N}} p(w_i)
+\end{aligned} \]
+
+\begin{itemize}
+\item Justify that $p$ is a probability measure on $\Omega$.
+\item We let $E_{{>}n} = \{t^k h \mid k \ge n \} \cup \{t^{\omega}\}$, \emph{i.e.} $E_{{>}n}$ is the set of words which have a prefix of at least $n$ times t. Show that $p(E_{{>}n+1} \mid E_{{>}n} ) = \frac{1}{2}$.
+\item Conversely, show that $p$ is the unique probability measure on $\Omega$ with the property that:
+  \begin{enumerate}
+  \item $E_0 = 0$ and
+  \item $p(E_{{>}n+1} \mid E_{{>}n} ) = \frac{1}{2}$. 
+  \end{enumerate}
+\item One repeats tossing a coin until one get heads. What is the probability of stopping after an even number of rounds?
+\end{itemize}
+
+
+
+\section*{Exercise 7}
+Let $A_1 \dots A_n$ be $n$ independent events. Show that $p(\bigcup^n_{i=1} A_i) \ge 1 - e^{-\sum_{i=1}^n p(A_i)}$.
+
+
+%\section*{Exercise 8}
+%\begin{enumerate}
+%\item Show that
+%  \[\sum_{k = n}^N C^{n-1}_{k-1} = C^n_{N}\]
+%  Conclude to \[\sum^{14}_{k=2} C^2_{k} = C_{15}^3.\]
+%\item Show that $1+2+3+\dots+(14-k) = C_{15-k}^2$.
+%\item A box contains $13$ coins numbered from $1$ to $13$. One draws $3$ in a sequence, replacing the coin in the box after each draw. What is the probability of drawing them in increasing order?
+%\end{enumerate}
+
+\end{document}
