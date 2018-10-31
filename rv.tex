@@ -126,14 +126,14 @@
   \begin{exampleblock}{Random Variables over two dice.}
     \[\Omega = \{\langle 1,1 \rangle, \langle 1,2 \rangle \dots \langle 1,6 \rangle, \langle 2,1 \rangle \dots \langle 6,6 \rangle\}\]
     \begin{itemize}
-    \item $X_1: \Omega \mapsto \mathbb{R}$, $X_2(\langle x,y \rangle) = x$ (first die outcome).
+    \item $X_1: \Omega \mapsto \mathbb{R}$, $X_1(\langle x,y \rangle) = x$ (first die outcome).
     \item $X_2: \Omega \mapsto \mathbb{R}$, $X_2(\langle x,y \rangle) = y$ (second die outcome).
     \item $X_3: \Omega \mapsto \mathbb{R}$, $X_3 = X_1 + X_2$ (sum of the two dice).
     \end{itemize}
   \end{exampleblock}
 
   \begin{itemize}
-  \item $X_1$ and $X_2$ have same law: $p(X_1 = 1) = p(X_2 = 1) = \frac{1}{6}$.
+  \item $X_1$ and $X_2$ have same distribution: $p(X_1 = 1) = p(X_2 = 1) = \frac{1}{6}$.
   \item $p(X_3 = k) = \sum^{k}_{i=1} p(X_1 = i)p(X_2 = k - i)$. 
   \end{itemize}  
 \end{frame}
@@ -142,11 +142,11 @@
   \frametitle{Some important distributions.}
 
   \begin{exampleblock}{Uniform distribution.}
-    Measure over finite set $\{x_1, \dots, x_n\}$ corresponding to the law of a random variable $X$ s.t. $p(X = x_i) = \frac{1}{n}$. \emph{e.g.}, a fair $6-sided$ die is represented by the uniform distribution over \{1,2,3,4,5,6\}.
+    Measure over finite set $\{x_1, \dots, x_n\}$ corresponding to the distribution of a random variable $X$ s.t. $p(X = x_i) = \frac{1}{n}$. \emph{e.g.}, a fair $6-sided$ die is represented by the uniform distribution over \{1,2,3,4,5,6\}.
   \end{exampleblock}
 
   \begin{exampleblock}{Berouilli distribution of parameter $p_0$.}
-    Throwing a biased coin, associating $1$ to tail and $0$ to head: law of a r.v. into $\{0, 1\}$ such that $p(X = 0) = p_0, p(X = 1) = p_1 = 1 - p(0)$.
+    Throwing a biased coin, associating $1$ to tail and $0$ to head: distribution of a r.v. into $\{0, 1\}$ such that $p(X = 0) = p_0, p(X = 1) = p_1 = 1 - p(0)$.
   \end{exampleblock}
 \end{frame}
 
@@ -179,6 +179,35 @@
   \end{exampleblock}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Constructing new random variables.}
+  \begin{block}{Composition.}
+    For any random variable $X: \Omega \mapsto A$ and function $f: A \mapsto B$, $Y = f \circ X$ is also a random variable (with values in $B$)!
+    \[Y(\omega) = (f \circ X) (\omega) = f(X(\omega)) \in B\]
+    For simplicity, write $f(X)$ instead of $f \circ X$. 
+  \end{block}
+  \begin{exampleblock}{Examples.}
+    \begin{itemize}
+    \item $X^2$ obtained for $X: \Omega \mapsto \mathbb{R}$, $f: \left \{ \begin{array}{l} \mathbb{R} \mapsto \mathbb{R}\\ x \mapsto x^2 \end{array} \right .$.
+    \item $aX$ obtained for $X: \Omega \mapsto \mathbb{R}$, $a \in \mathbb{R}$, $f(x) = a x$. $f(X)$.
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Constructing new random variables.}
+  \begin{block}{More generally:}
+    If $X_1 : \Omega \mapsto A_1, \dots, X_n: \mapsto A_n$ are all random variables over the same space $\Omega$, and $\phi: A_1 \times \dots \times A_n \mapsto B$ then $\phi(X_1, \dots, X_n)$ is a random variable with values in $B$
+    \[\phi(X_1, \dots, X_n)(\omega) = \phi(X_1(\omega), \dots, X_n(\omega)).\]
+  \end{block}
+
+  \begin{exampleblock}{Example}
+     $X + Y$ obtained for $X, Y: \Omega \mapsto \mathbb{R}$, $\phi: (x,y) \mapsto x + y$.
+  \end{exampleblock}
+  
+  
+\end{frame}
+
 \begin{frame}{Expectation.}
   We now consider only real valued random variables (\emph{i.e.} applications $X: \Omega \mapsto \mathbb{R}$).
 
@@ -195,10 +224,13 @@
   \frametitle{Expectation}
   \begin{block}{Definition}
     Let $\langle \Omega, p \rangle$ be a probability space. Let $X \Omega \mapsto \mathbb{R}$ be a real-valued random variable, and let $\Lambda = X(\Omega) = \{x_1, \dots x_n, \dots\}$. The expectation of $X$ is defined if and only if:
-    \[\sum^{\infty}_{i=1} p(X = x_i) \times |x_i| < \infty.\]
+    \[\begin{aligned} &X \ge 0\\\textnormal{or }&\sum^{\infty}_{i=1} p(X = x_i) \times |x_i| < \infty.\end{aligned}\]
     When this condition is fulfilled, it is defined as:
-    \[\mathbb{E}(X) = \sum^{\infty}_{i=1} p(X = x_i) \times x_i.\]
+    \[\mathbb{E}(X) = \sum^{\infty}_{i=1} p(X = x_i) \times x_i = \sum_{\omega \in \Omega} p(\omega) X_i(\omega) .\]
   \end{block}
+  \begin{itemize}
+  \item \alert{Always defined when $X(\Omega)$ is finite.}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -214,7 +246,17 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Important properties:}
+  \frametitle{Example}
+  \begin{exampleblock}{Binomial distribution.}
+    \begin{itemize}
+    \item $X \in [1,n]$, $p(X = k) = C^k_n q^k(1-q)^{n-k}$.
+    \item $\mathbb{E}(X) = np$.
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Properties:}
   \begin{block}{Linearity.}
     If $X$ and $Y$ have an expectation and it is not the case that $\{\mathbb{E}(X), \mathbb{E}(Y)\} = \{\infty, {-}\infty\}$,
     \[ \mathbb{E}(X + Y) = \mathbb{E}(X) + \mathbb{E}(Y). \]
@@ -224,10 +266,10 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Important properties.}
+  \frametitle{Properties.}
   \begin{itemize}
   \item $p(X \in \lambda) = \mathbb{E}(1_{\lambda})$.
-  \item $X$ and $Y$ have the same law iff for any function $f: \mathbb{R} \rightarrow \mathbb{R}$, $\mathbb{E}(f \circ X) = \mathbb{E}(f \circ Y)$.
+  \item $X$ and $Y$ have the same distribution iff for any function $f: \mathbb{R} \rightarrow \mathbb{R}$, $\mathbb{E}(f \circ X) = \mathbb{E}(f \circ Y)$.
   \end{itemize}
 
   \begin{block}{Markov Inequality}
@@ -242,9 +284,113 @@
     \[\Omega = \{\langle 1,1 \rangle, \langle 1,2 \rangle \dots \langle 1,6 \rangle, \langle 2,1 \rangle \dots \langle 6,6 \rangle\}\]
     \begin{itemize}
     \item $X_3: \Omega \mapsto \mathbb{R}$, $X_3 = X_1 + X_2$ (sum of the two dice).
-    \item We can compute $\mathbb{E}(X_3)$ in two different ways. Both yield $7$.
+    \item $\mathbb{E}(X_3) = 7$.
     \end{itemize}
   \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Variance}
+  \begin{itemize}
+  \item Idea behind expectation: `average' outcome.
+  \item But same `average' can be achieved in different ways.
+  \item Measure the `tendency to deviate from average result' of an experiment.
+  \end{itemize}
+
+  \begin{exampleblock}{Two experiment}
+    \begin{itemize}
+    \item $p(X = 12) = 1/2$ and $p(X=-8) = 1/2$.
+    \item $\forall i \in \mathbb{N}^{*}$ $p(X = i)=\frac{1}{2^{i+1}}$.
+    \item Same expectation, different deviations.
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Variance}
+  \begin{block}{Definition}
+    Let $X: \Omega \mathbb{R}$ be such that $\mathbb{E}(X^2)$ exists and $\mathbb{E}(X^2) < \infty$.
+    \begin{itemize}
+    \item Then $\mathbb(E)(X)$ exists and $E(X) \in \mathbb{R}$ (follows from Cauchy-Schwartz inequality in linear algebra).
+    \item So... $(X - \mathbb{E}(X))^2$ is a random variable.
+    \end{itemize}
+    \[Var(X) = \mathbb{E}((X - \mathbb{E}(X))^2)\]
+  \end{block}
+  \begin{itemize}
+  \item Variance is always positive.
+  \item $\sigma(X) = \sqrt(Var(X))$ is called the \textbf{standard deviation}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example}
+  \begin{exampleblock}{Two experiment}
+      \begin{itemize}
+        \item $p(X = 12) = 1/2$ and $p(X=-8) = 1/2$. \alert{$V(X) = 100 = 10^2$}
+        \item $\forall i \in \mathbb{N}^{*}$ $p(X = i)=\frac{1}{2^{i+1}}$. \alert{$V(X) = 4 = 2^2$}
+      \end{itemize}
+    \end{exampleblock}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Properties}
+  \begin{itemize}
+  \item $var(X) = \mathbb{E}(X) - (\mathbb{E}(X))^2$.
+  \item for $a, b \in \mathbb{R}$, $var(aX + b) = a^2var(X)$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Bienaym\'e-Chebyshev inequality}
+  If $X$ is a real-valued random variable such that $\mathbb{E}(X^2$ exists and is finite, if $a \in \mathbb{R}$ and $a \ge 0$ then
+  \[p(|X - \mathbb{E}(X)| \ge a) \le \frac{var(X)}{a^2}.\]
+\end{frame}
+
+\begin{frame}
+  \frametitle{Conditioning on a random variable's outcome.}
+  \begin{itemize}
+  \item $p(X \in \lambda) = p(X^{-1}(\lambda))$.
+  \item For simplicity, we refer to `the distribution of a random variable $X: \Omega \rightarrow \chi$.
+  \item But depends on the probability $p$ on $\Omega$: for the same def. of $X$, different distributions w.r.t. $\langle \Omega, p \rangle$ and $\langle \Omega, p' \rangle$.
+  \item So when disambiguation is needed, we say distribution of $X$ \textbf{with respect to} proability measure $p$.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Conditional Probability.}
+
+  \begin{block}{Definition.}
+    Let $\langle \Omega, p \rangle$ be a probability space. Let $X: \Omega \rightarrow \chi$ and $Y: \Omega \rightarrow \chi'$ be two random variables over $\Omega$. Let $\lambda \subseteq \chi$ be such that $p(X \in \lambda) \neq 0$.
+    The conditional distribution of $Y$ knowing $X \in \lambda$ is the distribution of $Y$ w.r.t. $p( \cdot \mid X^{-1}(\lambda))$, \emph{i.e.}
+    \[p(Y \in \gamma \mid X \in \lambda) = p(Y^{-1}(\gamma) \mid X^{-1}(\lambda)) = \frac{p(Y^{-1}(\gamma) \cap X^{-1}(\lambda))}{p(X^{-1}(\lambda))}.\]
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Joint probability.}
+  Let $\langle \Omega, p \rangle$ be a probability space. Let $X: \Omega \rightarrow \chi$ and $Y: \Omega \rightarrow \chi'$ be two random variables over $\Omega$.
+  \[Z: \begin{array}{l} \Omega \mapsto \chi \times \chi'\\\omega \mapsto \langle X(\omega), Y(\omega) \rangle \end{array}\] is a random variable with values in $\chi \times \chi'$. It is called a \emph{random vector} (of length $2$). The distribution of $Z$ is called the \emph{joint probability} of $X$ and $Y$. The distribution of $X$ and $Y$ are called the \emph{marginal} distributions of $Z$.
+
+  \begin{itemize}
+  \item Analoguous definitions for $ > 2$ random variables.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Properties of random vectors.}
+  \[Z: \begin{array}{l} \Omega \mapsto \chi \times \chi'\\\omega \mapsto \langle X(\omega), Y(\omega) \rangle \end{array}\]
+  \begin{itemize}
+  \item $p(X \in \lambda, Y \in \gamma)$ is defined as $p(Z \in \lambda \times \gamma)$.
+  \item $p(X \in \lambda) = p(X \in \lambda, Y \in \chi') = \sum_{y \in \chi'} p(X \in \lambda, Y = y)$.
+  \item $p(Y \in \gamma) = p(X \in \chi, Y \in \gamma) = \sum_{x \in \chi} p(X=x, Y \in \gamma)$
+  \item $p(X \in \lambda, Y \in \gamma) = p(Y \in \gamma) \times p(X \in \lambda \mid Y \in \gamma)$.
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}\frametitle{Independent random variable.}
+  $n$ random variables over the same space $X_1 : \Omega \mapsto A_1, \dots, X_n: \mapsto A_n$ are \emph{mutually independent} iff for any sequence $\alpha_1 \subseteq A_1, \dots, \alpha_n \subseteq A_n$
+  \[ p(X_1 \in A_1,\dots, X_n \in A_n) = \prod^n_{i=1}p(X_i \in A_i).\]
 \end{frame}
 
 
