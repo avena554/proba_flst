@@ -94,7 +94,7 @@
   \begin{exampleblock}{Random Variables over two dice.}
     \[\Omega = \{\langle 1,1 \rangle, \langle 1,2 \rangle \dots \langle 1,6 \rangle, \langle 2,1 \rangle \dots \langle 6,6 \rangle\}\]
     \begin{itemize}
-    \item $X_1: \Omega \mapsto \mathbb{R}$, $X_2(\langle x,y\rangle) = x$ (first die outcome).
+    \item $X_1: \Omega \mapsto \mathbb{R}$, $X_1(\langle x,y\rangle) = x$ (first die outcome).
     \item $X_2: \Omega \mapsto \mathbb{R}$, $X_2(\langle x,y \rangle) = y$ (second die outcome).
     \item $X_3: \Omega \mapsto \mathbb{R}$, $X_3(\langle x,y \rangle) = x + y = X_1(\langle x,y\rangle) + X_2(\langle x,y \rangle)$ (sum of the two dice).
     \end{itemize}
@@ -145,8 +145,8 @@
     Measure over finite set $\{x_1, \dots, x_n\}$ corresponding to the distribution of a random variable $X$ s.t. $p(X = x_i) = \frac{1}{n}$. \emph{e.g.}, a fair $6-sided$ die is represented by the uniform distribution over \{1,2,3,4,5,6\}.
   \end{exampleblock}
 
-  \begin{exampleblock}{Berouilli distribution of parameter $p_0$.}
-    Throwing a biased coin, associating $1$ to tail and $0$ to head: distribution of a r.v. into $\{0, 1\}$ such that $p(X = 0) = p_0, p(X = 1) = p_1 = 1 - p(0)$.
+  \begin{exampleblock}{Bernouilli distribution of parameter $p_0$.}
+    Throwing a biased coin, associating $1$ with tail and $0$ with head: distribution of a r.v. into $\{0, 1\}$ such that $p(X = 0) = p_0, p(X = 1) = 1 - p_0$.
   \end{exampleblock}
 \end{frame}
 
@@ -173,7 +173,7 @@
 
 \begin{frame}{Some important distributions.}
   \begin{exampleblock}{Geometric distribution.}
-    One repeat bernouilli trials until one gets $0$. $X = $ number of repeated trials. For $k \in \mathbb{N}^*$
+    One repeats independent bernouilli trials until one gets $0$. $X$ is number of repeated trials. For $k \in \mathbb{N}^*$
     \[p(X = k) = (1 - p_0)^{k-1}p_0\]
     
   \end{exampleblock}
@@ -250,7 +250,7 @@
   \begin{exampleblock}{Binomial distribution.}
     \begin{itemize}
     \item $X \in [1,n]$, $p(X = k) = C^k_n q^k(1-q)^{n-k}$.
-    \item $\mathbb{E}(X) = np$.
+    \item $\mathbb{E}(X) = nq$.
     \end{itemize}
   \end{exampleblock}
 \end{frame}
@@ -309,7 +309,7 @@
 \begin{frame}
   \frametitle{Variance}
   \begin{block}{Definition}
-    Let $X: \Omega \mathbb{R}$ be such that $\mathbb{E}(X^2)$ exists and $\mathbb{E}(X^2) < \infty$.
+    Let $X: \Omega \rightarrow \mathbb{R}$ be such that $\mathbb{E}(X^2)$ exists and $\mathbb{E}(X^2) < \infty$.
     \begin{itemize}
     \item Then $\mathbb(E)(X)$ exists and $E(X) \in \mathbb{R}$ (follows from Cauchy-Schwartz inequality in linear algebra).
     \item So... $(X - \mathbb{E}(X))^2$ is a random variable.
@@ -327,7 +327,7 @@
   \begin{exampleblock}{Two experiment}
       \begin{itemize}
         \item $p(X = 12) = 1/2$ and $p(X=-8) = 1/2$. \alert{$V(X) = 100 = 10^2$}
-        \item $\forall i \in \mathbb{N}^{*}$ $p(X = i)=\frac{1}{2^{i+1}}$. \alert{$V(X) = 4 = 2^2$}
+        \item $\forall i \in \mathbb{N}^{*}$ $p(X = i)=\frac{1}{2^{i+1}}$. \alert{$V(X) = 2 = \sqrt(2)^2$}
       \end{itemize}
     \end{exampleblock}
 \end{frame}
@@ -336,7 +336,7 @@
 \begin{frame}
   \frametitle{Properties}
   \begin{itemize}
-  \item $var(X) = \mathbb{E}(X) - (\mathbb{E}(X))^2$.
+  \item $var(X) = \mathbb{E}(X^2) - \mathbb{E}(X)^2$.
   \item for $a, b \in \mathbb{R}$, $var(aX + b) = a^2var(X)$.
   \end{itemize}
 \end{frame}
@@ -391,6 +391,54 @@
 \begin{frame}\frametitle{Independent random variable.}
   $n$ random variables over the same space $X_1 : \Omega \mapsto A_1, \dots, X_n: \mapsto A_n$ are \emph{mutually independent} iff for any sequence $\alpha_1 \subseteq A_1, \dots, \alpha_n \subseteq A_n$
   \[ p(X_1 \in A_1,\dots, X_n \in A_n) = \prod^n_{i=1}p(X_i \in A_i).\]
+\end{frame}
+
+\begin{frame}{Weak law of large numbers.}
+  \begin{block}{Theorem}
+    Let $X_1, \dots, X_n \dots$ be an infinite sequence of identically distributed (they all have the same distribution) and independent (variables in any finite subsequence $X_{i_1} \dots X_{i_k}$ mutually independent) real-valued random variable over a probability space $\langle \Omega, p \rangle$. For each $n \in \mathbb{N}$, define $M_n = \frac{1}{n}(X_1 + \dots + X_n)$.
+
+   \[\forall \epsilon > 0\, lim_{n \rightarrow + \infty} p(|M_n - \mathbb{E}(X_1)| > \epsilon ) = 0 .\]
+  \end{block}
+\end{frame}
+
+\begin{frame}\frametitle{Strong law of large numbers.}
+  A more powerful statement is also true:
+  \[ p(\{\omega \in \Omega \mid lim_{n \rightarrow \infty} M_n(\omega) \neq \mathbb{E}(X_1) \}) = 0 .\]
+\end{frame}
+
+\begin{frame}{Meaning.}
+  \begin{itemize}
+  \item $M_N: $ average outcome of random experiment $X$ over $n$ repeated trials.
+  \item For large $n$, this average will approach the mathematical expectation!
+  \item Justifies our abstract definition of an expectation.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{The frequentist interpretation.}
+  \begin{exampleblock}{A special case.}
+    \begin{itemize}
+    \item $Z_1, \dots, Z_n, \dots$ identically distributed and independent.
+    \item $\mathcal{Z}$ the common target space ($\forall i \in \mathbb{N}\,Z_i : \Omega \rightarrow \mathcal{Z}$).
+    \item For $z \in \mathcal{Z}$, consider random variables $X_i = 1_{Z_i = x}$:
+      \begin{itemize}
+      \item $X_i(\omega) = 1$ if $Z_i(\omega) = z$, $X_i(\Omega) = 0$ otherwise.
+      \end{itemize}
+    \item $E(X_1) = p(Z_1 = x)$.
+    \item $M_N = \frac{1}{n}(X_1 + \dots + X_n)$: frequency of outcome $z$ over repeated trials.
+    \item \textbf{Law of large numbers: frequency of occurence of $z$ goes toward $p(X_1 = z)$.}
+    \item \emph{frequentist interpretation} as a theorem.
+    \end{itemize}
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{However...}
+  \begin{itemize}
+  \item<2-> Some limitations in our definitions: $\Omega$ at most countable.
+  \item<3-> Does there actually exists an $\Omega$ with $X_1, \dots, X_n, \dots$ i.i.d.?
+  \item<4-> Unfortunately in general not a countable one...
+  \item<5-> But with a lot of care, definitions can be conservatively extended to continuous case (measure theory).
+  \end{itemize}  
 \end{frame}
 
 
