@@ -1,0 +1,23 @@
+\begin{tikzpicture}[]
+\draw[very thick, white] (1,0) -- (2,0) node[midway, above]{\phantom{$\bar 1$}};
+%\path [draw=black, fill=black] (1,0) circle (2pt);
+%\path [draw=black, fill=white, thick] (2,0.0) circle (2pt);
+  \draw[latex-latex] (-5,0) -- (5,0) ;
+  \foreach \x in  {-3,-2,-1,0,1,2,3}
+  \draw[shift={(\x,0)},color=black] (0pt,3pt) -- (0pt,-3pt);
+  \foreach \x in {-3,-2,-1,0,1,2,3}
+  \draw[shift={(\x,0)},color=black] (0pt,0pt) -- (0pt,-3pt) node[below] 
+       {$\x$};
+       
+\draw[shift={(3.141592,0)},color=black] (0pt,3pt) -- (0pt,-3pt);
+\draw[shift={(3.141592,0)},color=black] (0pt,0pt) -- (0pt,-3pt) node[below, xshift=3] 
+     {$\pi$};
+
+\draw[shift={(2.71828,0)},color=black] (0pt,3pt) -- (0pt,-3pt);
+\draw[shift={(2.71828,0)},color=black] (0pt,0pt) -- (0pt,-3pt) node[below] 
+     {$e$};
+
+     %\draw[shift={(1.414,0)},color=black] (0pt,3pt) -- (0pt,-3pt);
+     %\draw[shift={(1.414,0)},color=black] (0pt,0pt) -- (0pt,-3pt) node[below] 
+     %     {$\sqrt(2)$};
+\end{tikzpicture}
