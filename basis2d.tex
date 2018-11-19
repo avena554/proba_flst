@@ -1,0 +1,28 @@
+\begin{tikzpicture}[scale = 0.7]
+\draw[help lines, color=gray!30, dashed] (-2.9,-2.9) grid (2.9,2.9);
+\draw[->,ultra thick] (-3,0)--(3,0) node[right]{$x$};
+\draw[->,ultra thick] (0,-3)--(0,3) node[above]{$y$};
+
+\foreach \x in  {-2,-1,0,1,2}
+\draw[shift={(\x,0)},color=black] (0pt,3pt) -- (0pt,-3pt);
+\foreach \x in {-2,-1,0,1,2}
+\draw[shift={(\x,0)},color=black] (0pt,0pt) -- (0pt,-3pt) node[below] 
+     {$\x$};
+
+
+\foreach \y in  {-2,-1,1,2}
+\draw[shift={(0, \y)},color=black] (3pt,0pt) -- (-3pt,-0pt);
+\foreach \y in {-2,-1,1,2}
+\draw[shift={(0, \y)},color=black] (0pt,0pt) -- (-3pt,0pt) node[right] 
+     {$\y$};
+     
+     
+     \draw[blue, ->, ultra thick, dashed] (0,0) -- (0, 1);
+     \draw[blue, ->, ultra thick, dashed] (0,0) -- (1, 0);
+     \draw[red, ->, ultra thick] (0,0) -- (0.666666,0);
+     \draw[red, ->, ultra thick] (0,0) -- (0,2);
+     \draw[red, ->, thick, dashed] (0.66666666,0) -- (0.66666666,2);
+     \draw[red, ->, thick, dashed] (0,2) -- (0.666666666666,2);
+     \draw[darkgreen, ->, ultra thick] (0,0) -- (0.6666666666,2) node[above right]{$\frac{2}{3}\overline{(1,0)} + 2\overline{(0,1)}$};     
+     
+\end{tikzpicture}

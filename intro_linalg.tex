@@ -1,0 +1,316 @@
+
+\documentclass{beamer}
+
+%\usepackage{listings}
+%\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\usepackage{MyriadPro}
+\usepackage{cabin}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{positioning, backgrounds, shapes, chains, decorations.pathmorphing}
+
+\usepackage{amsmath,amsthm,amssymb}  
+\usepackage{stmaryrd}
+%\usepackage{mdsymbol}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{array}
+%\usepackage{csquotes}
+
+
+
+\usepackage[absolute,overlay]{textpos}
+%\usepackage[texcoord,
+%grid,gridcolor=red!10,subgridcolor=green!10,gridunit=pt]
+%{eso-pic}
+
+
+
+\useoutertheme{infolines}
+
+\newcommand{\hidden}[1]{}
+
+%colors
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\usebeamercolor{block title}
+\definecolor{beamerblue}{named}{fg}
+\usebeamercolor{alert block title}
+\definecolor{beamealert}{named}{fg}
+
+\renewcommand{\colon}{\!:\!}
+
+
+\newcommand\paraitem{%
+ \quad
+ \makebox[\labelwidth][r]{%
+ \makelabel{%
+ \usebeamertemplate{itemize \beameritemnestingprefix item}}}\hskip\labelsep}
+
+\newcommand{\mmid}{\mathbin{{\mid}{\mid}}}
+
+\begin{document}
+
+\title{Linear algebra -- introduction.} 
+\author{Antoine Venant}
+%\institute{UDS COLI}
+\date{\today}
+\maketitle
+
+\begin{frame}
+  \frametitle{Introduction.}
+  \begin{itemize}
+  \item \emph{Linear algebra} is a branch of mathematics.
+  \item Deals with specific kind of mathematical spaces and transformations thereof -- namely vector spaces and linear maps.
+  \item So... linear algebra deals with linear stuff. Hum.
+  \item In fact, ubiquitous in mathematics.
+  \item Today: informal presentation of the main concepts and intuitions.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{A first vector space.}
+  \begin{exampleblock}{The real line.}
+    A common way to display the set of real numbers is by mean of a continuous line:
+    \begin{center}
+      \begin{overprint}
+        \onslide<1>\input{real_line}
+        \onslide<2->\input{translate}
+      \end{overprint}
+    \end{center}
+    \begin{itemize}
+    \item<1-> Each number corresponds to a position on the line.
+    \item<2-> Associate each number with a \emph{vector}.
+    \item<3-> Vector $\overline x$ represents a translation of a point towards right or left of length $|x|$ along the line.
+    \item<4-> Right if $x$ positive, left if $x$ negative 
+    \item<5-> $\overline x(z)$: result of translating $z$ with $\overline x$. 
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Vector addition.}
+  \begin{exampleblock}{$\overline{3} = \overline{1 + 2}$}
+    \begin{center}
+      \input{vect_add}
+    \end{center}
+    
+    \begin{itemize}
+    \item Define $\overline x + \overline y = \overline{x + y}$.
+    \item \alert{adding vectors corresponds to composing translations!}
+    \item $\overline{x + y}(z) = \overline{x}(\overline{y}(z)) = \overline{y}(\overline{x}(z))$.
+    %\item \emph{Moving of $x$ steps to the right then $z$ steps to the right} vs. \emph{Moving from $x + z$ steps} to the right. 
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{outer law.}
+    \begin{center}
+      \input{vect_mult}
+    \end{center}
+    
+    \begin{itemize}
+    \item Define $\alpha\overline x = \overline{\alpha x }$.
+    \item $2\overline{x} = \overline 2x = \overline{x} + \overline{x}$
+    \item For any $x$, we have $\bar x = x \bar 1$
+    \item \alert{$\langle \overline 1 \rangle$ is a \emph{basis} of the vector space!}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{A $2D$ space.}
+  \begin{itemize}
+  \item Previous space has a one vector basis $\rightarrow$ dimension $1$.
+  \item What if instead of a single continuous line, we consider $2$ of them?
+  \end{itemize}
+
+  \begin{exampleblock}{The plan $\mathbb{R}^2$.}
+    \begin{center}
+      \input{r2}
+    \end{center}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{$2D$ vectors}
+  \begin{itemize}
+  \item Again, let's associate each point $(x,y)$ with a \emph{vector} $\overline {(x,y)}$.
+  \item The points $(0,0)$ and $(x,y)$ define a unique line.
+  \item And a unique orientation of that line.
+  \end{itemize}
+
+  \begin{center}
+    \input{vect_r2}
+  \end{center}
+
+\end{frame}
+
+\begin{frame}{$2D$ vectors.}
+  \begin{itemize}
+  \item Again, interpret vectors as \emph{translations}.
+  \item \emph{Translate} $(\alpha, \beta)$ along $v = \overline{(x, y)}$: 
+    \begin{itemize}
+    \item Move $\alpha$ along a line and orientation parallel to $(0,0) -- (x,y)$.
+    \item Move on a path of the same length separating $(x, y)$ from $(0,0)$.
+    \item equivalently: $\overline{(x,y)}(\alpha, \beta) = (\alpha + x, \beta + y)$
+    \end{itemize}
+  \end{itemize}
+  
+  \begin{center}
+    \input{translate2d}
+  \end{center}
+  
+\end{frame}
+
+\begin{frame}{Adding $2D$ vectors.}
+  \begin{itemize}
+  \item As in $1D$: $\overline{(x, y)} + \overline{(z, t)} = \overline{(x + y, z + t)}.$
+  \item As in $1D$ vector addition corresponds to composing translations.
+  \item $\overline{(x, y)} + \overline{(z, t)}(\alpha, \beta) = \overline{(x, y)}(\overline{(z, t)}(\alpha, \beta))$
+  \end{itemize}
+
+  \begin{center}
+    \input{add2d}
+  \end{center}
+ 
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Outer law with $2D$ vectors.}
+  \begin{itemize}
+  \item definition for $\alpha \overline{(x,y)}$?
+  \item As in $1D$: `stretch' the translation to a length of $\alpha$ times its previous length.
+  \item $\alpha \overline{(x,y)} = \overline{(\alpha x, \alpha y)}$.
+  \end{itemize}
+
+
+\begin{center}
+    \input{vect_mult2d}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Basis.}
+  \begin{itemize}
+  \item Any vector $\overline{(x,y)}$ can be uniquely written as:
+  \item $\overline{(x,y)} = x\overline{(1,0)} + y \overline{(0,1)}$.
+  \item \alert{$\langle (0,1), (1,0) \rangle$ is a basis\footnote{called the \emph{canonical} basis} of $\mathbb{R}^2$.}
+  \end{itemize}
+
+  \begin{center}
+    \input{basis2d}
+  \end{center}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Basis.}
+  \begin{itemize}
+  \item (Informally) basis: sequence of vectors $B = \langle e_1, e_2,\dots, e_n \rangle$ s.t. any vector $v$ has a unique decomposition $v = \alpha_1 e_1 + \dots +\alpha_n e_n$, with $\alpha_1, \dots, \alpha_n \in \mathbb{R}$.
+  \item A space with a basis of length $n$ has dimension $n$.
+  \item $\langle \alpha_1, \dots, \alpha_n \rangle$ is the representation of $v$ in $B$.
+  \item In general, there exists more than one basis.
+  \end{itemize}
+
+  \begin{exampleblock}{Example}
+    \begin{itemize}
+    \item $B^{(1)} = \langle\overline 1\rangle$ is a basis of $\mathbb{R}$. $\overline \pi =\pi \overline 1 $ has representation $\langle \pi \rangle$ in $B^{(1)}$.
+    \item $B^{(2)} = \langle \overline {(1,0)}, \overline{(0,1)} \rangle$ is a basis of $\mathbb{R}^2$. $(\frac{2}{3},2)$ has representation $\langle \frac{2}{3}, 2 \rangle$ in $B^{(2)}$.
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{Basis.}
+  \begin{itemize}
+  \item \alert{In general, there exists more than one basis!}
+  \end{itemize}
+
+  \begin{exampleblock}{Example}
+    \begin{itemize}
+    \item $\langle \overline 3 \rangle$ is a basis of $\mathcal{R}$. $\overline{\pi}$ has representation $\langle \pi/3 \rangle$ in this basis.
+    \item $B' = \langle \overline {(2,2)}, \overline{(-1,3)}  \rangle$ is a basis of $\mathbb{R}^2$. $\overline{(\frac{2}{3}, 2)}$ has representation $\langle \frac{1}{2}, \frac{1}{3} \rangle$ in $B'$.
+    \end{itemize}
+    \end{exampleblock}
+
+    \begin{center}
+      \input{otherbasis}      
+    \end{center}
+  
+  \end{frame}
+
+\begin{frame}{Exercise}
+  \begin{exampleblock}{$B' \langle \overline{(2,2)}, \overline{(-1, 3)} \rangle$}
+    \begin{itemize}
+    \item Exercise: which vector has representation $\langle u, v \rangle$ in $B'$?
+    %\item Exercise: what is the representation of the vector $\overline {(x,y)}$ in $B'$?
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{Linear equation system.}
+  There is a link between changing basis and systems of linear equations:
+  A vector $v = \overline{(x, y)}$ is such that:
+  \[
+  \left \{
+  \begin{array}{l}
+    \frac{3x + y}{8} = \frac{1}{2}\\
+    \frac{y - x}{4} = \frac{1}{3}\\
+  \end{array}
+  \right .
+  \]
+  iff $v = \langle \frac{1}{2}, \frac{1}{3} \rangle_{B'}$. Proof?
+\end{frame}
+
+\begin{frame}{Linear maps}
+ 
+  (Informally) a linear map is a map between vector spaces such that $f(\alpha u + \beta v) = \alpha f(u) + \beta f(v)$.
+  
+
+  \begin{block}{Linear equations and linear map.}
+    \begin{itemize}
+    \item Exercise: $f( \overline{(x, y)} ) = \overline{(\frac{3x + y}{8}, \frac{y - x}{4} )}$ is a linear map.
+    \item {\bf{$f$ is such that $f(\langle u, v \rangle_{B'}) = \langle u, v \rangle_{B^{(2)}} = \overline{(u, v)}$}}
+    \item $f$ 'reinterprets' representations from $B'$ in $B^{(2)}$.
+    \item So $f(u) = \overline{(a, b)}$ iff $u = \langle a, b \rangle_{B'}$ iff $u = \overline{(2a - b, 2a + 3b)}$.
+    \item Considering the `right' basis $B'$ makes computation very easy! We will see how and when we can find it.
+    \end{itemize} 
+  \end{block}
+  
+\end{frame}
+
+\begin{frame}{Geometric interpretation.}
+  Whiteboard.
+\end{frame}
+
+\begin{frame}{Vector space (over $\mathbb{R}$).}
+  As necessary ingredients we have:
+  \begin{itemize}
+  \item Vectors.
+  \item Addition of vectors (\emph{inner law}).
+  \item Multiplication of vectors by a scalar (\emph{outer law}).
+  \item And some specific structure.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Vector space (over $\mathbb{R}$)}
+  Formally:
+  
+  \begin{block}{Definition}
+    $\langle V, {+}, \circ \rangle$ is a \emph{vector space} (over $\mathbb{R}$) iff all of the following holds:
+    \begin{itemize}
+    \item ${+}: V \times V \mapsto V$ and $\langle V, {+} \rangle$ is a commutative group (we let $0$ denote its neutral element).
+    \item ${\circ}: \mathbb{R} \times V \mapsto V$.
+    \item $\circ(\alpha \beta, u) = \circ(\alpha, \circ(\beta, u))$. (Mixed associativity)
+    \item $\circ(1, u) = u$. (Left neutrality)
+    \item $\circ(\alpha + \beta, u) = \circ(\alpha, u) + \circ(\beta, u)$. (Right distributivity)
+    \item $\circ(\alpha, u+v) = \circ(\alpha, u) + \circ(\beta, v)$. ([Left distributivity)
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+
+\end{document}

@@ -1,0 +1,251 @@
+
+\documentclass{beamer}
+
+%\usepackage{listings}
+%\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\usepackage{MyriadPro}
+\usepackage{cabin}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{positioning, backgrounds, shapes, chains, decorations.pathmorphing}
+\usepackage{amsmath,amsthm,amssymb}  
+\usepackage{stmaryrd}
+%\usepackage{mdsymbol}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{array}
+%\usepackage{csquotes}
+
+
+
+\usepackage[absolute,overlay]{textpos}
+%\usepackage[texcoord,
+%grid,gridcolor=red!10,subgridcolor=green!10,gridunit=pt]
+%{eso-pic}
+
+
+
+\useoutertheme{infolines}
+
+\newcommand{\hidden}[1]{}
+
+%colors
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\usebeamercolor{block title}
+\definecolor{beamerblue}{named}{fg}
+\usebeamercolor{alert block title}
+\definecolor{beamealert}{named}{fg}
+
+\renewcommand{\colon}{\!:\!}
+
+
+\newcommand\paraitem{%
+ \quad
+ \makebox[\labelwidth][r]{%
+ \makelabel{%
+ \usebeamertemplate{itemize \beameritemnestingprefix item}}}\hskip\labelsep}
+
+\newcommand{\mmid}{\mathbin{{\mid}{\mid}}}
+
+\begin{document}
+
+\title{Real-valued Random Variables.} 
+\author{Antoine Venant}
+%\institute{UDS COLI}
+\date{\today}
+\maketitle
+
+\begin{frame}
+  \frametitle{Motivation.}
+
+  \begin{exampleblock}{Choosing a sample space.}
+    Probability of getting $6$ after throwing one fair die: which sample space/event do we use?
+    \begin{itemize}
+    \item $\Omega_c = \{1,2,3,4,5,6\}$, $e = \{6\}$.
+    \item $\Omega_l = \{a,b,c,d,e,f\}$, $e = \{f\}$.
+    \item $\Omega = \{\langle 1,1 \rangle, \langle 1,2 \rangle \dots \langle 1,6 \rangle, \langle 2,1 \rangle \dots \langle 6,6 \rangle\}$, $e = \{\langle 6,1 \rangle, \langle 6,2 \rangle, \langle 6,3 \rangle, \langle 6,4 \rangle, \langle 6,5 \rangle, \langle 6,6 \rangle \}$.
+    \item Same $\Omega$ but $e = \{\langle 1,6 \rangle, \langle 2,6 \rangle, \langle 3,6 \rangle, \langle 4,6 \rangle, \langle 5,6 \rangle,\langle 6,6 \rangle\}$.
+    \end{itemize}
+    Under equiprobability: $p(e) = \frac{1}{6}$ regardless of the choice.
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{Abstracting away from specific spaces.}
+  \begin{itemize}
+  \item Formally capture the properties that we need and that different spaces might exhibit.
+  \item Proove more general statements.
+  \item From \emph{In this specific space it holds that...} $\rightarrow$ to \emph{In any space \emph{having the right property} it holds that...}.
+  \item Two concepts: \emph{Random Variable} and \emph{Probability distribution}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Random Variable.}
+  \begin{block}{Definition}
+    Let $\langle \Omega, p \rangle$ be a probability space. A random variable $X: \Omega \mapsto \chi$ is a function from $\Omega$ into some set $\chi$. 
+  \end{block}
+\end{frame}
+
+
+\begin{frame}{Examples}
+  \begin{exampleblock}{Random Variables over two dice.}
+    \[\Omega = \{\langle 1,1 \rangle, \langle 1,2 \rangle \dots \langle 1,6 \rangle, \langle 2,1 \rangle \dots \langle 6,6 \rangle\}\]
+    \begin{itemize}
+    \item $X_1: \Omega \mapsto \mathbb{R}$, $X_2(\langle x,y\rangle) = x$ (first die outcome).
+    \item $X_2: \Omega \mapsto \mathbb{R}$, $X_2(\langle x,y \rangle) = y$ (second die outcome).
+    \item $X_3: \Omega \mapsto \mathbb{R}$, $X_3(\langle x,y \rangle) = x + y = X_1(\langle x,y\rangle) + X_2(\langle x,y \rangle)$ (sum of the two dice).
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Remark}
+    Recall that (in this course)  $\Omega$ is at most countable. Then so is $X(\Omega) \subseteq \chi$, even when $\chi$ itself is not. \emph{e.g.,} $X_1(\Omega) = \{1,2,3,4,5,6\}$.
+  \end{block}
+  
+\end{frame}
+
+\begin{frame}{Distribution of a random variable.}
+  \begin{block}{Definition.}
+    Let $\langle \Omega, p \rangle$ be a probability space. And $X: \Omega \mapsto \chi$ be a random variable. The \emph{distribution} of $X$ is the probability measure $p_X$ over $\Lambda = X(\Omega)$ defined as:
+    \[\forall \lambda \subseteq \Lambda,  p_X(\lambda) = p(X^{-1}(\lambda)) = p(\{\omega \in \Omega \mid X(\omega) \in \lambda\})\]
+  \end{block}
+
+  \begin{block}{Remark.}
+    \begin{itemize}
+    \item    If $\lambda = \{x_1, \dots, x_, \dots \}$, and $e_1 = f^{-1}(x_1), \dots, e_n = f^{-1}(x_n)$ then
+      \[p_X(\lambda) = p(e_1 \cup \dots \cup e_n \cup \dots).\]
+    \item $p(X \in \lambda)$ is syntactic sugar for  $p_X(\lambda)$.
+    \item $p(X = x)$ is syntactic sugar for $p(X \in \{x\})$
+    \end{itemize}
+  \end{block} 
+\end{frame}
+
+\begin{frame}{Examples}
+  \begin{exampleblock}{Random Variables over two dice.}
+    \[\Omega = \{\langle 1,1 \rangle, \langle 1,2 \rangle \dots \langle 1,6 \rangle, \langle 2,1 \rangle \dots \langle 6,6 \rangle\}\]
+    \begin{itemize}
+    \item $X_1: \Omega \mapsto \mathbb{R}$, $X_2(\langle x,y \rangle) = x$ (first die outcome).
+    \item $X_2: \Omega \mapsto \mathbb{R}$, $X_2(\langle x,y \rangle) = y$ (second die outcome).
+    \item $X_3: \Omega \mapsto \mathbb{R}$, $X_3 = X_1 + X_2$ (sum of the two dice).
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{itemize}
+  \item $X_1$ and $X_2$ have same law: $p(X_1 = 1) = p(X_2 = 1) = \frac{1}{6}$.
+  \item $p(X_3 = k) = \sum^{k}_{i=1} p(X_1 = i)p(X_2 = k - i)$. 
+  \end{itemize}  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Some important distributions.}
+
+  \begin{exampleblock}{Uniform distribution.}
+    Measure over finite set $\{x_1, \dots, x_n\}$ corresponding to the law of a random variable $X$ s.t. $p(X = x_i) = \frac{1}{n}$. \emph{e.g.}, a fair $6-sided$ die is represented by the uniform distribution over \{1,2,3,4,5,6\}.
+  \end{exampleblock}
+
+  \begin{exampleblock}{Berouilli distribution of parameter $p_0$.}
+    Throwing a biased coin, associating $1$ to tail and $0$ to head: law of a r.v. into $\{0, 1\}$ such that $p(X = 0) = p_0, p(X = 1) = p_1 = 1 - p(0)$.
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Some important distributions.}
+  \begin{exampleblock}{Hypergeometric distribution.}
+    Box containing $N$ balls. $m$ are red. One draws $n$ balls without replacement. $X = k$: $k$ red balls drawn.
+    \[
+    p(X = k) = \frac{C^k_mC^{n-k}_{N-m}}{C^n_N}
+    \]
+  
+  \end{exampleblock}
+
+  \begin{exampleblock}{Binomial distribution.}
+    Same experiment, but with replacement between draws.
+    \[
+    p(X = k) = C^k_nq^{k}(1 - q)^{n-k}.
+    \]
+    Where $q = \frac{m}{n}$.
+  \end{exampleblock}
+  
+\end{frame}
+
+
+\begin{frame}{Some important distributions.}
+  \begin{exampleblock}{Geometric distribution.}
+    One repeat bernouilli trials until one gets $0$. $X = $ number of repeated trials. For $k \in \mathbb{N}^*$
+    \[p(X = k) = (1 - p_0)^{k-1}p_0\]
+    
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{Expectation.}
+  We now consider only real valued random variables (\emph{i.e.} applications $X: \Omega \mapsto \mathbb{R}$).
+
+  \begin{itemize}
+  \item We're assigning numbers to random outcomes.
+  \item Mean we can think about things like `average' outcome.
+  \item \emph{e.g.} if we throw a die multiple time and average the results, we get $3.5$.
+  \item $3$ is the \emph{expectation} of a random variable with uniform distribution over $\{1,2,3,4,5,6\}$.
+  \item We will define a mathematical quantity and (next time) show that it fits this intuition.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Expectation}
+  \begin{block}{Definition}
+    Let $\langle \Omega, p \rangle$ be a probability space. Let $X \Omega \mapsto \mathbb{R}$ be a real-valued random variable, and let $\Lambda = X(\Omega) = \{x_1, \dots x_n, \dots\}$. The expectation of $X$ is defined if and only if:
+    \[\sum^{\infty}_{i=1} p(X = x_i) \times |x_i| < \infty.\]
+    When this condition is fulfilled, it is defined as:
+    \[\mathbb{E}(X) = \sum^{\infty}_{i=1} p(X = x_i) \times x_i.\]
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example}
+  \begin{exampleblock}{Uniform distribution.}
+    \begin{itemize}
+    \item $X$ has a uniform distribution over $\{1, \dots, n\}$.
+    \item $X$ has an expectation (finite sum $< \infty$)
+    \item $\mathbb{E}(X) = \sum^n_{i=1} \frac{1}{n} \times i = \frac{1}{n} \times \sum^n_{i = 1} i = \frac{n+1}{2}$.     
+    \item For the $6$-sided fair die: $\frac{6+1}{2} = 3.5$.
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Important properties:}
+  \begin{block}{Linearity.}
+    If $X$ and $Y$ have an expectation and it is not the case that $\{\mathbb{E}(X), \mathbb{E}(Y)\} = \{\infty, {-}\infty\}$,
+    \[ \mathbb{E}(X + Y) = \mathbb{E}(X) + \mathbb{E}(Y). \]
+    For any $a \in \mathbb{R}$
+    \[\mathbb{E}(aX) = a\mathbb{E}(X).\]
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Important properties.}
+  \begin{itemize}
+  \item $p(X \in \lambda) = \mathbb{E}(1_{\lambda})$.
+  \item $X$ and $Y$ have the same law iff for any function $f: \mathbb{R} \rightarrow \mathbb{R}$, $\mathbb{E}(f \circ X) = \mathbb{E}(f \circ Y)$.
+  \end{itemize}
+
+  \begin{block}{Markov Inequality}
+      For $X: \Omega \mapsto \mathbb{R}^{+}$ a {\bf positive} random variable, and $a \in \mathbb{R}^{+}$ {\bf positive} scalar,
+      \[P(X \ge a) \le \frac{1}{a}\mathbb{E}(X).\]
+  \end{block}
+  
+\end{frame}
+
+\begin{frame}{Example}
+  \begin{exampleblock}{Random Variables over two dice.}
+    \[\Omega = \{\langle 1,1 \rangle, \langle 1,2 \rangle \dots \langle 1,6 \rangle, \langle 2,1 \rangle \dots \langle 6,6 \rangle\}\]
+    \begin{itemize}
+    \item $X_3: \Omega \mapsto \mathbb{R}$, $X_3 = X_1 + X_2$ (sum of the two dice).
+    \item We can compute $\mathbb{E}(X_3)$ in two different ways. Both yield $7$.
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+
+\end{document}
