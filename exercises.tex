@@ -1,0 +1,194 @@
+
+\documentclass{beamer}
+
+%\usepackage{listings}
+%\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\usepackage{MyriadPro}
+\usepackage{cabin}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{positioning, backgrounds, shapes, chains, decorations.pathmorphing}
+
+\usepackage{amsmath,amsthm,amssymb}  
+\usepackage{stmaryrd}
+%\usepackage{mdsymbol}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{array}
+%\usepackage{csquotes}
+
+
+
+\usepackage[absolute,overlay]{textpos}
+%\usepackage[texcoord,
+%grid,gridcolor=red!10,subgridcolor=green!10,gridunit=pt]
+%{eso-pic}
+
+
+
+\useoutertheme{infolines}
+
+\newcommand{\hidden}[1]{}
+
+%colors
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\usebeamercolor{block title}
+\definecolor{beamerblue}{named}{fg}
+\usebeamercolor{alert block title}
+\definecolor{beamealert}{named}{fg}
+
+\renewcommand{\colon}{\!:\!}
+
+
+\newcommand\paraitem{%
+ \quad
+ \makebox[\labelwidth][r]{%
+ \makelabel{%
+ \usebeamertemplate{itemize \beameritemnestingprefix item}}}\hskip\labelsep}
+
+\newcommand{\mmid}{\mathbin{{\mid}{\mid}}}
+
+\begin{document}
+
+\title{Exercises} 
+\author{Antoine Venant}
+%\institute{UDS COLI}
+\date{\today}
+\maketitle
+
+\begin{frame}{Canonical Basis.}
+  Show that the canonical basis of $\mathbb{R}^n$ is indeed a basis.
+  
+  \begin{exampleblock}{Reminder:}
+    The canonical basis of $\mathbb{R}^n$ is $\mathcal{E}^n = \langle e^{(1)} \dots e^{(n)}\rangle$ with \[e^{(i)} = \langle \overbrace{0,\dots,0}^{(i-1) \textnormal{ times}}, 1, \overbrace{0,\dots,0}^{(n-i) \textnormal{ times}} \rangle\].
+  \end{exampleblock}
+ 
+\end{frame}
+
+\begin{frame}{Direct sum.}
+  \begin{block}{Definition.}
+    Let $V$ be a vector space. If $W_1, W_2$ are vector subspaces such that $W_1 + W_2 = V$ and $W_1 \cap W_2 = \{0\}$, one says that $W_1$ and $W_2$ are in \emph{direct} sum and write \[V = W_1 \bigoplus W_2\]
+  \end{block}
+
+  Prove the following proposition:
+  \begin{block}{Proposition}
+    If $V = W_1 \bigoplus W_2$ then for any $v \in V$ there exists a \emph{unique} pair $w_1 \in W_1, w_2 \in W_2$ such that $v = w_1 + w_2$.
+  \end{block}
+\end{frame}
+
+
+
+\begin{frame}{Exercise}
+  One considers the vector space $\langle \mathbb{R}^{\mathbb{R}}, {+}, {\cdot}\rangle$ of real-valued functions of one real variable, where:
+  \begin{itemize}
+  \item $f+g$ is the function associating any $x \in \mathbb{R}$ with $[f+g](x) = f(x) + g(x)$.
+  \item $\alpha \cdot f$ is the function associating any $x \in \mathbb{R}$ with $[\alpha \cdot f ](x) = \alpha \times f(x)$.
+  \end{itemize}
+
+  \begin{enumerate}
+  \item Prove the above defined space is a vector space. In particular, what is the $0$ of this space?
+  \end{enumerate}
+  
+  A function is \emph{even} iff for any $x \in \mathcal{R}$, $f(x) = f(-x)$. A function is \emph{odd} iff for any $x \in \mathcal{R}$, $f(x) = -f(-x)$. Let $E$ and $O$ respectively denote the sets of even and odd functions.
+  \begin{enumerate}
+  \item[3] Show that $E$ and $O$ are vector subspaces of $\mathcal{R}^{\mathcal{R}}$.
+  \item[4] Show that $\mathbb{R}^{\mathbb{R}} = E \bigoplus O$.
+  \item[6] Conclude that any function is {\textbf{uniquely}} decomposed as the sum of an even function and an odd function.
+  \end{enumerate}  
+\end{frame}
+
+\begin{frame}{Exercise}
+  \begin{enumerate}
+  \item Let $cos^2$ and $sin^2$ respectively denote the functions $x \mapsto cos(x)^2$ and $x \mapsto sin(x)^2$. Consider the set $W = \{\lambda \cos^2 + \mu sin^2 \mid \lambda, \mu \in \mathbb{R} \}$. Appeal to a result of the lecture to briefly justify that $W$ is a vector (sub)space.
+  \item Show that $W$ has dimension $2$.
+  \item Justify whether or not the following functions are in $W$:
+    \begin{itemize}
+    \item $x \mapsto 1$
+    \item $x \mapsto 1+x^2$
+    \item $x \mapsto cos(2x)$
+    \end{itemize}
+  \end{enumerate}
+\end{frame}
+
+
+\begin{frame}{Completion lemma}
+  Let $V$ be a vector space and let $\mathcal{V} = \langle v_1, \dots, v_k \rangle$ be a linearly independant sequence of vectors of $V$.
+  \begin{enumerate}
+  \item Show that for any $w \notin \mathcal{L}(\mathcal{V})$, $\langle v_1, \dots, v_k, w \rangle$ is linearly independent.
+  \end{enumerate}
+  Let $ \mathcal{W} = \langle w_1, \dots, w_l \rangle$ be a sequence of vectors of $V$ such that $\langle v_1, \dots, v_k, w_1, \dots, w_l \rangle$ is a generator of  $W$.
+  \begin{enumerate}
+    \setcounter{enumi}{2}
+  \item Show that if $\mathcal{V}$ is not a basis of $\mathbb{R}$ then there exists $i \in [| 1, l |]$ such that $w_i \notin \mathcal{L}(\mathcal{V})$.
+  \item Prove the completion theorem (see below for a reminder).
+  \end{enumerate}
+
+  \begin{exampleblock}{Completion theorem.}
+      If $\langle v_1, \dots, v_k \rangle$ is linearly independent and $\langle w_1, \dots, w_l \rangle$ is a sequence of vectors such that $\langle v_1, \dots, v_k, w_1, \dots, w_l \rangle$ is a generator of $V$, then there exists indices $i_1, \dots, i_m$ ($m \le l$) such that $\langle v_1, \dots, v_n, w_{i_1}, \dots, w_{i_m} \rangle$ is a basis of $V$.
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{Property of finite dimensional spaces.}
+  \begin{exampleblock}{Vocabulary}
+    We call a vector space \emph{finite dimensional} if it admits a finite\footnote{our definitions actually consider only finite basis, but can be extended to the infinite case.}.
+  \end{exampleblock}
+
+  Prove the following properties for $V$ a finite dimensional space of dimension $n$:
+  \begin{block}{Propositions}
+    \begin{itemize}
+    \item If $\langle v_1, \dots, v_k \rangle$ is linearly independent then $k \le n$.
+    \item If $\langle v_1, \dots, v_k \rangle$ is a generator of $V$ then $k \ge n$.
+    \item If $\langle v_1, \dots, v_n \rangle$ is linearly independent then it is a basis.
+    \item If $\langle v_1, \dots, v_n \rangle$ is a generator of $V$ then it is a basis.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Exchange lemma.}
+  Prove the exchange lemma (reminder below).
+  
+  \begin{block}{Lemma}
+    If $\langle v_1, \dots, v_n \rangle$ and $\langle w_1, \dots, w_m \rangle$ are two basis of $V$, then for any $i \in [|1, n|]$ there exist $j \in [|1, m|]$ such that
+    \[\langle v_{1}, \dots, v_{i-1}, w_j, v_{i+1}, \dots v_n \rangle \textnormal{ is a basis of } V.\]
+  \end{block}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Exercise}
+  Show that the following system of linear equation as a unique solution:
+  \[
+  \begin{array}{l}
+    x + y + z = 0\\
+    x - z = 0 \\
+    y - 2z = 0\\
+  \end{array}
+  \]
+
+  Show that $\mathcal{B} = \langle (1/4, 1/4, 0), (1/4,0,1/4), (1/4, -1/4, -1/2) \rangle$ is a basis of $\mathbb{R}^3$.
+ 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Exercise}
+  \begin{itemize}
+  \item What is the representation of $(1,1,1)$ with respect to the basis $\mathcal{B} = \langle (1/4, 1/4, 0), (1/4,0,1/4), (1/4, -1/4, -1/2) \rangle$ is a basis of $\mathbb{R}^3$?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Excercise}
+  Consider the following differential equation, where $a, b \in \mathbb{R}^*$ are functions:
+  \[ af'(x) + bf(x) = 0.\]
+  Show that the set of solutions to this equation is a vector space of dimension $1$.
+\end{frame}
+
+
+
+
+\end{document}

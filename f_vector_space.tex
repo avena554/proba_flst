@@ -92,7 +92,7 @@
   \item $S$ is some set and $\bowtie: S \times S \mapsto S$ (we'll use both infix and prefix notations: $x \bowtie y = \bowtie(x, y)$).
   \item $x \bowtie y = y \bowtie x$ (commmutativity).
   \item $x \bowtie (y \bowtie z) = (x \bowtie y) \bowtie z$ (associativity).
-  \item $0 \in S$ s.t. $x \bowtie 0 = 0$ (neutral element).
+  \item $0 \in S$ s.t. $x \bowtie 0 = x$ (neutral element).
   \item There exists $-x$ s.t. $x + (-x) = 0$ (opposite element).
   \end{itemize}
 
@@ -103,9 +103,9 @@
 
 \begin{frame}{Some properties (and exercises).}
   \begin{itemize}
-  \item $0 + x = 0$.
-  \item $x + z = x \rightarrow z = 0$. (Consequence: the neutral element is unique.)
-  \item if $x + y = 0$ and $x + z = 0$ then $y = z$ (unique $-x$)
+  \item $0 \bowtie x = 0$.
+  \item $x \bowtie z = x \rightarrow z = 0$. (Consequence: the neutral element is unique.)
+  \item if $x \bowtie y = 0$ and $x \bowtie z = 0$ then $y = z$ (unique $-x$)
   \item $-0 = 0$
   \end{itemize}
 \end{frame}
@@ -122,7 +122,7 @@
     \item $(\alpha \beta) \circ u = \alpha \circ (\beta \circ u))$. (Mixed associativity)
     \item $1 \circ u = u$. (Left neutrality)
     \item $(\alpha + \beta) \circ u = (\alpha \circ u) \mathbin{\textbf{+}} (\beta \circ u)$. (Right distributivity)
-    \item $\alpha \circ (u\mathbin{\textbf{+}}v) = (\alpha \circ u) \mathbin{\textbf{+}} (\beta \circ v)$. (Left distributivity)
+    \item $\alpha \circ (u\mathbin{\textbf{+}}v) = (\alpha \circ u) \mathbin{\textbf{+}} (\alpha \circ v)$. (Left distributivity)
     \end{itemize}
   \end{block}
 \end{frame}
@@ -253,7 +253,7 @@
 
 \begin{frame}{Basis.}
   \begin{block}{Definition}
-    A sequence of vectors $\langle v_1, \dots, v_n$ who is both linear independent and a generator is called a \emph{Basis} of $V$.
+    A sequence of vectors $\langle v_1, \dots, v_n \rangle$ who is both linear independent and a generator is called a \emph{Basis} of $V$.
   \end{block}
 
   \begin{block}{Proposition}
@@ -280,7 +280,7 @@
 
 \begin{frame}{Completion theorem.}
   \begin{block}{Theorem}
-    If $\langle v_1, \dots, v_k \rangle$ is linearly independent and $\langle w_1, \dots, w_l \rangle$ is a sequence of vectors such that $\langle v_1, \dots, v_k, w_1, \dots, w_l \rangle$ is a generator of $V$, then there exists indices $i_1, \dots, i_m$ ($m \le l$) such that $\langle v_1, \dots, v_n, w_{i_1}, \dots, w_{i_k} \rangle$ is a basis of $V$.
+    If $\langle v_1, \dots, v_k \rangle$ is linearly independent and $\langle w_1, \dots, w_l \rangle$ is a sequence of vectors such that $\langle v_1, \dots, v_k, w_1, \dots, w_l \rangle$ is a generator of $V$, then there exists indices $i_1, \dots, i_m$ ($m \le l$) such that $\langle v_1, \dots, v_n, w_{i_1}, \dots, w_{i_m} \rangle$ is a basis of $V$.
   \end{block}
 \end{frame}
 
@@ -288,7 +288,7 @@
 
   \begin{block}{Lemma}
   If $\langle v_1, \dots, v_n \rangle$ and $\langle w_1, \dots, w_m \rangle$ are two basis of $V$, then for any $i \in [|1, n|]$ there exist $j \in [|1, m|]$ such that
-  \[v_{1}, \dots, v_{i-1}, w_j, v_{i+1}, \dots v_n \rangle \textnormal{ is a basis of } V.\]
+  \[\langle v_{1}, \dots, v_{i-1}, w_j, v_{i+1}, \dots v_n \rangle \textnormal{ is a basis of } V.\]
   \end{block}
 
   \begin{block}{Corollary}
