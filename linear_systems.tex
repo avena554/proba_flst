@@ -1,0 +1,327 @@
+
+\documentclass{beamer}
+
+%\usepackage{listings}
+%\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\usepackage{MyriadPro}
+\usepackage{cabin}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{positioning, backgrounds, shapes, chains, decorations.pathmorphing}
+
+\usepackage{amsmath,amsthm,amssymb}  
+\usepackage{stmaryrd}
+%\usepackage{mdsymbol}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{array}
+%\usepackage{csquotes}
+
+
+
+\usepackage[absolute,overlay]{textpos}
+%\usepackage[texcoord,
+%grid,gridcolor=red!10,subgridcolor=green!10,gridunit=pt]
+%{eso-pic}
+
+
+
+\useoutertheme{infolines}
+
+\newcommand{\hidden}[1]{}
+
+%colors
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\usebeamercolor{block title}
+\definecolor{beamerblue}{named}{fg}
+\usebeamercolor{alert block title}
+\definecolor{beamealert}{named}{fg}
+
+\renewcommand{\colon}{\!:\!}
+
+
+\newcommand\paraitem{%
+ \quad
+ \makebox[\labelwidth][r]{%
+ \makelabel{%
+ \usebeamertemplate{itemize \beameritemnestingprefix item}}}\hskip\labelsep}
+
+\newcommand{\mmid}{\mathbin{{\mid}{\mid}}}
+
+\begin{document}
+
+\title{Linear Systems} 
+\author{Antoine Venant}
+%\institute{UDS COLI}
+\date{\today}
+\maketitle
+
+\begin{frame}
+  \frametitle{Cheking linear independence.}
+  Let $V$ be an $n$-dimensional vector and $\mathcal{B}$ a basis of $V$. Let $\mathcal{F} = \langle v_1, \dots, v_m \rangle$ $m$ vectors from $V$ with $v_i = \langle \alpha^i_1, \dots, \alpha^i_n \rangle_{\mathcal{B}}$.
+  \begin{block}{Proposition}
+    Proving linear independence of a sequence of vectors amounts to showing that the following system as only $x_1 = \dots = x_n = 0$ as a solution:
+    \[ \begin{array}{ccccccccc}
+      a^1_1 & x_1 & + & \dots & + & a^m_1 & x_m & = & 0 \\
+      a^1_2 & x_1 & + & \dots & + & a^m_2 & x_m & = & 0\\
+      \vdots&     &   &      &  &\vdots&     &   & \vdots\\
+      a^1_n & x_1 & + & \dots & + &  a^m_n & x_m & = & 0\\
+    \end{array}
+    \]
+    
+  \end{block}
+\end{frame}
+
+\begin{frame}{Change of basis}
+  Let $V$ be an $n$-dimensional vector and $\mathcal{B}$ a basis of $V$. Let $\mathcal{B}' = \langle v_1, \dots, v_n \rangle$ a second basis of $V$, with $v_i = \langle \alpha^i_1, \dots, \alpha^i_n \rangle_{\mathcal{B}}$.
+
+  \begin{block}{Proposition}
+  Finding the representation of a vector $v = \langle b_1, \dots, b_n \rangle_{\mathcal{B}}$ w.r.t. $\mathcal{B}'$ amounts to solving the system:
+  \[
+  \begin{array}{ccccccccc}
+    a^1_1 & x_1 & + & \dots & + & a^n_1 & x_n & = & b_1 \\
+    a^1_2 & x_1 & + & \dots & + & a^n_2 & x_n & = & b_2\\
+    \vdots&     &   &      &  &\vdots&     &   & \vdots\\
+    a^1_n & x_1 & + & \dots & + &  a^n_n & x_n & = & b_n\\
+  \end{array}
+  \]
+
+  One has $v = \langle x_1, \dots, x_n \rangle_{\mathcal{B}'}$ where $\langle x_1, \dots, x_n \rangle$ is the (unique) solution of the above system.
+  \end{block}
+  
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Homogeneous systems of equations.}
+  \begin{block}{Definition}
+    A system of equations of the form:
+    \[ \begin{array}{ccccccccc}
+      a^1_1 & x_1 & + & \dots & + & a^m_1 & x_m & = & 0 \\
+      a^1_2 & x_1 & + & \dots & + & a^m_2 & x_m & = & 0\\
+      \vdots&     &   &      &  &\vdots&     &   & \vdots\\
+      a^1_n & x_1 & + & \dots & + &  a^m_n & x_m & = & 0\\
+    \end{array}
+    \]
+    is called a \emph{homogeneous} system of linear equations.
+  \end{block}
+  \begin{block}{Properties}
+    The set of all $\langle x_1, \dots, x_m \rangle$ solutions of such a system of equations form a vector subspace of $\mathbb{R}^m$. It's dimension is less than $min(m,n)$.
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Associated homogeneous system.}
+  \begin{block}{Definition}
+    To a system of linear equations:
+    \[ \begin{array}{ccccccccc}
+      a^1_1 & x_1 & + & \dots & + & a^m_1 & x_m & = & b_1 \\
+      a^1_2 & x_1 & + & \dots & + & a^m_2 & x_m & = & b_2\\
+      \vdots&     &   &      &  &\vdots&     &   & \vdots\\
+      a^1_n & x_1 & + & \dots & + &  a^m_n & x_m & = & b_n\\
+    \end{array}
+    \]
+    we associate the corresponding homogeneous system:
+    \[ \begin{array}{ccccccccc}
+      a^1_1 & x_1 & + & \dots & + & a^m_1 & x_m & = & 0 \\
+      a^1_2 & x_1 & + & \dots & + & a^m_2 & x_m & = & 0\\
+      \vdots&     &   &      &  &\vdots&     &   & \vdots\\
+      a^1_n & x_1 & + & \dots & + &  a^m_n & x_m & = & 0\\
+    \end{array}
+    \]
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Possible solutions sets.}
+
+  We will generally use $S$ to denote the set of solutions of the original system and $S_h$ to denote the set of solutions of the associated homogeneous system. $S \subseteq \mathbb{R}^m, S_h \subseteq \mathbb{R}^m$.
+  
+  \begin{block}{Proposition}
+    For any $\overline{s} \in S$, $S = \overline{s} + S_h =  \{ \overline s + \overline x \mid \overline x \in \mathcal{S}_{h}  \}$.
+  \end{block}
+
+  \begin{block}{Corollary}
+    $S$ is either empty, has a unique element, or is infinite.
+  \end{block}
+  
+\end{frame}
+
+\begin{frame}{Echelon form}
+  Let $i$ be a row index in the system of equation, let $fst(i)$ be the minimal (column) index $j$ such that $a^j_i \neq 0$. {\color{blue} If $fst(i) < +\infty$ we say that line $i$ has a pivot, and that $a^{fst(i)}_i$ is the \emph{pivot} of line $i$.}
+  \begin{block}{Definition:}
+    A system is in row echelon form if for any row index $1 \le i \le m-1$, $fst(i+1) > fst(i)$. This means the system has this kind of shape:
+
+    \[ \begin{array}{ccccccccccccccc}
+      {\color{red} a^1_1} & x_1 & + & a^2_1       & x_2 & + & a^3_1       & x_3 & + & a^4_1       & x_4 & + & \dots & = & b_1 \\
+      0     &     & + & 0          &      & + & {\color{red}a^3_{2}} & x_3 & + & a^4_2       & x_4 & + & \dots & = & b_2\\
+      0     &     & + & 0          &      & + & 0           &     & + & {\color{red}a^4_{3}} & x_4 & + & \dots & = & b_3\\
+      \vdots&     &   & \vdots     &     &   & \vdots      &     &   & \vdots     &     &   &       &   & \vdots\\
+      0     &     & + & 0          &     & + & 0           &     & + & 0          &     & + & \dots & = & b_n\\
+    \end{array}
+    \]
+    
+    
+  \end{block}
+\end{frame}
+
+\begin{frame}{Examples}
+  \begin{exampleblock}{System in echelon form}
+    \[\begin{array}{ccccccc}
+    x & + & y & + & z  & = & 4\\
+    0 & + & y & + & 2z & = & 0\\
+    0 & + & 0 & + & z  & = & -1\\    
+    \end{array}\]
+  \end{exampleblock}
+
+  \begin{exampleblock}{System {\bf not} in echelon form}
+    \[\begin{array}{ccccccc}
+    x & + & y & + & z  & = & 4\\
+    x & + & 0 & - & z & = & 4\\
+    0 & + & y & - & 2z& = & 4\\    
+    \end{array}\]
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{Reduced Echelon form}
+  
+  
+  \begin{block}{Definition:}
+    A system is in \emph{reduced} row echelon form if it is in row echelon form, every pivot is $1$, and if there is a pivot on a column every thing else is $0$:
+
+    \[ \begin{array}{ccccccccccccccc}
+      {\color{red}1}      & x_1 & + & a^2_1       & x_2 & + & 0       & x_3 & + & 0       & x_4 & + & \dots & = & b_1 \\
+      0     &      & + & 0           &      & + & {\color{red}1} & x_3 & + & 0       & x_4 & + & \dots & = & b_2\\
+      0     &     & + & 0          &      & + & 0           &     & + & {\color{red}1} & x_4 & + & \dots & = & b_3\\
+      \vdots&     &   & \vdots     &     &   & \vdots      &     &   & \vdots     &     &   &       &   & \vdots\\
+      0     &     & + & 0          &     & + & 0           &     & + & 0          &     & + & \dots & = & b_n\\
+    \end{array}
+    \]
+    
+    
+  \end{block}
+\end{frame}
+
+\begin{frame}{Examples}
+  
+  \begin{exampleblock}{Systems in reduced row echelon form}
+    \[
+    \begin{array}{ccccccc}
+    1x & + & 0y & + & 1z  & = & 5\\
+    0x & + & 1y & + & 0z & = & 2\\
+    0x & + & 0y & + & 1z  & = & -1\\    
+    \end{array}
+    \]\[
+    \begin{array}{ccccccccc}
+        1x & + & 2y & + & 0z  &  + & 1t & = & 1\\
+        0x & + & 0y & +  &  1z  &  + & -1t & = & 2\\
+        0x & + & 0y & +  &  0z  &  + & 0t & = & 0\\    
+    \end{array}
+    \]
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{Examples}
+
+  \begin{exampleblock}{System in echelon form but not in reduced form.}
+    \[\begin{array}{ccccccc}
+    x & + & y & + & z  & = & 4\\
+    0 & + & y & + & 2z & = & 0\\
+    0 & + & 0 & + & z  & = & -1\\    
+    \end{array}\]
+  \end{exampleblock}
+  
+\end{frame}
+
+\begin{frame}{Solutions of a reduced echelon form -- unique solution.}
+  \[\begin{array}{ccccccc}
+             \underbrace{ \color{red} 1x}_{\textnormal{pivot}} & + & {\color{red} 0 y} & + & {\color{red} 0z}  & = & {\color{darkgreen}5}\\
+             {\color{red}0 x}& + & \underbrace{ \color{red} 1y}_{\textnormal{pivot}} & + &{\color{red}2z} & = & {\color{darkgreen}2}\\
+             {\color{red}0 x}& + & {\color{red}0 y}& + & \underbrace{\color{red} 1z}_{\textnormal{pivot}}  & = & {\color{darkgreen}-1}\\    
+  \end{array}\]
+
+  \begin{itemize}
+  \item<2-> Unique solution here, directly accessible: $({\color{red}x, y, z}) = ({\color{darkgreen} 5, 2, 1})$.
+  \item<3-> Unique solution of the homogeneous system: $S_h = \{(0,0,0)\}$
+  \end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}{Solutions of a reduced echelon form -- infinite $S$.}
+  \[\begin{array}{ccccccccc}
+  {\color{red} \textnormal{pivot}} & &{\color{blue} \textnormal{no pivot}} & & {\color{red} \textnormal{pivot}} & & {\color{blue} \textnormal{no pivot}}\\
+  \underbrace{{\color{red} 1x}}_{\textnormal{pivot}} & + & {\color{blue}2y} & + &{\color{red}{0}  z}  &  + & {\color{blue}1t} & = & {\color{darkgreen}1}\\
+  {\color{red} 0x} & + &{\color{blue} 0y} & +  &  \underbrace{{\color{red}1z}}_{\textnormal{pivot}}  &  + & {\color{blue}-1t} & = & {\color{darkgreen}2}\\
+  0x & + & 0y & +  &  0z  &  + & 0t & = & 0\\    
+  \end{array}\]
+
+  \uncover<2->{\[({\color{red}x}, {\color{blue}y}, {\color{red}z}, {\color{blue}t}) = \underbrace{({\color{darkgreen} 1}, {\color{blue} 0}, {\color{darkgreen} 2}, {\color{blue} 0})}_{\textnormal{particular solution}} + \underbrace{{\color{blue} y}({\color{blue} -2}, 1, {\color{blue} -0}, 0) + {\color{blue} t}({\color{blue} -1}, 0, {\color{blue} 1}, 1)}_{S_h = \mathcal{L}((-2, 1, 0,0), (-1, 0,1,1))}\]}
+    \begin{itemize}
+    \item<3-> Particular solution: set non-pivot variables to $0$. Read pivot variables from right hand side: $({\color{red}x_0}, {\color{blue}y_0}, {\color{red}z_0}, {\color{blue}t_0}) = ({\color{darkgreen} 1}, {\color{blue} 0}, {\color{darkgreen} 2}, {\color{blue} 0})$
+    \item<4-> Basis of $S_h$: one vector per non-pivot variable. Put a one in corresponding slot, for every other non-pivot variable put $0$ in corresponding slot, for every pivot variable, read (minus) coefficient in corresponding line. 
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Solutions of a reduced echelon form: no solution.}
+  \[\begin{array}{ccccccccc}
+  {\color{red} \textnormal{pivot}} & &{\color{blue} \textnormal{no pivot}} & & {\color{red} \textnormal{pivot}} & & {\color{blue} \textnormal{no pivot}}\\
+  \underbrace{{\color{red} 1x}}_{\textnormal{pivot}} & + & {\color{blue}2y} & + &{\color{red}{0}  z}  &  + & {\color{blue}1t} & = & {\color{darkgreen}1}\\
+  {\color{red} 0x} & + &{\color{blue} 0y} & +  &  \underbrace{{\color{red}1z}}_{\textnormal{pivot}}  &  + & {\color{blue}-1t} & = & {\color{darkgreen}2}\\
+  0x & + & 0y & +  &  0z  &  + & 0t & = & {\color{darkgreen} 42}\\    
+  \end{array}\]
+  
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Solving arbitrary systems.}
+  \begin{itemize}
+  \item How to proceed when the system is not in reduced row echelon form?
+  \item Solution: transform it into an equivalent system in row echelon form.
+  \item {\textbf Gauss elimination.}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Operation on rows.}
+  \begin{itemize}
+  \item Multiplying a line by a non-zero scalar yield an equivalent system.
+  \item Swapping two rows yield an equivalent system.
+  \item Replacing a row by its sum with a some non-zero number times another row yield an equivalent system. 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Gauss elimination.}
+  \[
+  \begin{array}{ccccccccc}
+    a^1_1 & x_1 & + & \dots & + & a^n_1 & x_n & = & b_1 \\
+    a^1_2 & x_1 & + & \dots & + & a^n_2 & x_n & = & b_2\\
+    \vdots&     &   &      &  &\vdots&     &   & \vdots\\
+    a^1_n & x_1 & + & \dots & + &  a^n_n & x_n & = & b_n\\
+  \end{array}
+  \]
+  
+  \begin{enumerate}
+  \item $i \leftarrow 1$, $j \leftarrow 0$.
+  \item While $j < m$:
+  \item Try to find a row index $k$ such that the coefficient $a^j_k$ is non-zero.
+  \item If there is one, swap row $i$ and $k$, then divide raw $i$ by $a^{j}_j$, then:
+    \begin{enumerate}
+    \item For every row index $1 \le l \le n$ do 
+    \item row $l \leftarrow$ [row $l$ - $a^j_l\times$raw $i$].
+    \end{enumerate}
+  \item $j \leftarrow j+1$, $i \leftarrow (i+1)$.
+  \end{enumerate}
+  
+\end{frame}
+
+\end{document}

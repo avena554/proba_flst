@@ -1,0 +1,321 @@
+
+\documentclass{beamer}
+
+%\usepackage{listings}
+%\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\usepackage{MyriadPro}
+\usepackage{cabin}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{positioning, backgrounds, shapes, chains, decorations.pathmorphing}
+
+\usepackage{amsmath,amsthm,amssymb}  
+\usepackage{stmaryrd}
+%\usepackage{mdsymbol}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{array}
+%\usepackage{csquotes}
+
+
+
+\usepackage[absolute,overlay]{textpos}
+%\usepackage[texcoord,
+%grid,gridcolor=red!10,subgridcolor=green!10,gridunit=pt]
+%{eso-pic}
+
+
+
+\useoutertheme{infolines}
+
+\newcommand{\hidden}[1]{}
+
+%colors
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\usebeamercolor{block title}
+\definecolor{beamerblue}{named}{fg}
+\usebeamercolor{alert block title}
+\definecolor{beamealert}{named}{fg}
+
+\renewcommand{\colon}{\!:\!}
+
+
+\newcommand\paraitem{%
+ \quad
+ \makebox[\labelwidth][r]{%
+ \makelabel{%
+ \usebeamertemplate{itemize \beameritemnestingprefix item}}}\hskip\labelsep}
+
+\newcommand{\mmid}{\mathbin{{\mid}{\mid}}}
+
+\begin{document}
+
+\title{Vector spaces, dimension, subspaces.} 
+\author{Antoine Venant}
+%\institute{UDS COLI}
+\date{\today}
+\maketitle
+
+
+\begin{frame}{Examples from last time.}
+  
+  \begin{itemize}
+  \item Define vectors as \emph{translations} in a euclidean geometric space ($\mathbb{R}^2$).
+  \item One can add vectors (\emph{inner law}).
+  \item One can multiply vectors by a scalar (\emph{outer law}).
+  \item Addition and multipliation have some noticeable structure.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Today:}
+  The (more general) mathematical approach:
+  \begin{itemize}
+  \item First, define the \emph{space} itself.
+  \item Def: a set with some kind of structure.
+  \item Vectors? Just (abstract) elements of the set.
+  \item What kind of structure?
+  \item An (inner) addition, An (outer) product, and some assumption about these!
+  \item Translations of the space are just a particular case.
+  \end{itemize}  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Reminder: commutative group.}
+
+  $\langle S, \bowtie \rangle$ is a commutative group iff all of the following hold (for any $x, y$):
+  \begin{itemize}
+  \item $S$ is some set and $\bowtie: S \times S \mapsto S$ (we'll use both infix and prefix notations: $x \bowtie y = \bowtie(x, y)$).
+  \item $x \bowtie y = y \bowtie x$ (commmutativity).
+  \item $x \bowtie (y \bowtie z) = (x \bowtie y) \bowtie z$ (associativity).
+  \item $0 \in S$ s.t. $x \bowtie 0 = x$ (neutral element).
+  \item There exists $-x$ s.t. $x + (-x) = 0$ (opposite element).
+  \end{itemize}
+
+  \begin{center}
+    $y - x$ is syntactic sugar for $y + (-x)$.
+  \end{center}
+\end{frame}
+
+\begin{frame}{Some properties (and exercises).}
+  \begin{itemize}
+  \item $0 \bowtie x = 0$.
+  \item $x \bowtie z = x \rightarrow z = 0$. (Consequence: the neutral element is unique.)
+  \item if $x \bowtie y = 0$ and $x \bowtie z = 0$ then $y = z$ (unique $-x$)
+  \item $-0 = 0$
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Vector space (over $\mathbb{R}$).}
+  Formally:
+  
+  \begin{block}{Definition}
+    $\langle V, {\mathbin{\textbf{+}}}, \circ \rangle$ is a \emph{vector space} (over $\mathbb{R}$) iff all of the following holds:
+    \begin{itemize}
+    \item ${\mathbin{\textbf{+}}}: V \times V \mapsto V$ and $\langle V, {\mathbin{\textbf{+}}} \rangle$ is a commutative group (we let ${\bf 0}$ denote its neutral element).
+    \item ${\circ}: \mathbb{R} \times V \mapsto V$.
+    \item $(\alpha \beta) \circ u = \alpha \circ (\beta \circ u))$. (Mixed associativity)
+    \item $1 \circ u = u$. (Left neutrality)
+    \item $(\alpha + \beta) \circ u = (\alpha \circ u) \mathbin{\textbf{+}} (\beta \circ u)$. (Right distributivity)
+    \item $\alpha \circ (u\mathbin{\textbf{+}}v) = (\alpha \circ u) \mathbin{\textbf{+}} (\alpha \circ v)$. (Left distributivity)
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Notational shortcuts:}
+  \begin{itemize}
+  \item We have two `addition' operators: ${+}$ on $\mathbb{R}$ and $\textbf{+}$ on vectors.
+  \item We also have two `zeros' $0 \in \mathbb{R}$ and ${\bf 0}$ (null vector, neutral element of $\textbf{+}$).
+  \item For simplicity, we will abuse notations: ${+}$ denotes either `addition' and $0$ denotes either `zero', depdending on context.
+  \item Also, abreviate $\lambda \circ x$ with $\lambda x$ and let context disambiguate between $\circ$ and multiplication of reals.
+  \item Give multiplication priority over $\circ$ and ${\circ}$ priority over ${+}$
+  \end{itemize}
+
+  \[
+  \lambda\mu x + \alpha\beta y  = [(\lambda\mu)x] + [(\alpha\beta)y] = [(\lambda \times \mu) \circ x] {\mathbin{\textbf{+}}} [(\alpha \times \beta) \circ y.]
+  \]
+   
+\end{frame}
+
+\begin{frame}{More properties (and exercises).}
+  \begin{itemize}
+  \item $\lambda 0 = 0$
+  \item $0x = 0$
+  \item $\lambda x = 0$ iff $\lambda = 0$ or $x = 0$
+  \item $-x = (-1)x$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Examples}
+  Some vector spaces...
+  \begin{exampleblock}{$\mathbb{R}^n$}
+    $\langle \mathbb{R}^n, +, \circ \rangle$ with component-wise operations:
+    \begin{align*}
+      &(x_1, \dots, x_n) + (y_1, \dots, y_n) = (x_1 + y_1, \dots, x_n + y_n)\\
+      &\lambda \circ (x_1, \dots, x_n) = (\lambda x_1, \dots, \lambda x_n)\\
+    \end{align*}
+  \end{exampleblock}
+
+  \begin{exampleblock}{Real-valued functions.}
+    Given some set $X$ functions, $\langle \mathbb{R}^{X}, +, \cdot  \rangle$ with operations defined as:
+    \begin{align*}
+      &\forall x \in X,\,(f + g)(x) = f(x) + g(x)\\
+      &\forall x \in X\, (\lambda \cdot f)(x) = \lambda f(x)\\
+    \end{align*}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{And more...}
+  \begin{exampleblock}{Very non-exhaustive list.}
+    \begin{itemize}
+    \item Complex numbers.
+    \item Polynomials with coefficient in $\mathbb{R}$
+    \item formal series / sequences of real numbers.
+    \item Continuous real-valued functions.
+    \item \textbf{$(n,m)$-Matrices with real coefficients.} (later)
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Just some notation.}
+  In what follows and unless stated otherwise let $\langle V, +, \circ \rangle$ be an arbitrary vector space.
+\end{frame}
+
+\begin{frame}{Vector subspace.}
+  \begin{block}{Definition}
+    A \emph{vector subspace} of $V$ is a subset $W \subseteq V$ s.t. $\langle W, +, \circ \rangle$ is itself a vector space.
+    In particular, this is equivalent to (for any $x,y \in W$, $\lambda \in \mathbb{R}$):
+    \begin{itemize}
+    \item $0 \in W$.
+    \item $x + y \in W$.
+    \item $\lambda x \in W$. 
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Intersection of subspaces}
+  \begin{block}{Proposition}
+    If $W_1$ and $W_2$ are two vector subspaces of $V$, then so is $W_1 \cap W_2$.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Sum of subspaces}
+  \begin{alertblock}{\textbf{Not} a theorem}
+    If $W_1$ and $W_2$ are vector subspaces of $V$, $W_1 \cup W_2$ is generally \textbf{not} a vector subspace of $V$. Counterexample?
+  \end{alertblock}
+
+  \begin{block}{Definition}
+    If $W_1$ and $W_2$ are vector subspaces of $V$, then so is
+    \[W_1 + W_2 = \{x + y \mid x \in W_1, y \in W_2\}\]
+  \end{block}
+
+  $W_1 + W_2$ is the smallest vector subspace that contains $W_1 \cup W_2$.
+\end{frame}
+
+\begin{frame}{Linear combinations.}
+  \begin{block}{Definition}
+    Let $\langle v_1, \dots, v_n \rangle$ be a sequence of vectors, $\lambda_1, \dots, \lambda_n \in \mathbb{R}$,
+    \[\lambda_1 v_1 + \lambda_2 v_2 + \dots \lambda_n v_n\] is called a \emph{linear combination} of the $v_i$s.
+
+   We let $\mathcal{L}(v_1, \dots, v_n) = \{ \lambda_1 v_1 + \lambda_2 v_2 + \dots \lambda_n v_n \mid \lambda_1, \dots, \lambda_n \in \mathbb{R}\}$ denote the set of linear combinations of $\langle v_1, \dots, v_n \rangle$.
+  \end{block}
+
+  \begin{block}{Proposition}
+     $\mathcal{L}(v_1, \dots, v_n)$ is a vector subspace of $V$.
+  \end{block}
+    
+\end{frame}
+
+\begin{frame}{Linear independence.}
+  \begin{block}{Definition}
+    $\langle v_1, \dots, v_n \rangle$ is a sequence of \emph{linearly independent} vectors iff
+    \[\lambda_1 v_1 + \dots + \lambda_n v_n = 0 \rightarrow \lambda_1 = \dots = \lambda_n = 0  \]
+  \end{block}
+
+  \begin{block}{Proposition}
+    $\langle v_1, \dots, v_n \rangle$ is linear independent iff \[\forall i \in [|1, n|]\, v_i \notin \mathcal{L}(\langle v_1, \dots, v_{i-1}, v_{i+1}, \dots, v_n \rangle).\]
+  \end{block}
+\end{frame}
+
+\begin{frame}{Generator.}
+  \begin{block}{Definition}
+    $\langle v_1, \dots, v_n \rangle$ is a \emph{generator} of $V$ iff $\mathcal{L}(\langle v_1, \dots, v_n \rangle) = V$.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Basis.}
+  \begin{block}{Definition}
+    A sequence of vectors $\langle v_1, \dots, v_n \rangle$ who is both linear independent and a generator is called a \emph{Basis} of $V$.
+  \end{block}
+
+  \begin{block}{Proposition}
+    If $\langle v_1, \dots, v_n \rangle$ is a basis of $V$, then for any $v \in V$ there exists a {\bf unique} $\langle \lambda_1, \dots, \lambda_n \rangle \in \mathbb{R}^n$ such that
+    \[ v = \lambda_1v_1 + \dots + \lambda_n v_n. \]
+  \end{block}
+
+\end{frame}
+
+\begin{frame}{Example}
+  \begin{exampleblock}{From last time:}
+    \begin{itemize}
+    \item $\langle (1,0), (0,1) \rangle$ is a basis of $\mathbb{R}^2$.
+    \item $\langle (2,2), (-1,3) \rangle$ is a basis of $\mathbb{R}^2$.
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{Canonical basis of $\mathcal{R}^n$}
+    Let $\delta_{x,y}$ be one if $x = y$ and $0$ otherwise.\\
+    Let $e^{(i)} = (e^{(i)}_1 \dots e^{(i)}_n)$ with $e^{(i)}_k = \delta(i, k)$. \footnote{$e^{(i)} = \langle \overbrace{0,\dots,0}^{(i-1) \textnormal{ times}}, 1, \overbrace{0,\dots,0}^{(n-i) \textnormal{ times}} \rangle$}
+    \[\langle e^{(1)}, \dots, e^{(n)} \rangle \textnormal{ is a basis of } \mathbb{R}^n.\]
+\end{frame}
+
+\begin{frame}{Completion theorem.}
+  \begin{block}{Theorem}
+    If $\langle v_1, \dots, v_k \rangle$ is linearly independent and $\langle w_1, \dots, w_l \rangle$ is a sequence of vectors such that $\langle v_1, \dots, v_k, w_1, \dots, w_l \rangle$ is a generator of $V$, then there exists indices $i_1, \dots, i_m$ ($m \le l$) such that $\langle v_1, \dots, v_n, w_{i_1}, \dots, w_{i_m} \rangle$ is a basis of $V$.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Exchange lemma.}
+
+  \begin{block}{Lemma}
+  If $\langle v_1, \dots, v_n \rangle$ and $\langle w_1, \dots, w_m \rangle$ are two basis of $V$, then for any $i \in [|1, n|]$ there exist $j \in [|1, m|]$ such that
+  \[\langle v_{1}, \dots, v_{i-1}, w_j, v_{i+1}, \dots v_n \rangle \textnormal{ is a basis of } V.\]
+  \end{block}
+
+  \begin{block}{Corollary}
+    If $\langle v_1, \dots, v_n \rangle$ and $\langle w_1, \dots, w_m \rangle$ are two basis of $V$, then $n = m$.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Dimension}
+  
+  \begin{block}{Corollary}
+    If $\langle v_1, \dots, v_n \rangle$ and $\langle w_1, \dots, w_m \rangle$ are two basis of $V$, then $n = m$.
+  \end{block}
+
+  \begin{block}{Definition}
+    Let $V$ be a vector space such that $\langle v_1, \dots, v_n \rangle$ is a basis of $V$. The dimension of $V$ is defined as
+    \[dim(V) = n.\]
+    From the above corollary, this is a valid definition.
+  \end{block}
+\end{frame}
+
+
+\begin{frame}{Dimension and subspaces}
+  \begin{itemize}
+  \item If $W$ is a vector subspace of $V$ and $V$ has a basis, then $dim(W) \le dim(V)$.
+  \item If $W_1, W_2$ are vector subspaces of $V$ and $V$ has a basis, then $dim(W_1 + W_2) = dim(W_1) + dim(W_2) - dim(W_1 \cap W_2)$
+  \end{itemize}
+\end{frame}
+
+
+\end{document}
