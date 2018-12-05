@@ -47,8 +47,8 @@ Let $A$ be an event and $A_1 \dots A_n$ be $n$ events such that $A_1 \cap \dots 
 We want to design a game where the player is given a picture with multiple characters, and has to find Waldo among them. Waldo is always identifiable as he is the unique character with glasses, a red hat, and a striped shirt. Show that it is impossible to define a valid game with more that $4$ characters where $3/4$ of all characters have glasses, $3/4$ of all characters have a red hat, and $3/4$ of all characters have a striped shirt.
 
 \section*{Exercise 6}
-Consider the alphabet $\Sigma = \{h, t\}$ and the following set of words over this alphabet:
-\[ \Omega = \{ \underbrace{t\dots t}_{n \textnormal{ times}}h \mid n \in \mathbb{B} \} \cup \{ t \dots t \dots \} \]
+Consider the alphabet $\Sigma = \{h, t\}$. For $n \in \mathbb{N}$, we let $t^{n}h$ denote the word $\underbrace{tt\dots t}_{n \textnormal{ times}}h$ consisting in the letter $t$ repeated $n$-times followed by a single letter $h$ (\emph{e.g.} $t^{4}h = tttth$). We let $t^{\omega}$ denote the \emph{infinite} word $t \dots t \dots$ consisting of the letter $t$ repeated an infinite number of times. Consider now the following language over this alphabet:
+\[ \Omega = \{ t^{n}h \mid n \in \mathbb{N} \} \cup \{t^{\omega}\}  \]
 (or written as a rational expression: $\Omega = t^*h \mid t^{\omega}$).
 
 We define the following probability on $\Omega$:
@@ -66,14 +66,13 @@ We define the following probability on $\Omega$:
   \item $E_0 = 0$ and
   \item $p(E_{{>}n+1} \mid E_{{>}n} ) = \frac{1}{2}$. 
   \end{enumerate}
-\item One repeats tossing a coin until one get heads. What is the probability of stopping after an even number of rounds?
+\item One repeats tossing a coin until one gets head. What is the probability of stopping after an even number of rounds?
 \end{itemize}
 
 
 
 \section*{Exercise 7}
 Let $A_1 \dots A_n$ be $n$ independent events. Show that $p(\bigcup^n_{i=1} A_i) \ge 1 - e^{-\sum_{i=1}^n p(A_i)}$.
-
 
 %\section*{Exercise 8}
 %\begin{enumerate}
