@@ -61,5 +61,180 @@
 \maketitle
 
 
+\begin{frame}{Previously:}
+  \begin{itemize}
+  \item Vector spaces
+  \item Basis, Dimesion
+  \item Subspaces, sum spaces, direct sums.
+  \item Linear systems: checking linear independence, changing basis, intersecting hyperplans.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Today:}
+  \begin{itemize}
+  \item \emph{transformations} of a vector space.
+  \item But not any transformation.
+  \item Transformations that preserve the linear structure.
+  \item Alternative take on linear systems.
+  \end{itemize}
+\end{frame}
+
+\hidden{
+\begin{exampleblock}{Example:}
+  \begin{center}
+      \input{automorphism}      
+    \end{center}
+\end{exampleblock}
+}
+
+\begin{frame}
+  \frametitle{Example}
+  \begin{exampleblock}{A linear map}
+    \[f: \begin{aligned} \mathbb{R}^2 &\mapsto \mathbb{R}^2\\ (x,y) &\mapsto (x + y, y - x) \end{aligned}\]  
+  \end{exampleblock}
+
+  \begin{exampleblock}{Not a linear map}
+    \[f: \begin{aligned} \mathbb{R}^2 &\mapsto \mathbb{R}^2\\ (x,y) &\mapsto (x \cdot cos(y), x \cdot sin(y)) \end{aligned}\]  
+  \end{exampleblock}
+\end{frame}
+
+
+\begin{frame}{Two vector spaces.}
+  In all the following we Let $V$ and $W$ be two vector spaces.
+\end{frame}
+
+\begin{frame}{Linear Map.}
+  \begin{block}{Definition}
+    A linear map (or homomorphism) from $V$ to $W$ is a function $f V \mapsto W$ such that for any $x, y \in V$ and $\lambda \in \mathbb{R}$
+    \[\begin{aligned}
+    f(x + y) = f(x) + f(y) \textnormal{and}\\
+    f(\lambda x) = \lambda f(x).
+    \end{aligned}\]
+    $\mathcal{H}(V, W)$ is the set of all linear maps from $V$ to $W$.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Properties and remarks}
+  \begin{block}{Remark}
+    \begin{itemize}
+    \item The \emph{identity function} $id_{V}: x \mapsto x$ is a linear map from $V$ to itself.
+    \item The composition $f \circ g$ of two linear maps ($[f \circ g](x) = f(g(x))$) is also linear map.
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Proposition}
+    With the usual definition for function addition and scalar multiplication
+    \[\begin{aligned}
+    &[f + g] : x \mapsto f(x) + g(x)\\
+    &[\lambda f] : x \mapsto \lambda f(x),
+    \end{aligned}\]
+    we have that $\langle \mathcal{H}, +, \dot  \rangle$ is a vector space.
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Proposition}
+  Let $\langle v_1 \dots v_n \rangle$ be a basis of $V$ and $\langle w_1, \dots, w_n \rangle$ be a sequence of $n$ vectors of $W$ (not necessarily a basis). There exists a unique linear map $f: V \mapsto W$ such that
+  \[f(v_1) = w_1 \textnormal{ and } f(v_2) = w_2 \textnormal{ and } \dots \textnormal{ and } f(v_n) = w_n\]
+\end{frame}
+
+
+
+
+\begin{frame}{Kernel and Image}
+  Let $f: V \mapsto W$ be a linear map.
+
+  \begin{block}{Definition}
+    The image of $f$ is the set of images of all vectors of $V$:
+    \[Im(f) = \{ f(x) \mid x \in V \} \]
+  \end{block}
+
+  \begin{block}{Definition}
+    The kernel of $f$ is the set of vectors that are mapped to $0$\footnote{$0$ denotes indifferently the null vector of $W$ and the one of $V$. Which one is reffered to should be clear from context -- in this case the $0$ of $W$}.
+    \[Ker(f) = \{ x \mid f(x) = 0\}\]
+  \end{block}
+\end{frame}
+
+\begin{frame}
+\begin{exampleblock}{Example}
+  \[f: \begin{aligned} \mathbb{R}^2 &\mapsto \mathbb{R}^2\\ (x,y) &\mapsto (x + y, y - x) \end{aligned}\]
+
+  \begin{center}
+    \input{kernim}
+  \end{center}
+  
+\end{exampleblock}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Properties}
+  Let $f: V \mapsto W$ be a linear map. 
+  \begin{block}{Proposition}
+    \begin{itemize}
+    \item $Im(f)$ is a vector subspace of $W$.
+    \item $Ker(f)$ is a vector subspace of $V$. 
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Proposition}
+    $f$ is injective iff $Ker(f) = \{0\}$ (injective means no two points have the same image, $f(x) = f(y) \rightarrow x = y$)
+  \end{block}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Vocabulary}
+  \begin{itemize}
+  \item When $V = W$, $f$ is called an \emph{endomorphism}.
+  \item A bijective linear map is called an \emph{isomorphism}.
+  \item A bijective endomorphism is an \emph{automorphism}.
+  \item Two vector spaces are \emph{isomorphic} if there exists an isomorphism between them.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Isomorphisms}
+  \begin{block}{Proposition}
+    \begin{itemize}
+    \item The converse of an isomorphism is also an isomorphism.
+    \item The composition of two isomorphisms is also a linear map.
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Proposition}
+    Let $f: V \mapsto W$ be a linear map. If $\langle v_1, \dots, v_n \rangle$ is a basis of $V$ then $f$ is an isomorphism iff $\langle f(v_1), \dots, f(v_n) \rangle$ is a basis of $W$.
+  \end{block}
+
+  \begin{block}{Corollary}
+    Any two $n-$dimenstional vector spaces are isomorphic.
+  \end{block}
+\end{frame}
+
+
+\begin{frame}{Reminder}
+  \begin{block}{Completion theorem}
+    
+    If $\langle v_1, \dots, v_k \rangle$ is linearly independent and $\langle w_1, \dots, w_l \rangle$ is a sequence of vectors such that $\langle v_1, \dots, v_k, w_1, \dots, w_l \rangle$ is a generator of $V$, then there exists indices $i_1, \dots, i_m$ ($m \le l$) such that $\langle v_1, \dots, v_n, w_{i_1}, \dots, w_{i_m} \rangle$ is a basis of $V$.
+  \end{block}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Linear maps and dimensions}
+  Let $V$ and $W$ be {\bf finite dimensional} vector spaces and $f: V \mapsto W$ be a linear map.
+
+  \begin{block}{Theorem}
+    \[dim(Ker(f)) + dim(Im(f)) = dim(V)\]
+  \end{block}
+
+  \begin{block}{Corollary}
+    A linear map is surjective iff it is injective.
+  \end{block}
+\end{frame}
+
+
+
 
 \end{document}
