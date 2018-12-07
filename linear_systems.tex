@@ -57,7 +57,7 @@
 \title{Linear Systems} 
 \author{Antoine Venant}
 %\institute{UDS COLI}
-\date{\today}
+\date{November 28, 2018}
 \maketitle
 
 \begin{frame}
@@ -211,7 +211,7 @@
   \begin{exampleblock}{Systems in reduced row echelon form}
     \[
     \begin{array}{ccccccc}
-    1x & + & 0y & + & 1z  & = & 5\\
+    1x & + & 0y & + & 0z  & = & 5\\
     0x & + & 1y & + & 0z & = & 2\\
     0x & + & 0y & + & 1z  & = & -1\\    
     \end{array}
@@ -240,7 +240,7 @@
 \begin{frame}{Solutions of a reduced echelon form -- unique solution.}
   \[\begin{array}{ccccccc}
              \underbrace{ \color{red} 1x}_{\textnormal{pivot}} & + & {\color{red} 0 y} & + & {\color{red} 0z}  & = & {\color{darkgreen}5}\\
-             {\color{red}0 x}& + & \underbrace{ \color{red} 1y}_{\textnormal{pivot}} & + &{\color{red}2z} & = & {\color{darkgreen}2}\\
+             {\color{red}0 x}& + & \underbrace{ \color{red} 1y}_{\textnormal{pivot}} & + &{\color{red}0z} & = & {\color{darkgreen}2}\\
              {\color{red}0 x}& + & {\color{red}0 y}& + & \underbrace{\color{red} 1z}_{\textnormal{pivot}}  & = & {\color{darkgreen}-1}\\    
   \end{array}\]
 
@@ -313,6 +313,7 @@
   
   \begin{enumerate}
   \item $i \leftarrow 1$, $j \leftarrow 1$.
+
   \item While $i \le n$ and $j \le m$:
   \item Try to find a row index $k \ge i$ such that the coefficient $a^j_k$ is non-zero.
   \item If there is one:

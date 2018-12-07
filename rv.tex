@@ -165,10 +165,26 @@
     \[
     p(X = k) = C^k_nq^{k}(1 - q)^{n-k}.
     \]
-    Where $q = \frac{m}{n}$.
+    Where $q = \frac{m}{N}$.
   \end{exampleblock}
+\end{frame}
+
+\begin{frame}{Derivation of the binomial distribution.}
+  Box containing $N$ balls. $m$ are red. One draws $n$ balls \textbf{with replacement}. $X = k$: $k$ red balls drawn.
+  
+  \begin{itemize}
+  \item Consider the event $e_0$: `drawing $k$ red balls first, then $n-k$ blue balls'
+  \item Probability of drawing the $i^{th}$ ball red is $\frac{m}{N}$.
+  \item So $p(e_0) = (\frac{m}{N})^k(1-\frac{m}{N})^{n-k}$.
+  \item Let $p_1, \dots, p_k \in [1,n]$, pairwise distinct.
+  \item Consider now $e_{p_1, \dots, p_k}$: `The $p_1^{th}$ ball drawn is red and the $p_2^{th}$ ball drawn is red and ... and the $p_k^{th}$ ball drawn is red, and all the others are not red'.
+  \item Since the drawing are independent, the value of $p_1, \dots, p_k$ does not matter, and $p(e_{p_1, \dots, p_k}) = p(e_{1, 2, \dots, k}) = p(e_0)$.
+  \item There are $C^k_n$ possible choices for $p_1, \dots, p_k$ under considered assumptions $\{p_1, \dots, p_k\} \subseteq [1,n]$ with $|\{p_1, \dots, p_k\}| = k$.
+  \item So we have \[p(X = k) = \sum_{\{p_1, \dots, p_k\} \subseteq [1,n] \textnormal{ pairwise distinct} } p(e_{p_1, \dots, p_k}) =  C^k_n (\frac{m}{N})^k(1-\frac{m}{N})^{n-k}.\]
+  \end{itemize}
   
 \end{frame}
+
 
 
 \begin{frame}{Some important distributions.}
@@ -215,7 +231,7 @@
   \item We're assigning numbers to random outcomes.
   \item Mean we can think about things like `average' outcome.
   \item \emph{e.g.} if we throw a die multiple time and average the results, we get $3.5$.
-  \item $3$ is the \emph{expectation} of a random variable with uniform distribution over $\{1,2,3,4,5,6\}$.
+  \item $3.5$ is the \emph{expectation} of a random variable with uniform distribution over $\{1,2,3,4,5,6\}$.
   \item We will define a mathematical quantity and (next time) show that it fits this intuition.
   \end{itemize}
 \end{frame}
