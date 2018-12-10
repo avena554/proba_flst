@@ -1,0 +1,186 @@
+
+\documentclass{beamer}
+
+%\usepackage{listings}
+%\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\usepackage{MyriadPro}
+\usepackage{cabin}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{positioning, backgrounds, shapes, chains, decorations.pathmorphing}
+
+\usepackage{amsmath,amsthm,amssymb}  
+\usepackage{stmaryrd}
+%\usepackage{mdsymbol}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{array}
+%\usepackage{csquotes}
+
+
+
+\usepackage[absolute,overlay]{textpos}
+%\usepackage[texcoord,
+%grid,gridcolor=red!10,subgridcolor=green!10,gridunit=pt]
+%{eso-pic}
+
+
+
+\useoutertheme{infolines}
+
+\newcommand{\hidden}[1]{}
+
+%colors
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\usebeamercolor{block title}
+\definecolor{beamerblue}{named}{fg}
+\usebeamercolor{alert block title}
+\definecolor{beamealert}{named}{fg}
+
+\renewcommand{\colon}{\!:\!}
+
+
+\newcommand\paraitem{%
+ \quad
+ \makebox[\labelwidth][r]{%
+ \makelabel{%
+ \usebeamertemplate{itemize \beameritemnestingprefix item}}}\hskip\labelsep}
+
+\newcommand{\mmid}{\mathbin{{\mid}{\mid}}}
+
+\begin{document}
+
+\title{Matrices.} 
+\author{Antoine Venant}
+%\institute{UDS COLI}
+\date{\today}
+\maketitle
+
+
+\begin{frame}{Previously:}
+  \begin{itemize}
+  \item Linear map between vector spaces $V$ and $W$.
+  \item \emph{Determined by the image of the vectors of a basis of $V$}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Today:}
+  \begin{itemize}
+  \item Use this property to define a representation suitable for calculus
+  \item Matrices.
+  \item Matrices are representation of linear maps w.r.t. a given basis $V$ and a given basis of $W$.
+  \end{itemize}
+\end{frame}
+
+\hidden{
+\begin{exampleblock}{Example:}
+  \begin{center}
+      \input{automorphism}      
+    \end{center}
+\end{exampleblock}
+}
+
+\begin{frame}
+  \frametitle{Example}
+  \begin{exampleblock}{A linear map}
+    \[f: \begin{aligned} \mathbb{R}^2 &\mapsto \mathbb{R}^2\\ (x,y) &\mapsto (x - y, y - x) \end{aligned}\]
+
+    Two basis of $\mathbb{R}^2 :$
+    \[\begin{aligned}
+    &\mathcal{E} = \langle e_1, e_2 \rangle = \langle (1,0), (0,1) \rangle \\ 
+    &\mathcal{B} = \langle \alpha, \beta \rangle = \langle (1,1), (-1, 1) \rangle\\
+    \end{aligned}
+    \]
+    \[
+    \begin{aligned}
+      &f(e_1) = (1,-1) = {\color{blue} \langle 1, -1 \rangle_{\mathcal{E}}} = {\color{darkgreen} \langle 0, -1\rangle_{\mathcal{B}}}\\
+      &f(e_2) = (-1, 1) = {\color{blue} \langle -1, 1 \rangle_{\mathcal{E}}} = {\color{darkgreen} \langle 0, 1 \rangle_{\mathcal{B}}} \\      
+    \end{aligned}
+    \]
+
+
+    \[f:
+    \begin{array}{|ccc|}
+      f({\color{red}e_1}) & f({\color{red}e_2}) & \\
+      \color{blue}\phantom{-}1 & \color{blue} -1 & \color{blue} e_1\\
+      \color{blue}-1 & \color{blue} \phantom{-}1 & \color{blue} e_2
+    \end{array}_{{\color{red}\mathcal{E}}, {\color{blue}\mathcal{E}}}
+    \equiv
+    \begin{array}{|ccc|}
+      f({\color{red}e_1}) & f({\color{red}e_2}) & \\
+      \color{darkgreen}\phantom{-}0 & \color{darkgreen} \phantom{-}0 & \color{darkgreen} \alpha\\
+      \color{darkgreen} -1 & \color{darkgreen}\phantom{-}1 & \color{darkgreen} \beta
+    \end{array}_{{\color{red}\mathcal{E}}, {\color{darkgreen} \mathcal{B} }}
+    \]
+
+    
+  \end{exampleblock}
+\end{frame}
+
+
+\begin{frame}
+  {Matrix}
+  Let $m, n \in \mathbb{N}$.
+  \begin{block}{Definition}
+    An $(n,m)$ matrix is a sequence of $n \times m$ real coefficients $a_{i,j}$ with $1 \le i \le n, 1 \le j \le m$. We can organize them visually in the following way:
+
+    \[\begin{array}{|ccc|} a_{1,1} & \dots & a_{1,m}\\ \vdots & & \vdots\\ a_{n,1} & \dots & a_{n, m} \end{array}\]
+  \end{block}
+\end{frame}
+
+
+\begin{frame}{Matrix $\Rightarrow$ linear map}
+  \begin{block}{Definition}
+    To any $n,m$ matrix $A = \langle a_{i,j} \rangle$ we associate an application $\hat A : \left \{ \begin{array}{l} \mathbb{R}^m \mapsto \mathbb{R}^n \\ X \rightarrow A \times X \end{array} \right .$ as follows:
+    \[
+    \begin{array}{|ccc|} a_{1,1} & \dots & a_{1,m}\\ \vdots & & \vdots\\ a_{n,1} & \dots & a_{n, m} \end{array} \times \left ( \begin{array}{c} x_1 \\ \vdots \\ x_m \end{array} \right )_{X} = \left ( \begin{array}{c} a_{1,1}x_1 + \dots + a_{1,m}x_m \\ \vdots \\ a_{n,1}x_1 + \dots + a_{n,m} x_m \end{array} \right )  
+    \]  
+  \end{block}
+
+  \begin{block}{Proposition}
+    The associated application $\hat A$ defined above is a linear map.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Example}
+  \begin{exampleblock}{$2,2$ matrix}
+    \[ \begin{array}{|cc|}
+      \phantom{-}1 &  -1 \\
+      -1 & \phantom{-}1 
+    \end{array} \times \left ( \begin{array}{c} x \\ y \end{array} \right ) = \left ( \begin{array}{c} x - y \\ y - x \end{array} \right )  
+    \]
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{Reminder: canonical basis}
+  \begin{block}{Canonical basis of $\mathcal{R}^m$}
+    Letting $e_i = \langle \overbrace{0,\dots,0}^{(i-1) \textnormal{ times}}, 1, \overbrace{0,\dots,0}^{(m-i) \textnormal{ times}} \rangle$ we have: \[\langle e_1, \dots, e_m \rangle \textnormal{ is the canonical basis of } \mathbb{R}^m.\]
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Linear map $\Rightarrow$ matrix}
+  \begin{block}{Converse}
+    Let $f : \mathbb{R}^m \rightarrow \mathbb{R}^n$ linear. There exists a unique matrix $A$ such that $\hat A = f$.
+  \end{block}
+
+  \begin{block}{proof}
+    \begin{itemize}
+    \item We know that $f$ is uniquely determined by the images of the canonical basis of $\mathbb{R}^m$: $\langle e_1, \dots, e_m \rangle$.
+    \item by def, $f(e_1), \dots, f(e_m) \in \mathbb{R}^n$.
+    \item So let $\langle a_{1,1}, \dots, a_{n,1} \rangle = f(e_1) \dots \langle a_{1, m} \dots a_{m, n} \rangle = f(e_m)$.
+    \item Then $A = \begin{array}{|ccc|} a_{1,1} & \dots & a_{1,m}\\ \vdots & & \vdots\\ a_{n,1} & \dots & a_{n, m} \end{array}$ is such that $\hat A = f$:
+    \item suffices to check $\hat A(e_1) = A \times e_1 = f(e_1) \dots \hat A(e_m) = A \times e_m = f(e_m)$.
+    \end{itemize}
+  \end{block}
+  
+\end{frame}
+
+
+
+
+\end{document}
