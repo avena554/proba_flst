@@ -1,0 +1,440 @@
+
+\documentclass{beamer}
+
+%\usepackage{listings}
+%\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\usepackage{MyriadPro}
+\usepackage{cabin}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{positioning, backgrounds, shapes, chains, decorations.pathmorphing}
+
+\usepackage{amsmath,amsthm,amssymb}  
+\usepackage{stmaryrd}
+%\usepackage{mdsymbol}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{multirow}
+%\usepackage{csquotes}
+
+
+
+\usepackage[absolute,overlay]{textpos}
+%\usepackage[texcoord,
+%grid,gridcolor=red!10,subgridcolor=green!10,gridunit=pt]
+%{eso-pic}
+
+
+
+\useoutertheme{infolines}
+
+\newcommand{\hidden}[1]{}
+
+%colors
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\usebeamercolor{block title}
+\definecolor{beamerblue}{named}{fg}
+\usebeamercolor{alert block title}
+\definecolor{beamealert}{named}{fg}
+
+\renewcommand{\colon}{\!:\!}
+
+
+\newcommand\paraitem{%
+ \quad
+ \makebox[\labelwidth][r]{%
+ \makelabel{%
+ \usebeamertemplate{itemize \beameritemnestingprefix item}}}\hskip\labelsep}
+
+\newcommand{\mmid}{\mathbin{{\mid}{\mid}}}
+
+\begin{document}
+
+\title{Matrices.} 
+\author{Antoine Venant}
+%\institute{UDS COLI}
+\date{\today}
+\maketitle
+
+
+\begin{frame}{Previously:}
+  \begin{itemize}
+  \item Linear map between vector spaces $V$ and $W$.
+  \item \emph{Determined by the image of the vectors of a basis of $V$}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Today:}
+  \begin{itemize}
+  \item Use this property to define a representation suitable for calculus
+  \item Matrices.
+  \item Matrices are representation of linear maps w.r.t. a given basis $V$ and a given basis of $W$.
+  \end{itemize}
+\end{frame}
+
+\hidden{
+\begin{exampleblock}{Example:}
+  \begin{center}
+      \input{automorphism}      
+    \end{center}
+\end{exampleblock}
+}
+
+\begin{frame}
+  \frametitle{Example}
+  \begin{exampleblock}{A linear map}
+    \[f: \begin{aligned} \mathbb{R}^2 &\mapsto \mathbb{R}^2\\ (x,y) &\mapsto (x - y, y - x) \end{aligned}\]
+
+    Two basis of $\mathbb{R}^2 :$
+    \[\begin{aligned}
+    &\mathcal{E} = \langle e_1, e_2 \rangle = \langle (1,0), (0,1) \rangle \\ 
+    &\mathcal{B} = \langle \alpha, \beta \rangle = \langle (1,1), (-1, 1) \rangle\\
+    \end{aligned}
+    \]
+    \[
+    \begin{aligned}
+      &f(e_1) = (1,-1) = {\color{blue} \langle 1, -1 \rangle_{\mathcal{E}}} = {\color{darkgreen} \langle 0, -1\rangle_{\mathcal{B}}}\\
+      &f(e_2) = (-1, 1) = {\color{blue} \langle -1, 1 \rangle_{\mathcal{E}}} = {\color{darkgreen} \langle 0, 1 \rangle_{\mathcal{B}}} \\      
+    \end{aligned}
+    \]
+
+
+    \[f:
+    \begin{array}{|ccc|}
+      f({\color{red}e_1}) & f({\color{red}e_2}) & \\
+      \color{blue}\phantom{-}1 & \color{blue} -1 & \color{blue} e_1\\
+      \color{blue}-1 & \color{blue} \phantom{-}1 & \color{blue} e_2
+    \end{array}_{{\color{red}\mathcal{E}}, {\color{blue}\mathcal{E}}}
+    \equiv
+    \begin{array}{|ccc|}
+      f({\color{red}e_1}) & f({\color{red}e_2}) & \\
+      \color{darkgreen}\phantom{-}0 & \color{darkgreen} \phantom{-}0 & \color{darkgreen} \alpha\\
+      \color{darkgreen} -1 & \color{darkgreen}\phantom{-}1 & \color{darkgreen} \beta
+    \end{array}_{{\color{red}\mathcal{E}}, {\color{darkgreen} \mathcal{B} }}
+    \]
+
+    
+  \end{exampleblock}
+\end{frame}
+
+
+\begin{frame}
+  {Matrix}
+  Let $m, n \in \mathbb{N}$.
+  \begin{block}{Definition}
+    An $(n,m)$ matrix is a sequence of $n \times m$ real coefficients $a_{i,j}$ with $1 \le i \le n, 1 \le j \le m$. We can organize them visually in the following way:
+
+    \[\begin{array}{|ccc|} a_{1,1} & \dots & a_{1,m}\\ \vdots & & \vdots\\ a_{n,1} & \dots & a_{n, m} \end{array}\]
+
+    $\mathcal{M}(n,m)$: set of all $n,m$ matrices.
+  \end{block}
+\end{frame}
+
+
+\begin{frame}{Matrix $\Rightarrow$ linear map}
+  \begin{block}{Definition}
+    To any $n,m$ matrix $A = \langle a_{i,j} \rangle$ we associate an application $\hat A : \left \{ \begin{array}{l} \mathbb{R}^m \mapsto \mathbb{R}^n \\ X \rightarrow A \times X \end{array} \right .$ as follows:
+    \[
+    \begin{array}{|ccc|} a_{1,1} & \dots & a_{1,m}\\ \vdots & & \vdots\\ a_{n,1} & \dots & a_{n, m} \end{array} \times \underbrace{\left ( \begin{array}{c} x_1 \\ \vdots \\ x_m \end{array} \right )}_{X} = \left ( \begin{array}{c} a_{1,1}x_1 + \dots + a_{1,m}x_m \\ \vdots \\ a_{n,1}x_1 + \dots + a_{n,m} x_m \end{array} \right )  
+    \]  
+  \end{block}
+
+  \begin{block}{Proposition}
+    The associated application $\hat A$ defined above is a linear map.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Example}
+  \begin{exampleblock}{$2,2$ matrix}
+    \[ \begin{array}{|cc|}
+      \phantom{-}1 &  -1 \\
+      -1 & \phantom{-}1 
+    \end{array} \times \left ( \begin{array}{c} x \\ y \end{array} \right ) = \left ( \begin{array}{c} x - y \\ y - x \end{array} \right )  
+    \]
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{Reminder: canonical basis}
+  \begin{block}{Canonical basis of $\mathcal{R}^m$}
+    Letting $e_i = \langle \overbrace{0,\dots,0}^{(i-1) \textnormal{ times}}, 1, \overbrace{0,\dots,0}^{(m-i) \textnormal{ times}} \rangle$ we have: \[\langle e_1, \dots, e_m \rangle \textnormal{ is the canonical basis of } \mathbb{R}^m.\]
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Linear map $\Rightarrow$ matrix}
+  \begin{block}{Converse}
+    Let $f : \mathbb{R}^m \rightarrow \mathbb{R}^n$ linear. There exists a unique matrix $A \in \mathcal{M}(n,m)$ such that $\hat A = f$.
+  \end{block}
+
+  \begin{block}{proof}
+    \begin{itemize}
+    \item We know that $f$ is uniquely determined by the images of the canonical basis of $\mathbb{R}^m$: $\langle e_1, \dots, e_m \rangle$.
+    \item by def, $f(e_1), \dots, f(e_m) \in \mathbb{R}^n$.
+    \item So let $\langle a_{1,1}, \dots, a_{n,1} \rangle = f(e_1) \dots \langle a_{1, m} \dots a_{m, n} \rangle = f(e_m)$.
+    \item Then $A = \begin{array}{|ccc|} a_{1,1} & \dots & a_{1,m}\\ \vdots & & \vdots\\ a_{n,1} & \dots & a_{n, m} \end{array}$ is such that $\hat A = f$:
+    \item suffices to check $\hat A(e_1) = A \times e_1 = f(e_1) \dots \hat A(e_m) = A \times e_m = f(e_m)$.
+    \end{itemize}
+  \end{block}
+  
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Operations on matrices}
+
+  \begin{block}{Scalar multiplication.}
+    For $\lambda \in \mathbb{R}$:
+    \[
+    \lambda \cdot
+    \begin{array}{|ccc|}
+    a_{1,1} & \dots & a_{1,m}\\ \vdots & & \vdots\\ a_{n,1} & \dots & a_{n, m}
+    \end{array} =
+    \begin{array}{|ccc|}
+      \lambda a_{1,1} & \dots & \lambda a_{1,m}\\ \vdots & & \vdots\\ \lambda a_{n,1} & \dots & \lambda a_{n, m}
+    \end{array}
+    \]
+  \end{block}
+
+  \begin{block}{Addition}
+    Defined for two $n,m$ matrices: \alert{\textbf{addition of two matrices of different sizes is undefined}}
+    \[
+    \begin{array}{|ccc|}
+      a_{1,1} & \dots & a_{1,m}\\ \vdots & & \vdots\\ a_{n,1} & \dots & a_{n, m}
+    \end{array}
+    +
+    \begin{array}{|ccc|}
+      b_{1,1} & \dots & b_{1,m}\\ \vdots & & \vdots\\ b_{n,1} & \dots & b_{n, m}
+    \end{array}
+    =
+    \begin{array}{|ccc|}
+      a_{1,1} + b_{1,1} & \dots & a_{1,m} + b_{1,m}\\ \vdots & & \vdots\\ a_{n,1} + b_{n,1} & \dots & a_{n, m} + b_{n,m}
+    \end{array}
+    \]
+  \end{block}
+  
+\end{frame}
+
+\begin{frame}{Compatibility with ops on linear maps.}
+  \begin{block}{Proposition}
+    \[
+    \begin{aligned}
+      &\widehat{A + B} = \hat A + \hat B &\widehat{\lambda A} = \lambda \cdot \hat A
+    \end{aligned}
+    \]
+  \end{block}
+
+  \begin{exampleblock}{Example}
+    \[\begin{aligned}
+    §\left ( \lambda \cdot
+    \begin{array}{|cc|}
+      \phantom{-}1 &  -1 \\
+      -1 & \phantom{-}1 
+    \end{array} \right ) \times \left ( \begin{array}{c} x \\ y \end{array} \right ) = \begin{array}{|cc|}
+      \phantom{-}\lambda &  -\lambda \\
+      -\lambda & \phantom{-}\lambda
+    \end{array} \times \left ( \begin{array}{c} x \\ y \end{array} \right ) &= \left ( \begin{array}{c} \lambda(x - y) \\ \lambda(y - x) \end{array} \right ) \\&=
+    \lambda \cdot \left (
+    \begin{array}{|cc|}
+      \phantom{-}1 &  -1 \\
+      -1 & \phantom{-}1 
+    \end{array}
+    \times \left ( \begin{array}{c} x \\ y \end{array} \right )  \right )
+    \end{aligned}
+    \]
+  \end{exampleblock}
+\end{frame}
+
+
+\begin{frame}{Properties}
+
+  \begin{block}{Vector space.}
+    $\langle \mathcal{M}(n, m), \cdot, {+}\rangle$ is a vector space. In particular:
+    \begin{itemize}
+    \item $0$: $\begin{array}{|ccc|} 0 & \dots & 0\\ \vdots & & \vdots\\ 0 & \dots & 0 \end{array}$.
+    \item $\lambda (A + B) = \lambda A + \lambda B$ (left distrib,)
+    \item $(\lambda + \mu) A = \lambda A + \mu A$ (rigth distrib.)
+    \item $(\lambda \mu) A$ = $\lambda (\mu A)$ (mixed assoc.)
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Matrices $\leftrightarrow$ Linear Maps.}
+    Let $\textsf{lin}(\mathbb{R}^n, \mathbb{R}^m)$ denote the set of all linear maps between $\mathbb{R}^n$ and $\mathbb{R}^m$.\\
+    $A \mapsto \hat{A}$ is an isomorphism between $\mathcal{M}(n,m)$ and $\textsf{lin}(\mathbb{R}^n, \mathbb{R}^m)$.
+  \end{block}
+
+\end{frame}
+
+\begin{frame}{Product of matrices}
+
+  \begin{block}{Definition}
+    \alert{$A \times B$ defined only when $A$ $n,m$ matrix and $B$ $m,l$ matrix.} then: \[{\color{red}C} = {\color{darkgreen} A} \times {\color{blue} B}\textnormal{  is an $n,l$ matrix} \].
+    
+    \[
+    \begin{array}{cccccc}
+      & \multirow{2}{*}{$\times$} & & \color{blue}b_{1,1} &\color{blue} \dots & \color{blue} b_{1,l}\\
+      &                           & & \vdots &       & \vdots\\
+      &                           & &\color{blue} b_{m,1}  & \dots & \color{blue}b_{m, l}\\
+      \color{darkgreen}a_{1,1} &\color{darkgreen} \dots & \color{darkgreen}a_{1,m} & \phantom{\color{red}a_{1,1}b_{1,1} + \dots a_{1,m}b_{m,1}}  & \phantom{\color{red}\dots}  & \phantom{\color{red}a_{1,1}b_{1, l} + \dots + a_{1, m}b_{m, l}}\\
+      \color{darkgreen}\vdots &       & \color{darkgreen}\vdots  &\phantom{\color{red}\vdots}  &  &\phantom{\color{red}\vdots} \\
+      \color{darkgreen}a_{n,1} & \color{darkgreen}\dots & \color{darkgreen}a_{n, m}& \phantom{\color{red}a_{n,1}b_{1,1} + \dots a_{n,m}b_{m,1}}  & \phantom{\color{red}\dots}  & \phantom{\color{red}a_{n,1}b_{1, l} + \dots + a_{n, m}b_{m, l}}\\
+    \end{array}
+    \]
+    
+  \end{block}
+  
+\end{frame}
+
+\begin{frame}{Product of matrices}
+
+  \begin{block}{Definition}
+    \alert{$A \times B$ defined only when $A$ $n,m$ matrix and $B$ $m,l$ matrix.} then: \[{\color{red}C} = {\color{darkgreen} A} \times {\color{blue} B}\textnormal{  is an $n,l$ matrix} \].
+    
+    \[
+    \begin{array}{cccccc}
+      & \multirow{2}{*}{$\times$} & & \bf \color{blue}b_{1,1} &\color{blue} \dots & \color{blue} b_{1,l}\\
+      &                           & & \bf \vdots &       & \vdots\\
+      &                           & & \bf \color{blue} b_{m,1}  & \dots & \color{blue}b_{m, l}\\
+      \bf \color{darkgreen}a_{1,1} &\bf \color{darkgreen} \dots & \bf \color{darkgreen}a_{1,m} & \color{red}a_{1,1}b_{1,1} + \dots a_{1,m}b_{m,1}  & \phantom{\color{red}\dots}  & \phantom{\color{red}a_{1,1}b_{1, l} + \dots + a_{1, m}b_{m, l}}\\
+      \color{darkgreen}\vdots &       & \color{darkgreen}\vdots  &\phantom{\color{red}\vdots}  &  &\phantom{\color{red}\vdots} \\
+      \color{darkgreen}a_{n,1} & \color{darkgreen}\dots & \color{darkgreen}a_{n, m}& \phantom{\color{red}a_{n,1}b_{1,1} + \dots a_{n,m}b_{m,1}}  & \phantom{\color{red}\dots}  & \phantom{\color{red}a_{n,1}b_{1, l} + \dots + a_{n, m}b_{m, l}}\\
+    \end{array}
+    \]
+    
+  \end{block}
+  
+\end{frame}
+
+
+
+
+
+\begin{frame}{Product of matrices}
+
+  \begin{block}{Definition}
+    \alert{$A \times B$ defined only when $A$ $n,m$ matrix and $B$ $m,l$ matrix.} then: \[{\color{red}C} = {\color{darkgreen} A} \times {\color{blue} B}\textnormal{  is an $n,l$ matrix} \].
+    
+    \[
+    \begin{array}{cccccc}
+      & \multirow{2}{*}{$\times$} & & \bf \color{blue}b_{1,1} &\color{blue} \dots & \color{blue} b_{1,l}\\
+      &                           & & \bf \vdots &       & \vdots\\
+      &                           & &\bf \color{blue} b_{m,1}  & \dots & \color{blue}b_{m, l}\\
+      \color{darkgreen}a_{1,1} &\color{darkgreen} \dots & \color{darkgreen}a_{1,m} & \color{red}a_{1,1}b_{1,1} + \dots a_{1,m}b_{m,1}  & \phantom{\color{red}\dots}  & \phantom{\color{red}a_{1,1}b_{1, l} + \dots + a_{1, m}b_{m, l}}\\
+      \color{darkgreen}\vdots &       & \color{darkgreen}\vdots  &\color{red}\vdots  &  &\phantom{\color{red}\vdots} \\
+      \bf \color{darkgreen}a_{n,1} & \bf \color{darkgreen}\dots & \bf \color{darkgreen}a_{n, m}& \color{red}a_{n,1}b_{1,1} + \dots a_{n,m}b_{m,1}  & \phantom{\color{red}\dots}  & \phantom{\color{red}a_{n,1}b_{1, l} + \dots + a_{n, m}b_{m, l}}\\
+    \end{array}
+    \]
+    
+  \end{block}
+  
+\end{frame}
+
+
+
+
+\begin{frame}{Product of matrices}
+
+  \begin{block}{Definition}
+    \alert{$A \times B$ defined only when $A$ $n,m$ matrix and $B$ $m,l$ matrix.} then: \[{\color{red}C} = {\color{darkgreen} A} \times {\color{blue} B}\textnormal{  is an $n,l$ matrix} \].
+    
+    \[
+    \begin{array}{cccccc}
+      & \multirow{2}{*}{$\times$} & &  \color{blue}b_{1,1} &\color{blue} \dots & \bf\color{blue} b_{1,l}\\
+      &                           & &  \vdots &       & \bf \vdots\\
+      &                           & & \color{blue} b_{m,1}  & \dots & \bf \color{blue}b_{m, l}\\
+      \bf \color{darkgreen}a_{1,1} &\bf \color{darkgreen} \dots & \bf \color{darkgreen}a_{1,m} & \color{red}a_{1,1}b_{1,1} + \dots a_{1,m}b_{m,1}  & \color{red}\dots  & \color{red}a_{1,1}b_{1, l} + \dots + a_{1, m}b_{m, l}\\
+      \color{darkgreen}\vdots &       & \color{darkgreen}\vdots  &\color{red}\vdots  &  &\phantom{\color{red}\vdots} \\
+      \color{darkgreen}a_{n,1} &  \color{darkgreen}\dots &  \color{darkgreen}a_{n, m}& \color{red}a_{n,1}b_{1,1} + \dots a_{n,m}b_{m,1}  & \phantom{\color{red}\dots}  & \phantom{\color{red}a_{n,1}b_{1, l} + \dots + a_{n, m}b_{m, l}}\\
+    \end{array}
+    \]
+    
+  \end{block}
+  
+\end{frame}
+
+
+\begin{frame}{Product of matrices}
+
+  \begin{block}{Definition}
+    \alert{$A \times B$ defined only when $A$ $n,m$ matrix and $B$ $m,l$ matrix.} then: \[{\color{red}C} = {\color{darkgreen} A} \times {\color{blue} B}\textnormal{  is an $n,l$ matrix} \].
+    
+    \[
+    \begin{array}{cccccc}
+      & \multirow{2}{*}{$\times$} & &  \color{blue}b_{1,1} &\color{blue} \dots & \bf\color{blue} b_{1,l}\\
+      &                           & &  \vdots &       & \bf \vdots\\
+      &                           & & \color{blue} b_{m,1}  & \dots & \bf \color{blue}b_{m, l}\\
+       \color{darkgreen}a_{1,1} & \color{darkgreen} \dots &  \color{darkgreen}a_{1,m} & \color{red}a_{1,1}b_{1,1} + \dots a_{1,m}b_{m,1}  & \color{red}\dots  & \color{red}a_{1,1}b_{1, l} + \dots + a_{1, m}b_{m, l}\\
+      \color{darkgreen}\vdots &       & \color{darkgreen}\vdots  &\color{red}\vdots  &  &\phantom{\color{red}\vdots} \\
+      \bf \color{darkgreen}a_{n,1} &  \bf \color{darkgreen}\dots &  \bf \color{darkgreen}a_{n, m}& \color{red}a_{n,1}b_{1,1} + \dots a_{n,m}b_{m,1}  & \color{red}\dots  & \color{red}a_{n,1}b_{1, l} + \dots + a_{n, m}b_{m, l}\\
+    \end{array}
+    \]
+    
+  \end{block}
+  
+\end{frame}
+
+\begin{frame}{Formal definition}
+  \begin{block}{Definition}
+    For $A = (a_{i,j}) \in \mathcal{M}(n,m)$, $B = (b_{i,j}) \in \mathcal{M}(m, l)$,
+    \[A \times B = (c_{i,j}) \in \mathcal{M}(n, l) \] where
+    \[\forall i \in [1, n], j \in [1,l]\, c_{i,j} = \sum^{m}_{k = 1} a_{i, k}b_{k, j}\]
+  \end{block}
+\end{frame}
+
+\begin{frame}{Example}
+  \[ \underbrace{\begin{array}{|cc|} 1 & 0 \\ 0 & 1 \\ 0 &  0  \end{array}}_{(\textcolor{darkgreen}{3},2)} \times \underbrace{\begin{array}{|cc|} \phantom{-}1 & -1 \\ -1 & \phantom{-}1 \end{array}}_{2,\textcolor{blue}{2}} = \underbrace{\begin{array}{|cc|} \phantom{-}1 & -1 \\ -1 & \phantom{-}1 \\ \phantom{-}0 & \phantom{-}0  \end{array}}_{(\textcolor{darkgreen}{3}, \textcolor{blue}{2} )}    \]
+\end{frame}
+
+\begin{frame}{Properties}
+  \begin{itemize}
+  \item $(A \times B) \times C = A \times (B \times C)$ [Associativity]
+  \item $(A + B) \times C = (A \times C) + (B \times C)$ [right distribuvity]
+  \item $A \times (B + C) = (A \times B) + (A \times C)$ [left distributivity]
+  \item $A \times X$ coincide with previous def. when $X$ is seen as a $m, 1$ matrix, $A$ is a $n,m$ matrix.
+  \end{itemize}
+
+  \begin{alertblock}{WARNING!}
+    Matrix product is {\bf not} commutative in general:
+    \[ A \times B \neq B \times A \textnormal{ in general.}\] 
+  \end{alertblock}
+\end{frame}
+
+
+\begin{frame}{Matrix product and composition.}
+  \begin{block}{Theorem}
+    Let $g: \mathbb{R}^l \mapsto \mathbb{R}^m$ be a linear map and $f \mathbb{R}^m \mapsto \mathbb{R}^n$ be a linear map. Let $A \in \mathcal{M}(n,m), B \in \mathcal{M}(m, l)$ such that $\hat A = f$ and $\hat B = g$. Then
+    \[ \widehat{A \times B} = f \circ g \] or equivalently, for any $X \in \mathbb{R}^l$
+    \[A \times B \times X = f(g(X))\]
+  \end{block}
+\end{frame}
+
+
+\begin{frame}{Representing arbitrary maps.}
+  \begin{itemize}
+  \item So far: $n,m$ matrix $\leftrightarrow$ linear map between spaces $\mathbb{R}^m$ and $\mathbb{R}^n$.
+  \item What about mapping between another $m$ dimensional space and another $n$ dimensional space?
+  \item Possible, {\bf but only relative to two basis!}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Representation of a linear map.}
+  Let $f: V \mapsto W$ be a linear map. Let $\mathcal{B} = \langle v_1, \dots, v_m \rangle$ be a basis of $V$ and $\mathcal{B'} = \langle w_1, \dots, w_n \rangle$ be a basis of $W$. Decompose each $f(w_i)$ w.r.t. $\mathcal{B}$:
+
+  \[\begin{aligned}
+  f(w_1) &= a_{1,1} v_1 + \dots + a_{n,1} v_n\\
+  &\vdots\\
+  f(w_n) & = a_{n,1} v_1 + \dots + a_{n,m} v_n
+  \end{aligned}\]
+
+  And define \[f\restriction_{\mathcal{B}, \mathcal{B'}} =  \begin{array}{|ccc|}
+    a_{1,1} & \dots & a_{1,m}\\ \vdots & & \vdots\\ a_{n,1} & \dots & a_{n, m}
+  \end{array}\] the matricial representation of $f$ w.r.t. $\mathcal{B}, \mathcal{B'}$
+  
+\end{frame}
+
+
+\end{document}

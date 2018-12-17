@@ -1,0 +1,144 @@
+
+\documentclass{beamer}
+
+%\usepackage{listings}
+%\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\usepackage{MyriadPro}
+\usepackage{cabin}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{positioning, backgrounds, shapes, chains, decorations.pathmorphing}
+
+\usepackage{amsmath,amsthm,amssymb}  
+\usepackage{stmaryrd}
+%\usepackage{mdsymbol}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{array}
+%\usepackage{csquotes}
+
+
+
+\usepackage[absolute,overlay]{textpos}
+%\usepackage[texcoord,
+%grid,gridcolor=red!10,subgridcolor=green!10,gridunit=pt]
+%{eso-pic}
+
+
+
+\useoutertheme{infolines}
+
+\newcommand{\hidden}[1]{}
+
+%colors
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\usebeamercolor{block title}
+\definecolor{beamerblue}{named}{fg}
+\usebeamercolor{alert block title}
+\definecolor{beamealert}{named}{fg}
+
+\renewcommand{\colon}{\!:\!}
+
+
+\newcommand\paraitem{%
+ \quad
+ \makebox[\labelwidth][r]{%
+ \makelabel{%
+ \usebeamertemplate{itemize \beameritemnestingprefix item}}}\hskip\labelsep}
+
+\newcommand{\mmid}{\mathbin{{\mid}{\mid}}}
+
+\begin{document}
+
+\title{Exercises} 
+\author{Antoine Venant}
+%\institute{UDS COLI}
+\date{\today}
+\maketitle
+
+
+\begin{frame}{Exercise}
+
+  Give the solution sets of the following systems of linear equations:
+
+  \[
+  \begin{array}{ccccccc}
+     \phantom{1}x_1 & + & 2x_2 & + & 3x_3 & = & 1\\
+    4x_1 & + & 5x_2 & + & 6x_3 & = & 2\\
+    7x_1 & + & 8x_2 & + & 9x_3 & = & 3\\
+    5x_1 & + & 7x_2 & + & 9x_3 & = & 4\\
+  \end{array}
+  \]
+
+
+  \[
+  \begin{array}{ccccccccc}
+     \phantom{1}x_1 & - & \phantom{1}x_2 & + & 2x_3 & - &3x_4& = & \phantom{-}7\\
+     4x_1 &  &  & + & 3x_3 & + &x_4& = & \phantom{-}9\\
+     2x_1 & - & 5x_2 & + & x_3 &  & & = & -2\\
+     3x_1 & - & \phantom{1}x_2 & - & x_3 & + &2x_4& = & -2\\
+  \end{array}
+  \]
+  
+\end{frame}
+
+
+\begin{frame}{Exercise}
+  Consider \[f: \begin{aligned} &\mathbb{R}^3 \mapsto \mathbb{R}^3\\&(x,y,z) \mapsto (x-y, x-z, z-y) \end{aligned}\]
+    \begin{itemize}
+    \item Show that $f$ is linear.
+    \item Does there exists $(x,y,z)$ such that $f(x,y,z) = (1, 2, 3)$?
+    \item Describe the set of $f^{-1}(2,1,1) = \{(x,y,z) \mid f(x,y,z) = (2,1,1)\}$.
+    \item At what condition on $(a,b,c)$ do we have $f^{-1}(a,b,c) \neq \emptyset$. If this condition is granted, is $f^{-1}(a,b,c)$ finite?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Exercise}
+  \begin{itemize}
+  \item Show that a system of $n$ linear equations of $n$ variables
+    \[
+  \arraycolsep=1.4pt%\def\arraystretch{2.2}
+  \begin{array}{ccccccccc}
+    a^1_1 & x_1 & + & \dots & + & a^n_1 & x_n & = & b_1 \\
+    a^1_2 & x_1 & + & \dots & + & a^n_2 & x_n & = & b_2\\
+    \vdots&     &   &      &  &\vdots&     &   & \vdots\\
+    a^1_n & x_1 & + & \dots & + &  a^n_n & x_n & = & b_n\\
+  \end{array}
+  \]
+  admits a unique solution iff the associated homogeneous system
+  \[
+  \arraycolsep=1.4pt%\def\arraystretch{2.2}
+  \begin{array}{ccccccccc}
+    a^1_1 & x_1 & + & \dots & + & a^n_1 & x_n & = & 0 \\
+    a^1_2 & x_1 & + & \dots & + & a^n_2 & x_n & = & 0\\
+    \vdots&     &   &      &  &\vdots&     &   & \vdots\\
+    a^1_n & x_1 & + & \dots & + &  a^n_n & x_n & = & 0\\
+  \end{array}
+  \]
+  has a unique solution.
+  \end{itemize}
+
+
+\end{frame}
+
+
+\begin{frame}{Exercise}
+  \begin{itemize}
+  \item Is it true that a system of $m < n$ equation of $n$ variables never has a unique solution?
+  \item Is it true that a system of $m < n$ equation of $n$ variables always has at least one solution?
+  \item Is it true that a system of $m > n$ equations of $n$ variables has at most one solution?
+  \end{itemize} 
+\end{frame}
+
+\begin{frame}{Exercise}
+  A box holding $1$cent, $5cent$ and $10$cent cointains contains thirteen coins with a total
+  value of $83$ cents. How many coins of each type are in the box? 
+\end{frame}
+  
+
+
+\end{document}
