@@ -1,0 +1,225 @@
+
+\documentclass{beamer}
+
+%\usepackage{listings}
+%\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\usepackage{MyriadPro}
+\usepackage{cabin}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{positioning, backgrounds, shapes, chains, decorations.pathmorphing}
+
+\usepackage{amsmath,amsthm,amssymb}  
+\usepackage{stmaryrd}
+%\usepackage{mdsymbol}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{multirow}
+%\usepackage{csquotes}
+
+
+
+\usepackage[absolute,overlay]{textpos}
+%\usepackage[texcoord,
+%grid,gridcolor=red!10,subgridcolor=green!10,gridunit=pt]
+%{eso-pic}
+
+
+
+\useoutertheme{infolines}
+
+\newcommand{\hidden}[1]{}
+
+%colors
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\usebeamercolor{block title}
+\definecolor{beamerblue}{named}{fg}
+\usebeamercolor{alert block title}
+\definecolor{beamealert}{named}{fg}
+
+\renewcommand{\colon}{\!:\!}
+
+
+\newcommand\paraitem{%
+ \quad
+ \makebox[\labelwidth][r]{%
+ \makelabel{%
+ \usebeamertemplate{itemize \beameritemnestingprefix item}}}\hskip\labelsep}
+
+\newcommand{\mmid}{\mathbin{{\mid}{\mid}}}
+
+\begin{document}
+
+\title{Summary and complements.} 
+\author{Antoine Venant}
+%\institute{UDS COLI}
+\date{\today}
+
+\maketitle
+
+
+\section{Basis and dimension}
+
+\begin{frame}{Basis}
+  Let $V$ be a vector space.
+
+  \begin{itemize}
+  \item Basis: a sequence of vector $\mathcal{B} = \langle v_1 \dots v_n \rangle$ which is:
+    \begin{itemize}
+    \item A generator, \emph{i.e.} $\mathcal{L}(v_1, \dots, v_n ) = V$ \emph{i.e.} \[\forall v \in V\, \exists \lambda_1, \dots, \lambda_n \in \mathbb{R}\, v = \lambda_1 v_1 + \dots + \lambda_n v_n.\]
+    \item linearly independent \emph{i.e.} \[\forall \lambda_1,\dots, \lambda_n \in \mathbb{R} \, \lambda_1 v_1 + \dots + \lambda_n v_n = 0 \Rightarrow \lambda_1 = \dots = \lambda_n = 0.\]
+    \end{itemize}
+  \item When $\mathcal{B}$ is a basis, any vector $v$ admits a {\bf unique} decomposition $v = \lambda_1 v_1 + \dots + \lambda_n v_n$. We write \[v = \langle v_1, \dots, v_n \rangle_{\mathcal{B}}.\]
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{The completion Theorem}
+  \begin{block}{Theorem}
+    If $\langle v_1, \dots, v_k \rangle$ is linearly independent and $\langle w_1, \dots, w_l \rangle$ is a sequence of vectors such that $\langle v_1, \dots, v_k, w_1, \dots, w_l \rangle$ is a generator of $V$, then there exists indices $i_1, \dots, i_m$ ($m \le l$) such that $\langle v_1, \dots, v_n, w_{i_1}, \dots, w_{i_m} \rangle$ is a basis of $V$.
+  \end{block}
+
+  \alert{``If one has a linear independent family and a generator family, one can complete the first using vectors of the second to obtain a basis.''}
+\end{frame}
+
+\begin{frame}{Important consequences.}
+  \begin{itemize}
+  \item Every basis have the same size -- the \emph{dimension} of the space (we write $dim(V)$).
+  \end{itemize}
+  Let $V$ be a vector space with $dim(V) = n$
+  \begin{block}{Propositions}
+    \begin{itemize}
+    \item If $\langle v_1, \dots, v_k \rangle$ is linearly independent then $k \le n$.
+    \item If $\langle v_1, \dots, v_k \rangle$ is a generator of $V$ then $k \ge n$.
+    \item If $\langle v_1, \dots, v_n \rangle$ is linearly independent then it is a basis.
+    \item If $\langle v_1, \dots, v_n \rangle$ is a generator of $V$ then it is a basis.
+    \item If $W \subseteq V$ is a vector subspace of $V$, $dim(W) \le dim(V)$.
+    \item If $W \subseteq V$ is a vector subspace of $V$, $dim(W) = n$ iff $W = V$.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
+\section{The rank theorem.}
+
+\begin{frame}{Kernel and Image}
+  \begin{itemize}
+  \item $V, W$ finite dimensional vector spaces.
+  \item $f: V \mapsto W$ linear map.
+  \end{itemize}
+
+  \begin{block}{Definition}
+    The image of $f$ is the set of images of all vectors of $V$:
+    \[Im(f) = \{ f(x) \mid x \in V \} \]
+  \end{block}
+
+  \begin{block}{Definition}
+    The kernel of $f$ is the set of vectors that are mapped to $0$.
+    \[Ker(f) = \{ x \mid f(x) = 0\}\]
+  \end{block}
+
+  \begin{itemize}
+  \item The {\textbf{rank}} of a $f$ is $rk(f)=dim(Im(f))$.
+  \item A linear map is injective iff $Ker(f) = \{0\}$
+  \end{itemize}  
+\end{frame}
+
+\begin{frame}
+  \frametitle{The rank theorem}
+  Let $V$ and $W$ be {\bf finite dimensional} vector spaces and $f: V \mapsto W$ be a linear map.
+
+  \begin{block}{Theorem}
+    \[dim(Ker(f)) + dim(Im(f)) = dim(V)\]
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \begin{block}{Corollary of the rank theorem.}
+    \begin{itemize}
+    \item $V, W$ be vector spaces such that $dim(V) = dim(W) = n$.
+    \item $f: V \mapsto W$ linear map.
+    \item $\mathcal{B} = \langle v_1, \dots, v_n\rangle$ basis of $V$.
+    \end{itemize}
+      The following assertions are all equivalent:
+      \begin{itemize}
+      \item $f$ is injective
+      \item $f$ is surjective
+      \item $f$ is an isomorphism
+      \item $rk(f) = n$.
+      \item $\langle f(v_1), \dots, f(v_n) \rangle$ basis of $Im(f)$.
+      \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{proof}
+  \[
+  \begin{aligned}
+   f \textnormal{ injective } &\textnormal{ iff } Ker(f) = \{0\}\\
+    &\textnormal{ iff } rk(f) = dim(Im(f)) = dim(V) - dim(Ker(f)) = n - 0 = n\\
+    &\textnormal{ iff } Im(f) = W\\
+    &\textnormal{ iff } f \textnormal{ surjective (csq of the completion thm -- see previous slides)}.\\
+   &\textnormal{ iff } f\textnormal{ isomorphism}.
+  \end{aligned}
+  \]
+\end{frame}
+
+\begin{frame}
+  \frametitle{Proof of last equivalence:}
+  Remain to show the equivalence $dim(Im(f)) = n$ with: $\langle f(v_1), \dots, f(v_n) \rangle$ basis of $Im(f)$:
+  \begin{itemize}
+  \item If $\langle f(v_1), \dots, f(v_n) \rangle$ basis of $Im(f)$ then $dim(Im(f)) = n$.
+  \item Conversely, assume $dim(Im(f)) = n$. $\langle f(v_1), \dots, f(v_n) \rangle$ is always a generator of $Im(f)$: $w \in Im(f)$ iff there exists  $v \in V$ such that $w = f(v)$. We can decompose $v$ in $\mathcal{B}$ to get $ v = \lambda_1 v_1 +  \dots + \lambda_n$. Then by linearity $w = f(v) = \lambda_1 f(v_1) + \dots + \lambda_n f(v_n)$. So $w \in \mathcal{L}(\langle f(v_1), \dots, f(v_n) \rangle)$. We've already seen as consequence of the completion theorem that a generator with $n$ vectors of a dim $n$ space is a basis.
+  \end{itemize}
+\end{frame}
+
+
+
+\section{Complement: canonical isomorphisms.}
+
+\begin{frame}{Canonical homomorphism.}
+  \begin{itemize}
+  \item $V$ vector space and $\mathcal{B} = \langle v_1 \dots v_n \rangle$ basis of $V$. 
+  \end{itemize}
+
+  \begin{definition}[Interpretation and representation w.r.t $\mathcal{B}$:]
+    \begin{itemize}
+    \item $\langle \cdot \rangle_{\mathcal{B}}: \begin{cases} \mathbb{R}^n \mapsto V \\ (x_1, \dots, x_n) \mapsto \langle x_1,\dots, x_n \rangle_{\mathcal{B}} = x_1 v_1 + \dots + x_n v_n  \end{cases}$.
+    \item $\cdot \restriction_{\mathcal{B}}: \begin{cases} V \mapsto \mathbb{R}^n \\ v \mapsto v \restriction_{\mathcal{B}} = (x_1, \dots, x_n) \textnormal{ such that } v = \langle x_1, \dots, x_n \rangle_{\mathcal{B}} \end{cases}$.
+    \end{itemize}
+  \end{definition}
+
+  \begin{itemize}
+  \item {\bf Because $\mathcal{B}$ is a basis} the second definition is valid.
+  \item Also, both are linear maps.
+  \item Both are isomorphisms (check any of the conditions in privous slide about isomorphisms).
+  \item They are each other inverse:
+    \[
+   (\langle x_1, \dots, x_n\rangle_{\mathcal{B}})\restriction_{B} = (x_1, \dots, x_n)
+    \textnormal{ and }\langle v \restriction_{\mathcal{B}} \rangle_{\mathcal{B}} = v
+    \]
+  \end{itemize}
+\end{frame}
+
+
+\section{Matrices}
+
+
+\section{Matrices to linear maps and back.}
+
+\begin{frame}{$(n,m)$ Matrices $\Leftrightarrow$ linear maps $\mathcal{R}^m \mapsto \mathcal{R}^n$}
+  bla
+\end{frame}
+
+
+
+
+
+
+
+
+\end{document}

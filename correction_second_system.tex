@@ -1,0 +1,98 @@
+\documentclass[A4paper]{article}
+
+\usepackage{amsmath}
+
+\begin{document}
+\[
+\begin{cases}
+  x_1 - x_2 + 2x_3 -3x_4 = 7\\
+  4x_1 + 3x_3 + x_4 = 9\\
+  2x_1 - 5x_2 + x_3 = -2\\
+  3x_1 - x_2 -x_3 + 2x_4 = -2
+\end{cases}
+\]
+
+Use first line as pivot:
+\[
+\begin{cases}
+  x_1 - x_2 + 2x_3 -3x_4 = 7\\
+  4x_2 - 5x_3 + 13x_4 = -19\\
+   -3x_2 -3x_3 +6x_4 = -16\\
+   2x_2 -7x_3 + 11x_4 = -23
+\end{cases}
+\]
+
+Exchange line $2$ and $3$:
+\[
+\begin{cases}
+  x_1 - x_2 + 2x_3 -3x_4 = 7\\
+  -3x_2 -3x_3 +6x_4 = -16\\
+  4x_2 - 5x_3 + 13x_4 = -19\\   
+  2x_2 -7x_3 + 11x_4 = -23
+\end{cases}
+\]
+
+Divide line $2$ by $-3$ to get a one coefficient on front of $x_2$:
+\[
+\begin{cases}
+  x_1 - x_2 + 2x_3 -3x_4 = 7\\
+  x_2 +x_3 -2x_4 = \frac{16}{3}\\
+  4x_2 - 5x_3 + 13x_4 = -19\\   
+  2x_2 -7x_3 + 11x_4 = -23
+\end{cases}
+\]
+
+Use second line as pivot:
+\[
+\begin{cases}
+  x_1  + 3x_3 -5x_4 = \frac{37}{3}\\
+  x_2 +x_3 -2x_4 = \frac{16}{3}\\
+   -9x_3 + 21x_4 = -\frac{121}{3}\\   
+   -9x_3 + 15x_4 = -\frac{101}{3}
+\end{cases}
+\]
+
+Divide third line by $-9$ to get a one coefficient in front of $x_3$:
+\[
+\begin{cases}
+  x_1  + 3x_3 -5x_4 = \frac{37}{3}\\
+  x_2 +x_3 -2x_4 = \frac{16}{3}\\
+   x_3 - \frac{7}{3}x_4 = \frac{121}{27}\\   
+   -9x_3 + 15x_4 = -\frac{101}{3}
+\end{cases}
+\]
+
+Use third line as pivot:
+\[
+\begin{cases}
+  x_1   +2x_4 = -\frac{10}{9}\\
+  x_2  +\frac{1}{3}x_4 = \frac{23}{27}\\
+   x_3 - \frac{7}{3}x_4 = \frac{121}{27}\\   
+   -6x_4 = \frac{20}{3}
+\end{cases}
+\]
+
+Divide fourth line by $-6$:
+\[
+\begin{cases}
+  x_1   +2x_4 = -\frac{10}{9}\\
+  x_2  +\frac{1}{3}x_4 = \frac{23}{27}\\
+   x_3 - \frac{7}{3}x_4 = \frac{121}{27}\\   
+   x_4 = -\frac{10}{9}
+\end{cases}
+\]
+
+Use fourth line as pivot:
+\[
+\begin{cases}
+  x_1   = \frac{10}{9}\\
+  x_2   = \frac{11}{9}\\
+   x_3  = \frac{17}{9}\\   
+   x_4 = -\frac{10}{9}
+\end{cases}
+\]
+
+
+
+
+\end{document}
