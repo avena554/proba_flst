@@ -1,0 +1,179 @@
+
+\documentclass{beamer}
+
+%\usepackage{listings}
+%\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\usepackage{MyriadPro}
+\usepackage{cabin}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{positioning, backgrounds, shapes, chains, decorations.pathmorphing}
+
+\usepackage{amsmath,amsthm,amssymb}  
+\usepackage{stmaryrd}
+%\usepackage{mdsymbol}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{array}
+%\usepackage{csquotes}
+
+
+
+\usepackage[absolute,overlay]{textpos}
+%\usepackage[texcoord,
+%grid,gridcolor=red!10,subgridcolor=green!10,gridunit=pt]
+%{eso-pic}
+
+
+
+\useoutertheme{infolines}
+
+\newcommand{\hidden}[1]{}
+
+%colors
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\usebeamercolor{block title}
+\definecolor{beamerblue}{named}{fg}
+\usebeamercolor{alert block title}
+\definecolor{beamealert}{named}{fg}
+
+\renewcommand{\colon}{\!:\!}
+
+
+\newcommand\paraitem{%
+ \quad
+ \makebox[\labelwidth][r]{%
+ \makelabel{%
+ \usebeamertemplate{itemize \beameritemnestingprefix item}}}\hskip\labelsep}
+
+\newcommand{\mmid}{\mathbin{{\mid}{\mid}}}
+
+\begin{document}
+
+\title{Exercises} 
+\author{Antoine Venant}
+%\institute{UDS COLI}
+\date{\today}
+\maketitle
+
+\begin{frame}{Exercise}
+  We consider the following two $3,3$ matrices:
+
+  \[ A =
+  \begin{array}{|ccc|}
+    2 & -1 & 0\\
+    0 & \phantom{-}1 & 1\\
+    0 & \phantom{-}0 & 1\\
+  \end{array}
+  \textnormal{ and }
+  B =
+  \begin{array}{|ccc|}
+    \frac{1}{2} & \frac{1}{2} & -\frac{1}{2}\\
+    0 & 1 & -1\\
+    0 & 0 & \phantom{-}1\\
+  \end{array}
+  \]
+
+  \begin{enumerate}
+  \item Compute $A \times B$.
+  \item Using a matrix-related argument, show that the following mappings are linear maps:
+    \[f:\begin{array}{l} \mathbb{R}^3 \mapsto \mathbb{R}^3\\ (x, y, z) \mapsto (2x - y, y + z, z) \end{array} \textnormal{ and } g:\begin{array}{l} \mathbb{R}^3 \mapsto \mathbb{R}^3\\ (x, y, z) \mapsto (\frac{1}{2}(x + y + z), y - z, z) \end{array}\]
+  \item Using question 1. show that $f = g^{-1}$.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Exercise}
+  Let $V, W$ be two finite dimensional vector spaces and $f: V \mapsto W$ be a linear map.
+  \begin{enumerate}
+  \item Show that $f$ is an isomorphism iff $dim(Im(f)) = dim(V) = dim(W)$.
+  \item Let $n = dim(V)$ and $\langle v_1, \dots, v_n \rangle$ be a basis of $V$. We propose to let $\pi(\lambda_1 v_1 + \dots + \lambda_n v_n) = (\lambda_1, \dots, \lambda_n)$. Is that a valid definition of a mapping $\pi: V \mapsto \mathbb{R}^n$? Why?
+  \item Find an isomorphism between $V$ and $\mathbb{R}^n$, and prove that it is one.
+  \item Show that two spaces $V$ and $W$ are isomorphic iff $dim(V) = dim(W)$.
+  \end{enumerate}
+\end{frame}
+
+  
+\begin{frame}{Exercise}
+  Let $V, W$ be two finite dimensional vector spaces and $f: V \mapsto W$ be a linear map.
+  \begin{itemize}
+  \item Let $n = dim(V)$ and $\langle v_1, \dots, v_n \rangle$ be a basis of $V$. Show that $f$ is injective iff $\langle f(v_1), \dots, f(v_n) \rangle$ is linearly independant.
+  \item Prove that $\mathcal{L}(f(v_1), \dots, f(v_n)) = Im(f)$ (reminder: $\mathcal{L}(v_1, \dots, v_n) = \{\lambda_1 v_1 + \dots + \lambda_n v_n \mid \lambda_1, \dots, \lambda_n \in \mathbb{R}\}$)
+  \item Prove the lecture's proposition: $f$ is an isomorphism iff the $\langle f(v_1), \dots, f(v_n) \rangle$ is a basis of $W$.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Exercise}
+  A \emph{Markov Chain} is a probabilistic finite-state transition system, where the probability of taking a transition from the current state to the next depend only on the current state. For example:
+
+  \begin{center}
+    \begin{tikzpicture}[scale = 0.7, state/.style={draw, circle, black}, every edge/.style = {->, draw, black, bend left}, trans/.style={}]
+    \node[state] (q1) at (-1,0) {\footnotesize $q_1$};
+    \node[state] (q3) at (0,-2) {\footnotesize $q_3$};
+    \node[state] (q2) at (1,0) {\footnotesize $q_2$};
+
+    \draw (q1) edge node[midway, above, trans]{$1/2$} (q2);
+    \draw (q1) edge[bend right] node[midway, left, trans]{$1/2$} (q3);
+    \draw (q2) edge node[midway, above, trans]{$1/3$} (q1);
+    \draw (q2) edge node[midway, right, trans]{$2/3$} (q3);
+    \draw (q3) edge node[midway, left, trans, bend right]{$1$} (q2);
+    \end{tikzpicture}
+
+    If $X_0$ denote the initial state, $X_n$ denote the state at time step $n$ (after taking $n$ transitions) we have:
+    \[P(X_{n+1} = q_2 \mid X_n = q_1) = \frac{1}{2} \textnormal{ and } P(X_{n+1} = q_3 \mid X_n = q_1) = \frac{1}{2} \textnormal{ and } \dots\]
+  \end{center}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Exercise}
+  \begin{center}
+    \begin{tikzpicture}[scale = 0.7, state/.style={draw, circle, black}, every edge/.style = {->, draw, black, bend left}, trans/.style={}]
+    \node[state] (q1) at (-1,0) {\footnotesize $q_1$};
+    \node[state] (q3) at (0,-2) {\footnotesize $q_3$};
+    \node[state] (q2) at (1,0) {\footnotesize $q_2$};
+
+    \draw (q1) edge node[midway, above, trans]{$1/2$} (q2);
+    \draw (q1) edge[bend right] node[midway, left, trans]{$1/2$} (q3);
+    \draw (q2) edge node[midway, above, trans]{$1/3$} (q1);
+    \draw (q2) edge node[midway, right, trans]{$2/3$} (q3);
+    \draw (q3) edge node[midway, left, trans, bend right]{$1$} (q2);
+    \end{tikzpicture}
+  \end{center}
+
+  \begin{enumerate}
+  \item At time step $n$, the probability $P(X_n = \cdot)$ over states can be represented as an element of $\mathbb{R}^3$:  $(P(X_n = q_1), P(X_n = q_2), P(X_n = q_3))$ (probability vector). Prove that the following function is a linear map:
+    \[\textsf{next}: \begin{array}{l} \mathbb{R}^3 \mapsto \mathbb{R}^3\\ P(X_n = \cdot) \mapsto P(X_{n+1} = \cdot)   \end{array}   \]
+  \item Give the matricial representation of $\textsf{next}$.
+  \item Compute the matricial representation of $\textsf{next}^2 = \textsf{next} \circ \textsf{next}$.
+  \item Assuming $P(X_0 = \cdot) = (\frac{1}{3}, 0 , \frac{2}{3})$ what is $P(X_2 = q_2)$? 
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Exercise}
+  \begin{center}
+    \begin{tikzpicture}[scale = 0.7, state/.style={draw, circle, black}, every edge/.style = {->, draw, black, bend left}, trans/.style={}]
+    \node[state] (q1) at (-1,0) {\footnotesize $q_1$};
+    \node[state] (q3) at (0,-2) {\footnotesize $q_3$};
+    \node[state] (q2) at (1,0) {\footnotesize $q_2$};
+
+    \draw (q1) edge node[midway, above, trans]{$1/2$} (q2);
+    \draw (q1) edge[bend right] node[midway, left, trans]{$1/2$} (q3);
+    \draw (q2) edge node[midway, above, trans]{$1/3$} (q1);
+    \draw (q2) edge node[midway, right, trans]{$2/3$} (q3);
+    \draw (q3) edge node[midway, left, trans, bend right]{$1$} (q2);
+    \end{tikzpicture}
+  \end{center}
+
+  \begin{enumerate}
+  \item[5] A probability vector $p = (p_1, p_2, p_3)$ is a steady state of the Markov chain if $P(X_n = \cdot) = p$ implies that $P(X_{n+1} = \cdot) = p$. Compute the steady states of our example Markov chain.
+  \end{enumerate}
+  
+\end{frame}
+
+
+\end{document}

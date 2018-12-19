@@ -1,0 +1,194 @@
+
+\documentclass{beamer}
+
+%\usepackage{listings}
+%\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%\usepackage{MyriadPro}
+\usepackage{cabin}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{positioning, backgrounds, shapes, chains, decorations.pathmorphing}
+
+\usepackage{amsmath,amsthm,amssymb}  
+\usepackage{stmaryrd}
+%\usepackage{mdsymbol}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{multirow}
+%\usepackage{csquotes}
+
+
+
+\usepackage[absolute,overlay]{textpos}
+%\usepackage[texcoord,
+%grid,gridcolor=red!10,subgridcolor=green!10,gridunit=pt]
+%{eso-pic}
+
+
+
+\useoutertheme{infolines}
+
+\newcommand{\hidden}[1]{}
+
+%colors
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\usebeamercolor{block title}
+\definecolor{beamerblue}{named}{fg}
+\usebeamercolor{alert block title}
+\definecolor{beamealert}{named}{fg}
+
+\renewcommand{\colon}{\!:\!}
+
+
+\newcommand\paraitem{%
+ \quad
+ \makebox[\labelwidth][r]{%
+ \makelabel{%
+ \usebeamertemplate{itemize \beameritemnestingprefix item}}}\hskip\labelsep}
+
+\newcommand{\mmid}{\mathbin{{\mid}{\mid}}}
+
+\begin{document}
+
+\title{Further computations with matrices.} 
+\author{Antoine Venant}
+%\institute{UDS COLI}
+\date{\today}
+
+\maketitle
+
+\begin{frame}{Invertible matrix.}
+
+  \begin{block}{Definition}
+    An $(n,n)$ (square) matrix $M$ is \emph{invertible} if there exists a matrix $M^{-1}$ such that
+    \[ M^{-1} \times M = Id_n \]
+  \end{block}
+
+  \begin{block}{Properties of inverse matrices.}
+    \begin{itemize}
+    \item $P \times M = Id_n$ iff $M \times P = Id_n$.
+    \item when it exists, the inverse is unique: if $P \times M = Id_n$ and $Q \times M = Id_n$ then $P = Q$.
+    \item $(M^{-1})^{-1} = M$
+    \item If $M$ and $N$ are both invertible, then so is $M \times N$ and its inverse is $N^{-1}\times M^{-1}$.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Invertible matrix and isomorphisms.}
+  \begin{block}{Proposition}
+    $M$ is invertible iff $\widehat M$ is an automorphism of $\mathbb{R}^n$  (reminder: automorphism is an isomorphism between a vector space and itself).
+  \end{block}
+
+  \begin{exampleblock}{Proof}
+    We know that $\widehat M$ is linear. We have to show that it is bijective. It suffices to show that it admits an inverse function.
+    \begin{itemize}
+    \item $M$ is invertible iff $\exists M^{-1}\quad M^{-1} \times M = Id_n$
+    \item iff $\exists M^{-1} \quad \widehat{M^{-1} \times M} = \widehat{Id_n}$
+    \item iff $\exists M^{-1} \quad \widehat{M^{-1}} \circ \widehat{M} = id_{\mathbb{R}^n}$
+    \item iff $\exists f = M^{-1} \quad f \circ \widehat{M} = id_{\mathbb{R}^n}$
+    \item iff $\widehat{M}$ bijective.
+    \end{itemize}
+  \end{exampleblock}
+
+\end{frame}
+
+\begin{frame}
+  \begin{block}{Corolloray}
+    \begin{itemize}
+    \item If a linear map between finite dimenional spaces $f: V \mapsto W$ is an isomorphism then for any base $\mathcal{B}$ of $V$ and $\mathcal{B}'$ of $W$, $f \restriction_{\mathcal{B}, \mathcal{B}'}$ is invertible.
+    \item If there exists some basis $\mathcal{B}$ of $V$ and $\mathcal{B}'$ of $W$ such that $f \restriction_{\mathcal{B}, \mathcal{B}'}$ is invertible, then $f$ is an isomorphism.
+    \end{itemize}
+  \end{block}
+
+  \begin{exampleblock}{Proof}
+    \begin{itemize}
+    \item Assume $f$ is an isomorphism. We must have $dim(V) = dim(W)$, and we let $n = dim(V) = dim(W)$. Then $X \mapsto f(\langle X \rangle_{\mathcal{B}}) \restriction_{\mathcal{B}'}$ is an automorphism of $\mathbb{R}^{n}$ because it is a composition of isomorphisms. But $X \mapsto f(\langle X \rangle_{\mathcal{B}}) \restriction_{\mathcal{B}'} = \widehat{f \restriction_{\mathcal{B}, \mathcal{B}'}}$. By the preivous slide's proposition $f \restriction_{\mathcal{B}, \mathcal{B}'}$ is an isomomorphism.
+    \item Assume there are $\mathcal{B}$ and $\mathcal{B}'$ such that $f \restriction_{\mathcal{B}, \mathcal{B}'}$. We proceed similarilly in the opposite direction: $\widehat{f \restriction_{\mathcal{B}, \mathcal{B}'}}$ is an isomorphism. By composition of isomorphisms, so is $f = v \mapsto  \langle f \restriction_{\mathcal{B}, \mathcal{B}'} \times (v \restriction_{\mathcal{B}}) \rangle_{\mathcal{B'}}$.
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+
+
+\begin{frame}{Rank of a matrix}
+  Given a matrix: \[A = \begin{array}{|ccc|} a_{1,1} & \dots & a_{1,m}\\ \vdots & & \vdots\\ a_{n,1} & \dots & a_{n, m} \end{array}\]
+  \begin{itemize}
+  \item The $j^{th}$ column of $A$ is the vector $(a_{1,j}, \dots, a_{n, j}) \in \mathbb{R}^n$.
+  \item We write $A^{(j)}$ the $j^th$ column of $A$.
+  \item The $i^{th}$ row of $A$ is the vector $(a_{i, 1}, \dots, a_{i, m}) \in \mathbb{R}^m$.
+  \item We write $A[i]$ the $i^{th}$ row of $A$.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Rank of a matrix}
+  \[A = \begin{array}{|ccc|} a_{1,1} & \dots & a_{1,m}\\ \vdots & & \vdots\\ a_{n,1} & \dots & a_{n, m} \end{array}\]
+  
+  \begin{block}{Definition}
+    The rank of $A$ is the dimension of the space generated by the columns:
+    \[rk(A) = dim(\mathcal{L}(A^{(1)}, \dots, A^{(m)}))\]
+  \end{block}
+  
+\end{frame}
+
+\begin{frame}
+  \begin{block}{Equivalent definition}
+    \[ rk(A) = dim(Im(\widehat{A}))\]
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \begin{block}{Proposition}
+    \begin{itemize}
+    \item An $(n,n)$ matrix $M$ is invertible iff $rk(M) = n$.
+    \item If $P$ is an $(n,n)$ invertible matrix, $rk(P \times M) = rk(M \times P) = rk(M)$
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Proof}
+    $rk(P \times M) = dim(Im(\widehat{P \times M})) = dim(Im(\widehat{P} \circ \widehat{M}))$. We now apply the rank theorem twice. One time to $\widehat{M}: \mathbb{R}^n \mapsto \mathbb{R}^n$ and another to $\widehat{P} \circ \widehat{M}: \mathbb{R}^n \mapsto \mathbb{R}^n$ so we have the two equalities:
+    \[\begin{aligned}
+    &n = \underbrace{dim(Im(\widehat{M}))}_{rk(M)} + dim(Ker(\widehat{M}))\\
+    &n = \underbrace{dim(Im(\widehat{P} \circ \widehat{M}))}_{rk(P \times M)} + dim(Ker(\widehat{P} \circ \widehat{M}))
+    \end{aligned}
+    \]
+    \[ rk(P \times M) = rk(M) + dim(Ker(\widehat{M})) - dim(Ker(\widehat{P} \circ \widehat{M})) \]
+  \end{frame}
+
+  \begin{frame}{Proof -- continued}
+    \begin{equation} rk(P \times M) = rk(M) + dim(Ker(\widehat{M})) - dim(Ker(\widehat{P} \circ \widehat{M})) \end{equation}
+    
+    Now $X \in Ker(\widehat{P} \circ \widehat{M})$ iff $\widehat{P} \circ \widehat{M}(X) = 0$ iff $\widehat{P}(\widehat{M}(X)) = 0$ iff $\widehat{M}(X) \in Ker(\widehat{P})$. But $P$ is invertible so $\widehat{P}$ is an isomorphism, and so $Ker(\widehat{P}) = \{0\}$. Hence $X \in Ker(\widehat{P} \circ \widehat{M})$ iff $\widehat{M}(X) = 0$ \emph{i.e.} $X \in Ker(M)$. So $Ker(\widehat{P} \circ \widehat{M}) = Ker(\widehat{M})$.
+
+    Replacing in equation 1), we get $rk(P \times M) = rank(M)$.
+
+    Applying the result we just got to $A = M \times P$ and $Q = P$ we get
+    \[rk(P \times M \times P) = rk(M \times P) = rk(M) \]
+    Then we apply the result again to $B = P \times M \times P$ and $R = P^{-1}$ and get:
+    \[rk(M \times P) = rk(\underbrace{P^{-1}}_{R} \times \underbrace{P \times  M \times P}_{B}) = rk(M \times P) = rk(M) \]
+  
+  
+  \end{frame}
+
+  \begin{frame}{Operations on row.}
+    \[A = \begin{array}{|ccc|} a_{1,1} & \dots & a_{1,m}\\ \vdots & & \vdots\\ a_{n,1} & \dots & a_{n, m} \end{array}\]
+    \begin{block}{Exercise}
+      What is the result $P \times A$ for each of the following $P$:
+      \begin{itemize}
+      \only<1>{\item  $P = \begin{pmatrix} 1 \dots 0 \dots 0 \\ \vdots \\ 0 \dots \alpha \dots 0\\ \vdots \\ 0 \dots 0 \dots 1    \end{pmatrix}$}
+      \only<2>{\item  $P = \begin{pmatrix} 1 \dots 0 \dots 0 \dots 0 \\ \vdots \\ 0 \dots 0 \dots 1 \dots 0 \\ \vdots \\ 0 \dots 1 \dots 0 \dots 0 \\ \vdots \\  0 \dots 0 \dots 0    \dots  1    \end{pmatrix}$}
+      \only<3>{\item $P = \begin{pmatrix} 1 \dots 0 0 \dots 0 0 \dots  0  \\ \vdots \\ 0 \dots 1 0 \dots 0 1 \dots  0\\ \vdots \\ 0 \dots 0 0 \dots 0 0  \dots 1   \end{pmatrix}$}
+      \end{itemize}
+    \end{block}
+    
+  \end{frame}
+  
+
+\end{document}
+
+

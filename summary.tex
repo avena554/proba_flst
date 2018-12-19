@@ -78,6 +78,15 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}{Canonical basis of $\mathbb{R}^n$}
+  \begin{itemize}
+  \item $e^{(n)}_i = ( \underbrace{0,\dots, 0}_{i-1 \textnormal{ times }},1,\underbrace{0, \dots, 0}_{n-i \textnormal{ times}} )$
+  \item $\mathcal{E}^{(n)} = \langle e^{(n)}_1 \dots, e^{(n)}_n \rangle$ basis of $\mathbb{R}^n$.
+  \item $(x_1, \dots, x_n) = \langle x_1, \dots, x_n \rangle_{\mathcal{E}^{(n)}}$
+
+  \end{itemize}
+\end{frame}
+
 \begin{frame}{The completion Theorem}
   \begin{block}{Theorem}
     If $\langle v_1, \dots, v_k \rangle$ is linearly independent and $\langle w_1, \dots, w_l \rangle$ is a sequence of vectors such that $\langle v_1, \dots, v_k, w_1, \dots, w_l \rangle$ is a generator of $V$, then there exists indices $i_1, \dots, i_m$ ($m \le l$) such that $\langle v_1, \dots, v_n, w_{i_1}, \dots, w_{i_m} \rangle$ is a basis of $V$.
@@ -197,7 +206,7 @@
   \item {\bf Because $\mathcal{B}$ is a basis} the second definition is valid.
   \item Also, both are linear maps.
   \item Both are isomorphisms (check any of the conditions in privous slide about isomorphisms).
-  \item They are each other inverse:
+  \item They are each other's inverse:
     \[
    (\langle x_1, \dots, x_n\rangle_{\mathcal{B}})\restriction_{B} = (x_1, \dots, x_n)
     \textnormal{ and }\langle v \restriction_{\mathcal{B}} \rangle_{\mathcal{B}} = v
@@ -211,13 +220,201 @@
 
 \section{Matrices to linear maps and back.}
 
-\begin{frame}{$(n,m)$ Matrices $\Leftrightarrow$ linear maps $\mathcal{R}^m \mapsto \mathcal{R}^n$}
-  bla
+\begin{frame}{$\mathcal{M}(n,m) \Leftrightarrow \mathcal{H}(\mathcal{R}^m, \mathcal{R}^n)$}
+  \begin{block}{$\mathcal{M}(n,m) \Rightarrow$ $\mathcal{H}(\mathcal{R}^m \mapsto \mathcal{R}^n)$}
+    For any $(n,m)$ matrix $A$ \[\widehat A: \begin{cases} \mathbb{R}^m \mapsto \mathbb{R}^n\\ X \mapsto A \times X \end{cases} \textnormal{ is a linear map.}\]
+  \end{block}
+
+  \begin{block}{$\mathcal{H}(\mathcal{R}^m, \mathcal{R}^n) \Rightarrow \mathcal{M}(n,m)$}
+    For any linear map $f: \mathcal{R}^m \mapsto \mathcal{R}^n$ the matrix with $f(e^{(m)}_i)$ as $i^{th}$ column:
+    \[ A = \begin{pmatrix} a_{1,1} \dots a_{1,m} \\ \vdots \dots \vdots \\ a_{n,1}, \dots, a_{n,m}  \end{pmatrix}  \textnormal{ where } (a_{1,i} \dots a_{n,i}) = f(e^{(m)}) \]
+    is such that $\widehat A = f \textnormal{ i.e. } \forall X \in \mathbb{R}^{m}\,f(X) = A \times X$
+  \end{block}
+\end{frame}
+
+
+\section{Product of matrices}
+
+\begin{frame}{Properties of matricial product.}
+  \begin{itemize}
+  \item $(A \times B) \times C = A \times (B \times C)$ [Associativity]
+  \item $(A + B) \times C = (A \times C) + (B \times C)$ [right distribuvity]
+  \item $A \times (B + C) = (A \times B) + (A \times C)$ [left distributivity]
+  \item $A \times X$ coincide with matrix application when $X \in \mathbb{R}^m$ is seen as a $m, 1$ matrix and $A$ is a $n,m$ matrix ($n,1$ matrix result can be seen as element of $\mathbb{R}^n$).
+  \end{itemize}
+
+  \begin{alertblock}{WARNING!}
+    Matrix product is {\bf not} commutative in general:
+    \[ A \times B \neq B \times A \textnormal{ in general.}\] 
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{Identity}
+  \begin{block}{Identity matrix}
+    The ($n,n$) matrix
+    \[ \begin{array}{|ccccc|}
+      1 & 0 & \dots & 0 &0\\
+      0 & 1 &   \dots &0 & 0\\
+      \vdots  & \vdots & \ddots & \vdots & \vdots\\
+      0 & 0  & \dots & 1 & 0\\
+      0 & 0  & \dots & 0 & 1\\
+      \end{array}
+      \]  is called the identity $(n,n)$ matrix, $Id_{n}$.  
+  \end{block}
+  
+
+  \begin{itemize}
+  \item For any $(n,n)$ matrix $A$, $Id_{n} \times A = A \times Id_{n} = A$.
+  \item Also ,for any $(n,l)$ matrix $A$, $Id{(n,n)} \times A = A$.
+  \item In particular, for a $(n,1)$ column vector $X$, $Id_{(n,n)} \times X = X$.
+  \item So $\widehat{Id_{n}}: \begin{array}{l} \mathbb{R}^n \mapsto \mathbb{R}^n \\ X \mapsto X \end{array}$
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}
+  
+  \begin{block}{Non integral domain}
+    Non-zero matrices that multiply to zero:
+    \[
+    \begin{pmatrix}
+      0 & 1\\
+      0 & 1
+    \end{pmatrix}
+    \times
+    \begin{pmatrix}
+      1 & 1\\
+      0 & 0
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+      0 & 0\\
+      0 & 0
+    \end{pmatrix}
+    \]
+  \end{block}
 \end{frame}
 
 
 
+\begin{frame}{Matrix product $\Leftrightarrow$ composition of linear maps.}
+  Associativity:
+  \[ (A \times B)\times X = A \times (B \times X) \]
+  So
+  \[\widehat{A \times B} = \widehat{A} \circ \widehat{B} \]
+\end{frame}
 
+\begin{frame}{Maps between arbitrary spaces.}
+  \begin{itemize}
+  \item For dimension $m$ vector space $V$ with basis $\mathcal{B}$, $v \mapsto v \restriction_{\mathcal{B}}$ is an isomorphism from $V$ to $\mathcal{R}^m$.
+  \item For dimension $n$ vector space $W$ with basis $\mathcal{B}'$, $(x_1, \dots, x_n) \mapsto \langle x_1, \dots, x_n \rangle_{\mathcal{B}'}$ is an isomorphism from $W$ to $\mathbb{R}^n$.
+  \end{itemize}
+
+  \begin{block}{Falling back to $\mathbb{R}^k$ spaces.}
+    \begin{itemize}
+    \item For any linear map $f: V \mapsto W$, \[g: (x_1, \dots, x_m) \mapsto f(\langle x_1, \dots, x_m \rangle_{\mathcal{B}}) \restriction_{\mathcal{B'}}\] is a linear map from $\mathcal{R}^m$ to $\mathcal{R}^n$.
+    \item For any linear map $g: \mathcal{R}^m \mapsto \mathcal{R}^n$,
+      \[f: v \mapsto \langle g(v \restriction_{\mathcal{B}}) \rangle_{\mathcal{B}'}\] is a linear map from $V$ to $W$.
+    \end{itemize}
+  \end{block}
+  
+\end{frame}
+
+\begin{frame}{Graphical illustration}
+  \begin{center}
+    \begin{tikzpicture}
+      \node (V) at (0, -1) {$V$};
+      \node (W) at (8, -1) {$W$};
+      \draw (V) edge[->] node[midway, above] {$f$} node[midway, below] {$v \mapsto \langle g(v \restriction_{\mathcal{B}}) \rangle_{\mathcal{B}'}$} (W);
+
+      
+      \node (m) at (0, 1) {$\mathbb{R}^m$};
+      \node (n) at (8, 1) {$\mathbb{R}^n$};
+      \draw (m) edge[->] node[midway, above] {$g$} node[midway, below] {$(x_1, \dots, x_m) \mapsto f(\langle x_1, \dots, x_m \rangle_{\mathcal{B}}) \restriction_{\mathcal{B'}}$} (n);
+
+      \draw (V) edge[->, bend left] node[midway, left] {$\cdot \restriction_{\mathcal{B}}$} (m);
+      \draw (m) edge[->, bend left] node[midway, right] {$\langle \cdot \rangle_{\mathcal{B}}$} (V);
+
+      
+      \draw (W) edge[->, bend left] node[midway, left] {$\cdot \restriction_{\mathcal{B}'}$} (n);
+      \draw (n) edge[->, bend left] node[midway, right] {$\langle \cdot \rangle_{\mathcal{B}'}$} (W);
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Matrix representation}
+  Simply let $f \restriction{\mathcal{B}, \mathcal{B}'}$ be the unique matrix such that:
+  \[(x_1, \dots, x_m) \mapsto f(\langle x_1, \dots, x_m \rangle_{\mathcal{B}}) \restriction_{\mathcal{B'}} = \widehat {f \restriction{\mathcal{B}, \mathcal{B}'}}.\]
+  \emph{i.e.}
+  \[ f(\langle x_1, \dots, x_m \rangle_{\mathcal{B}}) \restriction_{\mathcal{B'}} = f \restriction{\mathcal{B}, \mathcal{B}'} \times \begin{pmatrix} x_1\\\vdots\\x_m \end{pmatrix} \]
+
+    \begin{center}
+    \begin{tikzpicture}
+      \node (V) at (0, -1) {$V$};
+      \node (W) at (8, -1) {$W$};
+      \draw (V) edge[->] node[midway, above] {$f$} (W);
+
+      
+      \node (m) at (0, 1) {$\mathbb{R}^m$};
+      \node (n) at (8, 1) {$\mathbb{R}^n$};
+      \draw (m) edge[->] node[midway, above] {$ \begin{pmatrix} x_1\\\vdots\\x_m \end{pmatrix} \mapsto f \restriction_{\mathcal{B}, \mathcal{B}'} \times \begin{pmatrix} x_1\\\vdots\\x_m \end{pmatrix}$} (n);
+
+      \draw (V) edge[->, bend left] node[midway, left] {$\cdot \restriction_{\mathcal{B}}$} (m);
+      \draw (m) edge[->, bend left] node[midway, right] {$\langle \cdot \rangle_{\mathcal{B}}$} (V);
+
+      
+      \draw (W) edge[->, bend left] node[midway, left] {$\cdot \restriction_{\mathcal{B}'}$} (n);
+      \draw (n) edge[->, bend left] node[midway, right] {$\langle \cdot \rangle_{\mathcal{B}'}$} (W);
+    \end{tikzpicture}
+  \end{center}
+  
+\end{frame}
+
+\begin{frame}{In practice:}
+  \begin{itemize}
+    \item $\mathcal{B} = \langle v_1, \dots, v_m \rangle$ basis of $V$
+    \item $\mathcal{B'} = \langle w_1, \dots, w_n \rangle$ be a basis of $W$.
+  \end{itemize}
+
+  Decompose each $f(v_i)$ w.r.t. $\mathcal{B}'$:
+  \[\begin{aligned}
+  f(v_1) &= a_{1,1} w_1 + \dots + a_{n,1} w_n = \langle a_{1,1}, \dots, a_{n,1} \rangle_{\mathcal{B}'}\\
+  &\vdots\\
+  f(v_m) & = a_{1,m} w_1 + \dots + a_{n,m} w_n = \langle a_{1,m}, \dots, a_{n, m} \rangle_{\mathcal{B}''}
+  \end{aligned}\]
+
+  Then one has: \[f\restriction_{\mathcal{B}, \mathcal{B'}} =  \begin{array}{|ccc|}
+    a_{1,1} & \dots & a_{1,m}\\ \vdots & & \vdots\\ a_{n,1} & \dots & a_{n, m}
+  \end{array}\] 
+  
+\end{frame}
+
+
+\begin{frame}{Particular case: change of basis}
+  \begin{center}
+    \begin{tikzpicture}
+      \node (V) at (0, -1) {$V$};
+      \node (W) at (8, -1) {$V$};
+      \draw (V) edge[->] node[midway, above] {$id_V$} node[midway, below] {$v \mapsto v$} (W);
+
+      
+      \node (m) at (0, 1) {$\mathbb{R}^m$};
+      \node (n) at (8, 1) {$\mathbb{R}^m$};
+      \draw (m) edge[->] node[midway, above] {$ \begin{pmatrix} x_1\\\vdots\\x_m \end{pmatrix} \mapsto id_V \restriction_{\mathcal{B}, \mathcal{B}'} \times \begin{pmatrix} x_1\\\vdots\\x_m \end{pmatrix}$} (n);
+
+      \draw (V) edge[->, bend left] node[midway, left] {$\cdot \restriction_{\mathcal{B}}$} (m);
+      \draw (m) edge[->, bend left] node[midway, right] {$\langle \cdot \rangle_{\mathcal{B}}$} (V);
+
+      
+      \draw (W) edge[->, bend left] node[midway, left] {$\cdot \restriction_{\mathcal{B}'}$} (n);
+      \draw (n) edge[->, bend left] node[midway, right] {$\langle \cdot \rangle_{\mathcal{B}'}$} (W);
+    \end{tikzpicture}
+  \end{center}
+
+  \alert{$id_{V} \restriction_{\mathcal{B}, \mathcal{B'}}$ is called the \emph{change of basis} from $\mathcal{B}$ to $\mathcal{B}'$}
+\end{frame}
+
+  
 
 
 

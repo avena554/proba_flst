@@ -263,8 +263,8 @@
   \end{block}
 
   \begin{block}{Matrices $\leftrightarrow$ Linear Maps.}
-    Let $\textsf{lin}(\mathbb{R}^n, \mathbb{R}^m)$ denote the set of all linear maps between $\mathbb{R}^n$ and $\mathbb{R}^m$.\\
-    $A \mapsto \hat{A}$ is an isomorphism between $\mathcal{M}(n,m)$ and $\textsf{lin}(\mathbb{R}^n, \mathbb{R}^m)$.
+    Let $\mahtcal{H}(\mathbb{R}^n, \mathbb{R}^m)$ denote the set of all linear maps between $\mathbb{R}^n$ and $\mathbb{R}^m$.\\
+    $A \mapsto \hat{A}$ is an isomorphism between $\mathcal{M}(n,m)$ and $\textsf{H}(\mathbb{R}^n, \mathbb{R}^m)$.
   \end{block}
 
 \end{frame}
@@ -403,6 +403,56 @@
   \end{alertblock}
 \end{frame}
 
+\begin{frame}{Identity}
+  \begin{block}{Identity matrix}
+    The ($n,n$) matrix
+    \[ \begin{array}{|ccccc|}
+      1 & 0 & \dots & 0 &0\\
+      0 & 1 &   \dots &0 & 0\\
+      \vdots  & \vdots & \ddots & \vdots & \vdots\\
+      0 & 0  & \dots & 1 & 0\\
+      0 & 0  & \dots & 0 & 1\\
+      \end{array}
+      \]  is called the identity $(n,n)$ matrix, $Id_{(n,n)}$.  
+  \end{block}
+  
+
+  \begin{itemize}
+  \item For any $(n,n)$ matrix $A$, $Id_{n} \times A = A \times Id_{n} = A$.
+  \item Also ,for any $(n,l)$ matrix $A$, $Id{n} \times A = A$.
+  \item In particular, for a $(n,1)$ column vector $X$, $Id_{n} \times X = X$.
+  \item So $\widehat{Id_{n}}: \begin{array}{l} \mathbb{R}^n \mapsto \mathbb{R}^n \\ X \mapsto X \end{array}$
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{further remarks}
+  \begin{block}{Ring of square matrices}
+    In algebra, the structure of $\langle \mathcal{M}(n,n), {+}, {\times} \rangle$ is called a \emph{ring} (another ring is for instance $\langle \mathbb{N}, {+}, {\times} \rangle$).
+  \end{block}
+  
+  \begin{block}{Non integral domain}
+    The ring of square matrices does \textbf{not} have an \emph{integral domain} which means there are non-zero matrices that multiply to zero:
+    \[
+    \begin{pmatrix}
+      0 & 1\\
+      0 & 1
+    \end{pmatrix}
+    \times
+    \begin{pmatrix}
+      1 & 1\\
+      0 & 0
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+      0 & 0\\
+      0 & 0
+    \end{pmatrix}
+    \]
+  \end{block}
+\end{frame}
+
 
 \begin{frame}{Matrix product and composition.}
   \begin{block}{Theorem}
@@ -413,7 +463,7 @@
 \end{frame}
 
 
-\begin{frame}{Representing arbitrary maps.}
+\begin{frame}{Representing maps between arbitrary vector spaces.}
   \begin{itemize}
   \item So far: $n,m$ matrix $\leftrightarrow$ linear map between spaces $\mathbb{R}^m$ and $\mathbb{R}^n$.
   \item What about mapping between another $m$ dimensional space and another $n$ dimensional space?
@@ -422,12 +472,12 @@
 \end{frame}
 
 \begin{frame}{Representation of a linear map.}
-  Let $f: V \mapsto W$ be a linear map. Let $\mathcal{B} = \langle v_1, \dots, v_m \rangle$ be a basis of $V$ and $\mathcal{B'} = \langle w_1, \dots, w_n \rangle$ be a basis of $W$. Decompose each $f(w_i)$ w.r.t. $\mathcal{B}$:
+  Let $f: V \mapsto W$ be a linear map. Let $\mathcal{B} = \langle v_1, \dots, v_m \rangle$ be a basis of $V$ and $\mathcal{B'} = \langle w_1, \dots, w_n \rangle$ be a basis of $W$. Decompose each $f(v_i)$ w.r.t. $\mathcal{B}'$:
 
   \[\begin{aligned}
-  f(w_1) &= a_{1,1} v_1 + \dots + a_{n,1} v_n\\
+  f(v_1) &= a_{1,1} w_1 + \dots + a_{n,1} w_n = \langle a_{1,1}, \dots, a_{n,1} \rangle_{\mathcal{B}'}\\
   &\vdots\\
-  f(w_n) & = a_{n,1} v_1 + \dots + a_{n,m} v_n
+  f(v_m) & = a_{1,m} w_1 + \dots + a_{n,m} w_n = \langle a_{1,m}, \dots, a_{n, m} \rangle_{\mathcal{B}''}
   \end{aligned}\]
 
   And define \[f\restriction_{\mathcal{B}, \mathcal{B'}} =  \begin{array}{|ccc|}
@@ -436,5 +486,157 @@
   
 \end{frame}
 
+\begin{frame}{Compatibility with previous concepts.}
+  Already a representation for Linear maps $\mathbb{R}^m \mapsto \mathbb{R}^n$. We actually generalized this:
+
+  Let $\mathcal{E}^{(m)}= \langle e^{(m)}_1, \dots, e^{(m)}_m \rangle$ be the canonical basis of $\mathbb{R}^m$ and $\mathcal{E}^{(n)} = \langle e^{(n)}_1, \dots, e^{(n)}_n \rangle$ be the canonical basis of $\mathbb{R}^n$.
+  Let $f: \mathbb{R}^m \mapsto \mathbb{R}^n$ be a linear map and $A$ be a $(n,m)$ matrix. Then \[\widehat{A} = f \textnormal{ iff } A = f\restriction_{\mathcal{E}^{(m)}, \mathcal{E}^{(n)}}\].
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Example}
+  \begin{exampleblock}{A linear map}
+    \[f: \begin{aligned} \mathbb{R}^2 &\mapsto \mathbb{R}^2\\ (x,y) &\mapsto (x - y, y - x) \end{aligned}\]
+
+    Two basis of $\mathbb{R}^2 :$
+    \[\begin{aligned}
+    &\mathcal{E} = \langle e_1, e_2 \rangle = \langle (1,0), (0,1) \rangle \\ 
+    &\mathcal{B} = \langle \alpha, \beta \rangle = \langle (1,1), (-1, 1) \rangle\\
+    \end{aligned}
+    \]
+    \[
+    \begin{aligned}
+      &f(e_1) = (1,-1) = {\color{blue} \langle 1, -1 \rangle_{\mathcal{E}}} = {\color{darkgreen} \langle 0, -1\rangle_{\mathcal{B}}}\\
+      &f(e_2) = (-1, 1) = {\color{blue} \langle -1, 1 \rangle_{\mathcal{E}}} = {\color{darkgreen} \langle 0, 1 \rangle_{\mathcal{B}}} \\      
+    \end{aligned}
+    \]
+
+
+    \[f\restriction_{{\color{red}\mathcal{E}}, {\color{blue}\mathcal{E}}}:
+    \begin{array}{|ccc|}
+      f({\color{red}e_1}) & f({\color{red}e_2}) & \\
+      \color{blue}\phantom{-}1 & \color{blue} -1 & \color{blue} e_1\\
+      \color{blue}-1 & \color{blue} \phantom{-}1 & \color{blue} e_2
+    \end{array}
+    \quad
+    f\restriction_{{\color{red}\mathcal{E}}, {\color{darkgreen} \mathcal{B}}}
+    \begin{array}{|ccc|}
+      f({\color{red}e_1}) & f({\color{red}e_2}) & \\
+      \color{darkgreen}\phantom{-}0 & \color{darkgreen} \phantom{-}0 & \color{darkgreen} \alpha\\
+      \color{darkgreen} -1 & \color{darkgreen}\phantom{-}1 & \color{darkgreen} \beta
+    \end{array}
+    \]
+
+    
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{Reinterpreting matrix application}
+  \begin{itemize}
+  \item Let $V, W$ be two vector spaces of dimension $m$ and $n$ respectively.
+  \item Let $f: V \mapsto W$ be linear.
+  \item Let $\mathcal{B}, \mathcal{B}'$ basis of $V$ and $W$ respectively.
+  \item Let $v \in V$, $v = \langle x_1, \dots, x_m \rangle_{\mathcal{B}}$.
+  \item Let $F \in \mathcal{M}(m, n)$ such that $F = f\restriction_{\mathcal{B}, \mathcal{B}'}$.
+  \end{itemize}
+  Then
+  \[F \times \begin{pmatrix} x_1 \\ \vdots \\ x_m \end{pmatrix} = \begin{pmatrix} y_1 \\\vdots\\y_n \end{pmatrix} \textnormal{ iff } f(v) = \langle y_1, \dots, y_n \rangle_{\mathcal{B}'} \]
+\end{frame}
+
+\begin{frame}{Example}
+  \begin{exampleblock}{A linear map}
+    \[f: \begin{aligned} \mathbb{R}^2 &\mapsto \mathbb{R}^2\\ (x,y) &\mapsto (x - y, y - x) \end{aligned}\]
+
+    Two basis of $\mathbb{R}^2 :$
+    \[\begin{aligned}
+    &\mathcal{E} = \langle e_1, e_2 \rangle = \langle (1,0), (0,1) \rangle \\ 
+    &\mathcal{B} = \langle \alpha, \beta \rangle = \langle (1,1), (-1, 1) \rangle\\
+    \end{aligned}
+    \]
+    \[
+    \begin{aligned}
+      &f(e_1) = (1,-1) = {\color{blue} \langle 1, -1 \rangle_{\mathcal{E}}} = {\color{darkgreen} \langle 0, -1\rangle_{\mathcal{B}}}\\
+      &f(e_2) = (-1, 1) = {\color{blue} \langle -1, 1 \rangle_{\mathcal{E}}} = {\color{darkgreen} \langle 0, 1 \rangle_{\mathcal{B}}} \\      
+    \end{aligned}
+    \]
+
+
+    \[
+    \underbrace{
+    \begin{pmatrix}
+      0 & 0 \\
+      -1 & 1
+    \end{pmatrix}
+    }_{f\restriction_{\mathcal{E}, \mathcal{B}}}
+    \times
+    \underbrace{
+    \begin{pmatrix}
+      2\\
+      1
+    \end{pmatrix}
+    }_{v = (2,1) = \langle 2, 1\rangle_{\mathcal{E}}}
+    =
+    \underbrace{
+      \begin{pmatrix}
+        0\\
+        -1
+      \end{pmatrix}
+    }_{f(v) = (1, -1) = \langle 0,-1 \rangle_{\mathcal{B}}}
+    \]  
+  \end{exampleblock}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Reinterpreting product of matrices:}
+  \begin{block}{Theorem}
+    \begin{itemize}
+    \item Let $U, V, W$ be three vector spaces of dimension $l, m$ and $n$ respectively.
+    \item Let $g: U \mapsto V$ linear, and $f: V \mapsto W$ linear.
+    \item Let $\mathcal{B}, \mathcal{B}'$ and $\mathcal{B}''$ be basis of $U, V$ and $W$ respectively.
+    \item Let $G \in \mathcal{M}(l, m)$, $F \in \mathcal{M}(m, n)$ such that $G = g\restriction_{\mathcal{B}, \mathcal{B}'}$ and $F = f\restriction_{\mathcal{B'}, \mathcal{B}''}$.
+    \end{itemize}
+
+    Then
+    \[F \times G =  f \circ g \restriction{\mathcal{B}, \mathcal{B}''}\]
+    \end{block}
+    
+\end{frame}
+
+\begin{frame}{Example}
+  \begin{exampleblock}{Change of basis}
+    \[f: \begin{aligned} \mathbb{R}^2 &\mapsto \mathbb{R}^2\\ (x,y) &\mapsto (x - y, y - x) \end{aligned} \quad id_{\mathbb{R}^2}: \begin{aligned} \mathbb{R}^2 &\mapsto \mathbb{R}^2\\ (x,y) &\mapsto (x , y) \end{aligned}\]
+
+    Two basis of $\mathbb{R}^2 :$
+    \[\begin{aligned}
+    &\mathcal{E} = \langle e_1, e_2 \rangle = \langle (1,0), (0,1) \rangle \\ 
+    &\mathcal{B} = \langle \alpha, \beta \rangle = \langle (1,1), (-1, 1) \rangle\\
+    \end{aligned}\]
+
+    \[\underbrace{\begin{pmatrix} 1/2& 1/2 \\ -1/2 & 1/2  \end{pmatrix}}_{id_{\mathbb{R}^2} \restriction_{\mathcal{E}, \mathcal{B}}} \times \underbrace{\begin{pmatrix} 1 & -1 \\ -1 & 1 \end{pmatrix}}_{f \restriction{\mathcal{E}}, \mathcal{E}} = \underbrace{\begin{pmatrix} 0 & 0\\ -1 & 1 \end{pmatrix}}_{(id_{\mathbb{R}^2} \circ f) = f \restriction_{\mathcal{E}, \mathcal{B}}}  \]
+  \end{exampleblock}
+\end{frame}
+
+
+\begin{frame}{Change of basis}
+  \begin{block}{Representations of the identity.}
+    \begin{itemize}
+    \item  Let $V$ be a vector space of dim $n$.
+    \item Let $id_{V} : v \mapsto v$.
+    \item Let $\mathcal{B}$, $\mathcal{B}'$ be two basis of $V$.
+    \item The $(n,n)$ matrix $P_{\mathcal{B}, \mathcal{B}'} = id_{V} \restriction_{\mathcal{B}, \mathcal{B'}}$ is called the \emph{change of basis} from $\mathcal{B}$ to $\mathcal{B}'$.
+    \end{itemize}
+    If $v = \langle x_1, \dots, x_n \rangle_{\mathcal{B}}$, we have:
+    \[ P_{\mathcal{B}, \mathcal{B}'} \times \begin{pmatrix} x_1 \\\vdots\\x_n \end{pmatrix} = \begin{pmatrix} y_1 \\\vdots\\y_n \end{pmatrix} \textnormal{ iff } v = \langle y_1, \dots, y_n \rangle_{\mathcal{B}'}  \]
+    
+  \end{block}  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Particular case}
+  \[P_{\mathcal{B}, \mathcal{B}} \textnormal{ is the } (n,n) \textnormal{ identity matrix. } \]
+\end{frame}
 
 \end{document}
