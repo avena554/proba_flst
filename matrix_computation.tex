@@ -71,12 +71,24 @@
 
   \begin{block}{Properties of inverse matrices.}
     \begin{itemize}
-    \item $P \times M = Id_n$ iff $M \times P = Id_n$.
+    \item $P \times M = Id_n$ iff $M \times P = Id_n$.  
     \item when it exists, the inverse is unique: if $P \times M = Id_n$ and $Q \times M = Id_n$ then $P = Q$.
     \item $(M^{-1})^{-1} = M$
     \item If $M$ and $N$ are both invertible, then so is $M \times N$ and its inverse is $N^{-1}\times M^{-1}$.
     \end{itemize}
   \end{block}
+\end{frame}
+
+\begin{frame}{Proof of $P \times M = Id_n$ iff $M \times P = Id_n$}
+  \begin{itemize}
+  \item Assume $P\times M = Id_n$.
+  \item Show first that $\widehat{M}$ is injective: if $M \times X = 0$ then $\underbrace{P \times M}_{Id_n} \times X = P \times 0 = 0$. Therefore $X = 0$. Hence $Ker(\widehat{M}) = \{0\}$, $M$ is injective.
+  \item Since $\widehat{M}$ is a mapping between spaces of same dimension ($n$), $\widehat{M}$ is also surjective.
+  \item Since $\widehat{M}$ is surjective,  for any $X \in \mathbb{R}^n$ we can find a $Y \in \mathbb{R}^n$ sucht that $X = M Y$.
+  \item $(M\times P - Id_n ) \times X =  (M \times P - Id_n) \times M \times Y = M \times \underbrace{P \times M}_{Id_n} \times Y - M \times Y = 0$.
+  \item So $\widehat{(M\times P - Id_n )}$ is the null function $X \mapsto 0$. By unicity of its matrix representation we then have $M\times P - Id_n =  0$.
+  \item And finally, $M \times P = Id_n$.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Invertible matrix and isomorphisms.}
