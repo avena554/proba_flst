@@ -1,0 +1,22 @@
+\documentclass[crop,tikz]{standalone}
+%\usetikzlibrary{...}% tikz package already loaded by 'tikz' option
+
+\begin{document}
+\begin{tikzpicture}[every node/.style={draw, circle, black}, every edge/.style={draw, ->, thick, black}]
+  \node (a) at (0,0) {$a$};
+  \node (b) at (-1, -1) {$b$};
+  \node (c) at (1, -1) {$c$};
+  \node (d) at (-2, -2) {$d$};
+  \node (e) at (0, -2) {$e$};
+  \node (f) at (2, -2) {$f$};
+
+  \path (a) edge (b);
+  \path (a) edge (c);
+  \path (b) edge (e);
+  \path (c) edge (e);
+  \path (b) edge (d);
+  \path (c) edge (f);
+\end{tikzpicture}
+
+
+\end{document}

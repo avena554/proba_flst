@@ -1,0 +1,7 @@
+\documentclass[crop,tikz]{standalone}
+%\usetikzlibrary{...}% tikz package already loaded by 'tikz' option
+\begin{document}
+\begin{tikzpicture}
+  \draw (0,0) -- (10,10); % ...
+\end{tikzpicture}
+\end{document}
