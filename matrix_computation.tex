@@ -188,19 +188,105 @@
   \end{frame}
 
   \begin{frame}{Operations on row.}
-    \[A = \begin{array}{|ccc|} a_{1,1} & \dots & a_{1,m}\\ \vdots & & \vdots\\ a_{n,1} & \dots & a_{n, m} \end{array}\]
+    
     \begin{block}{Exercise}
       What is the result $P \times A$ for each of the following $P$:
-      \begin{itemize}
-      \only<1>{\item  $P = \begin{pmatrix} 1 \dots 0 \dots 0 \\ \vdots \\ 0 \dots \alpha \dots 0\\ \vdots \\ 0 \dots 0 \dots 1    \end{pmatrix}$}
-      \only<2>{\item  $P = \begin{pmatrix} 1 \dots 0 \dots 0 \dots 0 \\ \vdots \\ 0 \dots 0 \dots 1 \dots 0 \\ \vdots \\ 0 \dots 1 \dots 0 \dots 0 \\ \vdots \\  0 \dots 0 \dots 0    \dots  1    \end{pmatrix}$}
-      \only<3>{\item $P = \begin{pmatrix} 1 \dots 0 0 \dots 0 0 \dots  0  \\ \vdots \\ 0 \dots 1 0 \dots 0 1 \dots  0\\ \vdots \\ 0 \dots 0 0 \dots 0 0  \dots 1   \end{pmatrix}$}
-      \end{itemize}
+      \[
+      \only<1>{
+        \underbrace{
+          \begin{pmatrix}
+            1 & 0 & \dots & \dots & \dots & \dots & \dots & \dots & \dots & 0 \\
+            0 & \ddots & \ddots &  &  & & & & & \vdots \\
+            \vdots & \ddots & \ddots & \ddots &    &   &  &  &  & \vdots\\
+            \vdots &   & \ddots & \ddots & \ddots   &  &   &   &   & \vdots\\
+            \vdots &  &  & \ddots & 1 & \ddots &  &   &  & \vdots\\
+            \vdots &  & &  & \ddots & \alpha & \ddots &  & & \vdots\\
+            \vdots & &  &  & & \ddots & 1 & \ddots & & \vdots\\
+            \vdots &   &   &   &   &   & \ddots & \ddots & \ddots   & \vdots\\
+            \vdots &   &   &  &   &    &  & \ddots  & \ddots & 0\\
+            0 & \dots & \dots & \dots & \dots & \dots & \dots & \dots  & 0 & 1\\
+      \end{pmatrix}}_{P = mul(\alpha, i)} \times \underbrace{\begin{pmatrix} a_{1,1} & \dots & a_{1,m}\\ \vdots & & \vdots\\ a_{n,1} & \dots & a_{n, m} \end{pmatrix}}_{A}}
+      \only<2>{
+        \underbrace{
+        \begin{pmatrix}
+            1 & 0 & \dots & \dots & \dots & \dots & \dots & \dots & \dots & 0 \\
+            0 & \ddots & \ddots &  &  & & & & & \vdots \\
+            \vdots & \ddots & 0 & \ddots &    & 1  &  &  &  & \vdots\\
+            \vdots &   & \ddots & \ddots & \ddots   &  &   &   &   & \vdots\\
+            \vdots &  &  & \ddots & 1 & \ddots &  &   &  & \vdots\\
+            \vdots &  & 1  &  & \ddots & 0 &  \ddots &  & & \vdots\\
+            \vdots & &  &  & & \ddots & 1 & \ddots & & \vdots\\
+            \vdots &   &   &   &   &   & \ddots & \ddots & \ddots   & \vdots\\
+            \vdots &   &   &  &   &    &  & \ddots  & \ddots & 0\\
+            0 & \dots & \dots & \dots & \dots & \dots & \dots & \dots  & 0 & 1\\
+      \end{pmatrix}}_{P = Exch(i_1, i_2)} \times \underbrace{\begin{pmatrix} a_{1,1} & \dots & a_{1,m}\\ \vdots & & \vdots\\ a_{n,1} & \dots & a_{n, m} \end{pmatrix}}_{A}
+      }
+      \only<3>{
+        \underbrace{
+          \begin{pmatrix}
+            1 & 0 & \dots & \dots & \dots & \dots & \dots & \dots & \dots & 0 \\
+            0 & \ddots & \ddots &  &  & & & & & \vdots \\
+            \vdots & \ddots & \ddots & \ddots &    &   &  &  &  & \vdots\\
+            \vdots &   & \ddots & \ddots & \ddots   &  &   &   &   & \vdots\\
+            \vdots &  &  & \ddots & 1 & \ddots &  &   &  & \vdots\\
+            \vdots &  & 1 &  & \ddots & 1 & \ddots &  & & \vdots\\
+            \vdots & &  &  & & \ddots & 1 & \ddots & & \vdots\\
+            \vdots &   &   &   &   &   & \ddots & \ddots & \ddots   & \vdots\\
+            \vdots &   &   &  &   &    &  & \ddots  & \ddots & 0\\
+            0 & \dots & \dots & \dots & \dots & \dots & \dots & \dots  & 0 & 1\\
+      \end{pmatrix}}_{P = Add(i_1, i_2)} \times \underbrace{\begin{pmatrix} a_{1,1} & \dots & a_{1,m}\\ \vdots & & \vdots\\ a_{n,1} & \dots & a_{n, m} \end{pmatrix}}_{A}
+}
+      \]
     \end{block}
     
   \end{frame}
-  
 
+
+  \begin{frame}{Gauss elimination and matrices.}
+    \begin{itemize}
+    \item Think of entries in matrix $A$ as coefficient of an homogeneous linear system $A \times X = 0$.
+    \item Each row operation used in the Gauss algorithm corresponds to multiplication by a matrix $P$ on the left.
+    \item $A \times X = 0 \Rightarrow (P \times A) \times X = 0$.
+    \item Moreover, the matrices $P$ are invertible (exercise).
+    \item $(P \times A) \times X = 0 \Rightarrow P^{-1} \times (P \times A) \times X = 0 \Leftrightarrow A \times X = 0$. 
+    \end{itemize}
+  \end{frame}
+  
+  \begin{frame}
+    \begin{block}{Gauss elimination on matrices:}
+      Given an $n,m$ matrix $A$, one can use Gauss elimination to find a finite sequence of invertible matrices $P_1, \dots, P_k$ such that \[P_1 \times \dots \times P_k \times A = B \textnormal{ where } B \textnormal{ is in reduced echelon form}\]
+    \end{block}
+
+    \begin{exampleblock}{Reminder}
+    \[ \begin{pmatrix}{}
+      {\color{red}1}     & a_{1,2}    &  0     & 0   & \dots \\
+      0     & 0           & {\color{red}1} &  0       & \dots\\
+      0     & 0          &   0   & {\color{red}1} & \dots \\
+      \vdots & \vdots     & \vdots      &  \vdots     & \dots\\
+      0     &   0          &  0    & 0  & \dots \\
+    \end{pmatrix}
+    \]
+    \end{exampleblock}
+  \end{frame}
+
+  \begin{frame}{Two cases}
+    \[P_1 \times \dots \times P_k \times A = B \textnormal{ where } B \textnormal{ is in reduced echelon form}\]
+    \begin{enumerate}
+    \item $B$ has $l \ge 1$ lines with only $0$s.
+      \begin{itemize}
+      \item Then we know that the solutions of $B \times X = 0$ forms a vector space of dim $l$.
+      \item But this space is also $Ker(\widehat{B}) = Ker(\widehat{A})$ so $A$ is non injective hence non invertible.
+      \item Moreover if $A$ is an $(n,m)$ matrix, by the rank theorem, we have $rk(A) = m - l$.
+      \end{itemize}
+    \item $B$ has no line with only $0$s. We must have $B = Id_n$, so $A$ must be an $(n,n)$ matrix.
+      \begin{itemize}
+      \item $(P_1 \times \dots \times  P_k) \times A = Id_n$
+      \item The inverse of $A$ is $(P_1 \times \dots \times  P_k)$
+      \end{itemize}
+    \end{enumerate}
+      
+  \end{frame}
+  
 \end{document}
 
 
