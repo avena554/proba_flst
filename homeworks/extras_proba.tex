@@ -1,0 +1,124 @@
+\documentclass{article}
+\usepackage{times}
+
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{stmaryrd}
+%\usepackage{mdsymbol}
+\usepackage{MnSymbol}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{array}
+
+
+\title{Extra exercises.}
+\author{Antoine Venant}
+\begin{document}
+\maketitle
+
+
+\section*{Exercice 1}
+
+For each of the following situation, find a sample space $\Omega$ and formally express the listed events in $\Omega$ (different $\Omega$ for each one):
+
+\begin{enumerate}
+\item One throw two undistinguishable dice.
+  \begin{enumerate}
+  \item $e_1: $ The sum of the points of the two dice is even.
+  \item $e_2: $ The second die has more points than the first.
+  \end{enumerate}
+
+\item $n$ different socks are stored in $r$ different drawers (so in the end some drawers may possibly be empty, or a single drawer could contain all of the $n$ socks)
+  \begin{enumerate}
+  \item $e_1: $ There is at least one drawer that contains at least two socks.
+  \item $e_2: $ Every drawer contains at most one sock.
+  \end{enumerate}
+\item An old car has a chance to break every time someone uses it.
+  \begin{enumerate}
+  \item $e_1: $ The car breaks the third time we use it.
+  \item $e_2: $ The car does not eventually break, \emph{i.e.} one successfully uses it infinitely often. 
+  \end{enumerate}
+\end{enumerate}
+
+\section*{Exercise 2}
+A student leaves for university everyday at the same time. To get there, she must choose between $4$ paths: $A$, $B$, $C$ and $D$. Depending on her choice, it is more or less probable that she arrives in time. Her choice is modeled probabilisitcally.
+
+\begin{enumerate}
+\item Propose a sample space $\Omega$ and use it to formalize the following events:
+  \begin{enumerate}
+  \item $e_A$ (respectively, $e_B$, $e_C$ and $e_D$): the sudent chooses path $A$ (respectively, path $B$, $C$, $D$).
+  \item $e_l:$ the student arrives late at the university.
+  \end{enumerate}
+
+\item We now assume that $\Omega$ is equipped with a probability measure $p$. We make the following assumptions:
+  \begin{itemize}
+  \item[$H_1$] The student chooses path $A$ (resp. path $B$, $C$) with probability $\frac{1}{3}$ (resp., with probability $\frac{1}{4}$, $\frac{1}{12}$)
+  \item[$H_2$] The probability of being late when using path $A$ (resp., path $B$, $C$) is $\frac{1}{20}$ (resp., $\frac{1}{10}, \frac{1}{12}$). When using path $D$ she is never late.
+  \end{itemize}
+
+  Formalize assumptions $H_1$ and $H_2$ (hint: some statements refer to conditional probabilities).
+
+\item What is $p(e_D)$?
+\item The student arrives late. What is the probability that she used $C$?
+\end{enumerate}
+
+\section*{Excercise 3}
+John takes the bus $100$ times a month. A ticket costs $1$ euro. On every trip, John has a probability $\frac{1}{10}$ of being controlled. If he does not have a ticket upon being controlled, he must pay an amend of $A$ euros. Let $S$ be the random variable denoting the amount john pays every month.
+\begin{enumerate}
+\item We assume that john never pays any ticket. What is the expected value of $S$?
+\item We assume that john randomly pays his ticket half of the time. What is the expected value of $S$?
+\item We assume that john always pays his ticket. What is the expected value of $S$?
+\end{enumerate}
+
+Hint: if we let $S_i$ be the amount that john pays for trip number $i$, then $S = \sum^{100}_{i = 1} S_i$. Now what do we know about the expected value of the sum?
+
+
+
+\section*{Exercise 4}
+A box contains initially $w$ white balls and $r$ red balls. One draws balls from the box $n$-times in a row, using the following procedure:
+\begin{itemize}
+\item At any step, each ball present in the box at the moment of drawing is equally likely to be drawn.
+\item At any step, if one draws a red ball, one puts it back in the box.
+\item At any step, if one draws a white ball, one leaves it out of the box.
+\end{itemize}
+
+We propose to use the following sample space to model the $n$-drawings:
+
+\[ \Omega = \{ \langle c_1 \dots c_n \rangle \mid \forall i \in [1,n]\, c_i \in \{\textsc{W}, \textsc{R}\} \}. \]
+
+That is to say: $\Omega$ is the set of sequences of length $n$ with values in the two elements set $\{\textsc{W}, \textsc{R}\}$. An outcome where $c_i = \textsc{W}$ (resp. $\textsc{R}$) formally represents an outcome where the $i^{\textnormal{th}}$ ball drawn was white (resp. red). 
+
+We define in addition for any $k \le n$ the following random variables on $\Omega$:
+
+\[N^k_W: \begin{cases} \Omega \mapsto \mathbb{N}\\ \langle c_1 \dots c_n \rangle \mapsto \sum^k_{i = 1} c_i \mathbf{1}(c_i = {\textsc{W}}) \end{cases}\]
+where $\mathbf{1}(c_i = \textsc{W})$ has value $1$ if $c_i = \textsc{W}$ and $0$ otherwise. Similarly 
+\[N^k_R: \begin{cases} \Omega \mapsto \mathbb{N}\\ \langle c_1 \dots c_n \rangle \mapsto \sum^k_{i = 1} c_i \mathbf{1}(c_i = {\textsc{R}}) \end{cases}\]
+
+Note that in particular, $N^0_W(\langle c_1 \dots c_n \rangle) = 0$ and $N^0_R(\langle c_1 \dots c_n \rangle) = 0$.
+\begin{enumerate}
+\item What random quantity do $N^k_W$ and $N^k_R$ respectively represent? 
+\item For any $k \in [0, n-1], x \le w$ and $y \le r$, justify that
+  \[p(N^{k+1}_W  = x+1, N^{k+1}_R = y \mid N^{k}_W = x, N^{k}_R = y) = \frac{w - x}{r +w - x} \] and
+  \[ p(N^{k+1}_W  = x, N^{k+1}_R = y+1 \mid N^{k}_W = x, N^{k}_R = y) = \frac{r}{r +w - x} \]
+  (Hint: these are the respective probabilities of drawing one more red ball and one more white ball in the next step).
+  %express $p(N^{k+1}_W  = x, N^{k+1}_R = y \mid N^{k}_W = x', N^{k}_R = y')$. \paragraph{Hint: } this probability is $0$ whenever $x + y \neq x' + y' + 1$ (explain why), so it is sufficent to express the two probabilities $p(N^{k+1}_W  = x+1, N^{k+1}_R = y \mid N^{k}_W = x, N^{k}_R = y)$ and $p(N^{k+1}_W  = x, N^{k+1}_R = y + 1 \mid N^{k}_W = x, N^{k}_R = y)$ \emph{i.e.} the probabilities of drawing one more red ball and one more white ball respectively.
+\item Justify that the event $N^{n}_R = n$ is equal to the event $\bigcap^{n}_{k=0} (N^{k}_R = k \cap N^{k}_W = 0)$. Reminder: $N^{k}_R = k$ is the event \[\{ \langle c_1 \dots c_n \rangle \mid N^k_R(\langle c_1 \dots c_n \rangle) = k \} = \{ \langle c_1 \dots c_n \rangle \mid \sum^k_{i = 1} c_i \mathbf{1}(c_i = \textsc{R}) = k \} \].
+\item Notice that $p(\langle \textsc{R} \dots \textsc{R} \rangle ) = p(N^n_\textsc{R} = n)$. Using the previous question and the chain rule of probability, show that:
+  \[\begin{aligned}p(\langle \textsc{R} \dots \textsc{R} \rangle) = &p(N^0_R = 0, N^0_W = 0)\\& \times p(N^1_R = 1, N^1_W = 0 \mid  N^0_R = 0, N^0_W = 0)\\ & \vdots  \\&\times p(N^{k}_R = k, N^{k}_W = 0 \mid N^{k-1}_R = k-1, N^{k-1}_W = 0)\\& \vdots \\&\times p(N^{n}_R = n, N^{n}_W = 0 \mid N^{n-1}_R = n-1, N^{n-1}_W = 0) \end{aligned}\]
+  Conclude that $p(\langle \textsc{R} \dots \textsc{R} \rangle) = (\frac{r}{w+r})^{n}$
+\item Compute the probability of drawing at least one white ball in the $n$ draws.
+\item The event of drawing a single white ball at position $i$ is:
+  \[e_{(\textsc{W} \textnormal{ only } i)} = \{ \langle \underbrace{\textsc{R} \dots \textsc{R}}_{i-1 \textnormal{ times}} \textsc{W} \underbrace{\textsc{R} \dots \textsc{R}}_{n-i \textnormal{ times}} \rangle  \}.\]
+
+  Justify that
+  \[e_{(\textsc{W} \textnormal{ only } i)} = \left [ \bigcap^{i-1}_{k = 0} (N^k_W = 0 \cap N^k_R = k) \right ] \cap (N^{i}_W = 1 \cap N^{i}_R = i-1) \cap \left [\bigcap^n_{k=i+1} (N^k_W = 1 \cap N^k_R = k-1) \right ]\]
+\item Using the above and the chain rule of probability, establish that
+  \[ \begin{aligned}p(e_{(\textsc{W} \textnormal{ only } i)}) &= p(N^0_R = 0, N^0_W = 0)\\&\times \prod^{i-1}_{k=1}  p(N^k_R = k, N^k_W = 0 \mid  N^{k-1}_R = k-1, N^{k-1}_W = 0) \\&\times p(N^{i}_R = (i-1), N^1_W = 1 \mid  N^{i-1}_R = i-1, N^{i-2}_W = 0) \\&\times \prod^{n}_{k=i+1}  p(N^k_R = k-1, N^k_W = 0 \mid  N^{k-1}_R = k-2, N^{k-1}_W = 1) \end{aligned} \]
+  (Notation: $\prod^n_{i=1} x_i$ is the mathematical notation for the product of all the $x_i$s: $\prod^n_{i=1} x_i = x_1 \times x_2 \dots \times x_n$).
+\item Conclude that
+  \[ p(e_{(\textsc{W} \textnormal{ only } i)}) = (\frac{r}{r+w})^{i-1}(\frac{w}{r+w})(\frac{r}{r+w-1})^{n-i}.\]
+
+\item Compute the probability of drawing exactly one white ball in the $n$ draws.
+  \end{enumerate}
+
+
+\end{document}
